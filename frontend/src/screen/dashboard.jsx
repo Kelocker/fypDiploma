@@ -2,6 +2,6 @@ import React from 'react'
 
 export const dashboard = () => {
   return (
-    <div>dashboard</div>
+    <div className="dashbaord">dashboard</div>
   )
 }
