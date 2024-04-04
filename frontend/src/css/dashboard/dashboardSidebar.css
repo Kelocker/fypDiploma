@@ -1,0 +1,137 @@
+.dashboard-content{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+.dashBoard-Sidebar-Wrapper{
+    width: 250px;
+    height: 100%;
+    background-color: #f1f1f1;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashBoard-Sidebar-Wrapper ul{
+
+    width:100%;
+    height: 20%;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0; /* Reset padding */
+    margin-top: 30px; /* Reset margin */
+    
+    
+}
+
+.dashBoard-Sidebar-Wrapper li{
+    margin-left:12.5px;
+    margin-top: 5px;
+    width:90%;    
+}
+
+
+.dashBoard-Sidebar-Wrapper li:first-child{
+    margin-bottom: 40px; 
+}
+
+
+.HomeNavLogo img{
+    width: 100%;
+    height: 50%;
+}
+
+.dashBoard-option svg, .dashBoard-option-special svg{
+    margin-left: 10px;
+    margin-right: 20px;
+    fill:#96abac;
+}
+
+.dashboard-profile{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border:none;
+}
+
+.dashBoard-option-special img{
+    margin-left: 10px;
+    margin-right: 20px;
+    width: 24px;
+    height: 24px;
+    
+}
+
+.dashBoard-option button, .dashBoard-option-special button{
+    width:90%;
+    font-size:15px;
+    text-align: left;
+    border-radius: 50px;
+    border: none;
+    background-color: transparent;
+    padding: 8px 0px;
+    color:#96abac;
+    display: flex;
+    align-items: center; 
+    font-family: 'Montserrat', 'Open Sans', sans-serif;
+}
+
+.dashBoard-option-special button{
+    color:#055257;
+}
+
+.dashBoard-option button:hover{
+    color:#055257;
+    cursor: pointer;
+}
+
+.dashBoard-option-special button:hover{
+    color:#055257;
+    cursor: pointer;
+    background-color: #b7c8d34b;
+    border-radius: 6px;
+
+}
+
+.dashBoard-option-special svg:hover{
+    background-color: #909ba14b;
+    border-radius: 50px;
+}
+
+
+.dashBoard-option button:hover svg {
+    fill:#055257;
+}
+
+.dashBoard-option button:active{
+    color:#055257;
+    background-color: #97d9fc4b;
+}
+
+.dashboard-content-render{
+    width: 78%;
+    height: 100%;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media (max-width: 1200px) {
+    .dashboard-content-render {
+        width: 75%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .dashboard-content-render {
+        width: 70%;
+    }
+}
