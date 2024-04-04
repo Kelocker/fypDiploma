@@ -12,7 +12,7 @@
 6. [QnA](#QnA)
 
 - - -
-- ![logo_transparent.png](/frontend/public/SOYA-ONLY-PYTHON-BIG.png)
+- ![logo_transparent.png](frontend/public/SOYA-Python-Logo.png)
 
 # Introduction
 <br>
