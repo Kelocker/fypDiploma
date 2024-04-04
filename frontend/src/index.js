@@ -9,18 +9,20 @@ import {
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-// import LoginScreen from './screens/login.jsx';
-// import ForgotPassword from './components/forgotPassword.jsx';
-// import Signup from './screens/signup.jsx';
-// import Home from './screens/home.jsx';
+import LoginScreen from './screens/login.jsx';
+import ForgotPassword from './components/forgotPassword.jsx';
+import Signup from './screens/signup.jsx';
+import Home from './screens/home.jsx';
+import Dashboard from './screens/dashboard.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="" element={<App />}>
-      {/* <Route path="/" index={true} element={<Home />} />
+      <Route path="/" index={true} element={<Home />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
-      <Route path="/signup" element={<Signup />} /> */}
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       
       {/* Add new route below */}
 
