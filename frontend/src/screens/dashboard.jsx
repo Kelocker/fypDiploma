@@ -6,6 +6,7 @@ import DashboardSidebar from '../components/dashboardSidebar'
 const Dashboard = () => {
   return (
     <>
+      {/* This is dashboard after login for client  */}
       <DashboardNavbar />
       <div className="DashboardWrapper">
 
