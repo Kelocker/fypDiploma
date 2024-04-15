@@ -88,6 +88,7 @@
     transition-property: width;
     transition-delay: 1s;
     
+    
 
     
     /* transition: transform 0.200s; */
@@ -166,6 +167,12 @@
     bottom:20px;
     font-weight: 800;
     color:#022626;
+}
+
+.Signup-Login-btn:hover{
+    background-color: #97D9FC;
+    transition: ease-in 0.2s;
+    cursor: pointer;
 }
 
 .Terms-cons {
