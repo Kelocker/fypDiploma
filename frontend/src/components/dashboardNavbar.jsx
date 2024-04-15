@@ -5,7 +5,7 @@ const dashboardNavbar = () => {
   return (
     <div className="dashboardNavbar">
         <ul>
-            <li className="dashboard-Nav-bar-logo"><a href="#"><img src="/SOYA-Python-Logo.png" alt="" /></a></li>
+            <li className="dashboard-Nav-bar-logo"><a href="/"><img src="/SOYA-Python-Logo.png" alt="" /></a></li>
         </ul>
     </div>
   )
