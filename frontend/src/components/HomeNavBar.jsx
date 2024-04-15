@@ -1,7 +1,8 @@
 import React, { useEffect, useRef }  from 'react'
 import '../css/homeNavbar.css'
 import Login from '../components/login'
-import Signup from '../screens/signup'
+import Signup from './LoginSignup'
+import LoginSignup from './LoginSignup'
 import About from '../components/About'
 
 
@@ -107,7 +108,7 @@ const HomeNavBar = () => {
                 <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" fill="#055257"/>
           </svg>
         </button>
-        < Signup />
+        < LoginSignup />
       </div>
 
      
