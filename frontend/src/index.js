@@ -23,7 +23,7 @@ import LoginSignupScreen from './screens/LoginSignup.jsx';
 
 function Logout() {
   localStorage.clear();
-  return <Navigate to="/login&Signup" />;
+  return <Navigate to="/" />;
 }
 
 function registerAndLogout() {
