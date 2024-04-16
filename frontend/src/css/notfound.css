@@ -1,0 +1,42 @@
+.not-found-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 105vh;
+    width: 100%;
+    background-color: aliceblue;
+}
+
+.not-found-img{
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    
+}
+
+.not-found-img img{
+    width: 100%;
+    height: 100%;
+}
+
+
+.not-found-text{
+    width:400px;
+    height: 200px;
+    top: 200px;
+    right:50px;
+    /* background-color: blue; */
+    position: absolute;
+    z-index: 2;
+    text-align: justify;
+    color: #022626;
+}
+
+.whoop{
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.not-found-text a{
+    color: #055257;
+}

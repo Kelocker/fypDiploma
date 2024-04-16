@@ -13,8 +13,22 @@ class UserSerializer(serializers.ModelSerializer):
             'email': {'required': True}
         }
 
+    def validate_username(self, value):
+        # Check if any existing user with the same username
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError("This username is already in use.")
+        return value
+
+    def validate_email(self, value):
+        # Check if any existing user with the same email
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("This email is already in use.")
+        return value
+    
     # Serialiser will pass the validated data to the create method
     # To create a new user
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         return user
+    
+   

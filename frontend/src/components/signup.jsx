@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import '../css/signup.css';
+import api from '../api';
+import { useNavigate } from 'react-router-dom';
 
 const Signups = () => {
 
   // initialize state for input fields
   // State varible input and state updater function setInput
-  const [userInput, setInput] = useState({
+  const [userInput, setUserInput] = useState({
     username: '',
     email: '',
     password: '',
@@ -13,7 +15,37 @@ const Signups = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
+
+   // handle input change and update state above
+   const handleInput = (e) => { 
+    // extract the input
+    const { name, value, type, checked } = e.target;
+
+    let finalValue; // Variable to hold the value that will be set in the state
+
+    if (type === 'checkbox') {
+      // Use the 'checked' value for checkboxes
+      finalValue = checked;
+    } else if (type === 'password') {
+      // Preserve the original case for passwords
+      finalValue = value;
+    } else {
+      // Convert other input types to lowercase
+      finalValue = value.toLowerCase();
+    }
+
+
+
+    // update the state
+    setUserInput(prev => ({
+
+      ...prev,
+      [name]: finalValue
+
+  }));
+  } 
   
 
   const validate = () => {
@@ -51,52 +83,43 @@ const Signups = () => {
   
 
 
-  // handle input change and update state above
-  const handleInput = (e) => { 
-    // extract the input
-    const { name, value, type, checked } = e.target;
-
-    let finalValue; // Variable to hold the value that will be set in the state
-
-    if (type === 'checkbox') {
-      // Use the 'checked' value for checkboxes
-      finalValue = checked;
-    } else if (type === 'password') {
-      // Preserve the original case for passwords
-      finalValue = value;
-    } else {
-      // Convert other input types to lowercase
-      finalValue = value.toLowerCase();
-    }
-
-
-
-    // update the state
-    setInput(prev => ({
-
-      ...prev,
-      [name]: finalValue
-
-  }));
-  } 
+ 
 
 
   // use for testing if the input is being updated
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
     if (validate()) {
       try{
-        alert('Form Submitted');
+        const res = await api.post("/api/user/register/", {
+          username: userInput.username,
+          email: userInput.email,
+          password: userInput.password
+      });
+        
 
         // Reset form data after submission
-        setInput({ username: '', email: '', password: '', termsAccepted: false }); 
+        setUserInput({ username: '', email: '', password: '', termsAccepted: false });
+        alert('Registered successfully! Please login to continue.');
+        navigate("/login&Signup");
 
-      } catch (error) {
-        console.log(error.message);
+      } catch (error){
+        if (error.response) {
+            console.log('Error:', error.response.data);
+            // Display error messages from the server, e.g., email already in use
+            if(error.response.data.username) {
+              alert(error.response.data.username[0]); // Display the username error message
+            }
+            else if (error.response.data.email) {
+                alert(error.response.data.email[0]); // Display the email error message
+            } 
+        } else {
+            console.log('Error:', error.message);
+        }
       }
-      
-    }
-  }; 
+  }
+}
+
 
   return (
     <div className="Signup-container">
@@ -111,7 +134,13 @@ const Signups = () => {
               <form onSubmit={handleSubmit}>
               
                 <div>
-                  <input type="text" name="username" placeholder='Username'value={userInput.username} onChange={handleInput} />
+                  <input 
+                  type="text" 
+                  name="username" 
+                  placeholder='Username'
+                  value={userInput.username} 
+                  onChange={handleInput}
+                  />
                   {errors.username && <span className="SignUp-Login-message-Indicator">{errors.username}</span>}
                 </div>
 
@@ -119,14 +148,26 @@ const Signups = () => {
                 
 
                 <div>
-                  <input type="email" name="email" placeholder='Email' value={userInput.email} onChange={handleInput} />
+                  <input 
+                  type="email" 
+                  name="email" 
+                  placeholder='Email' 
+                  value={userInput.email} 
+                  onChange={handleInput} />
                   {errors.email && <span className="SignUp-Login-message-Indicator">{errors.email}</span>}
                 </div>
 
                 <br />
 
                 <div>
-                  <input type="password" name="password" placeholder='Password' autoComplete="new-password" value={userInput.password} onChange={handleInput} />
+                  <input 
+                  type="password" 
+                  name="password" 
+                  placeholder='Password' 
+                  autoComplete="new-password" 
+                  value={userInput.password} 
+                  onChange={handleInput} 
+                  />
                   {/* */}
                   {errors.password && <span className="SignUp-Login-message-Indicator">{errors.password}</span>}
                 </div>

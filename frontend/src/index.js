@@ -5,24 +5,50 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
+  Navigate,
 } from "react-router-dom";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import LoginScreen from './screens/login.jsx';
+// import LoginScreen from './screens/login.jsx';
 import ForgotPassword from './components/forgotPassword.jsx';
-import Signup from './screens/signup.jsx';
+// import Signup from './components/LoginSignup.jsx';
+import NotFound from './screens/notfound.jsx';
 import Home from './screens/home.jsx';
 import Dashboard from './screens/dashboard.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+// import LoginScreen from './components/login.jsx';
+import LoginSignupScreen from './screens/LoginSignup.jsx';
+
+
+function Logout() {
+  localStorage.clear();
+  return <Navigate to="/login&Signup" />;
+}
+
+function registerAndLogout() {
+  localStorage.clear();
+  return <LoginSignupScreen />;
+}
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="" element={<App />}>
       <Route path="/" index={true} element={<Home />} />
-      <Route path="/login" element={<LoginScreen />} />
+      {/* <Route path="/login" element={<LoginScreen />} /> */}
+      <Route path="/login&Signup" element={<LoginSignupScreen />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      {/* <Route path="/signup" element={<Signup />} /> */}
+      <Route path="/Logout" element={<Logout />} />
+      <Route 
+        path = "/dashboard"
+        element = {
+        <ProtectedRoute>
+          <Dashboard />
+        </ProtectedRoute>
+        }
+      />
+      <Route path="*" element={<NotFound/>} />
       
       {/* Add new route below */}
 
