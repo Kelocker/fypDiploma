@@ -1,0 +1,16 @@
+/* ExerciseList.css */
+.list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Align items to the left */
+    padding: 20px;
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .list-container {
+        justify-content: center;
+    }
+}

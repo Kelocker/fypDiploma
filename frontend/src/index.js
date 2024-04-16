@@ -19,6 +19,7 @@ import Dashboard from './screens/dashboard.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 // import LoginScreen from './components/login.jsx';
 import LoginSignupScreen from './screens/LoginSignup.jsx';
+import ExerciseSelectionPage from './screens/ExerciseSelectionPage.jsx';
 
 
 function Logout() {
@@ -40,6 +41,7 @@ const router = createBrowserRouter(
       <Route path="/forgotpassword" element={<ForgotPassword />} />
       {/* <Route path="/signup" element={<Signup />} /> */}
       <Route path="/Logout" element={<Logout />} />
+      <Route path="/exercise" element={<ExerciseSelectionPage />} />
       <Route 
         path = "/dashboard"
         element = {
