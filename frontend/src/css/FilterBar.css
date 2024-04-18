@@ -4,7 +4,6 @@
     justify-content: space-around;
     padding: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
     margin-bottom: 20px;
     margin: 30px;
     margin-right: 10%;
@@ -20,7 +19,9 @@
 
 .filter-item:hover,
 .filter-item.active {
-    background-color: #e0e0e0;
+    background-color: #f2f9ff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transform: translateY(-px);
 }
 
 .filter-icon {

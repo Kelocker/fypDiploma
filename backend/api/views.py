@@ -22,7 +22,16 @@ class CreatreUserView(generics.CreateAPIView):
 
 
 def exercise_list(request):
-    exercises = Exercise.objects.all()  
+    # Get the difficulty level from the query parameters
+    difficulty = request.GET.get('difficulty')
+
+    # Filter the queryset based on the difficulty if it's provided
+    if difficulty:
+        exercises = Exercise.objects.filter(difficulty_level=difficulty)
+    else:
+        exercises = Exercise.objects.all()
+
+ 
     exercise_list = [{
         'title': exercise.title,
         'difficulty_level': exercise.get_difficulty_level_display(),  

@@ -1,31 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import ExerciseCard from './ExerciseCard';
+import FilterBar from './FilterBar';
 import '../css/ExerciseList.css'; 
 
 const ExerciseList = () => {
-    const [exercises, setExercises] = useState([
-    ]);
+    const [exercises, setExercises] = useState([]);
     const [error, setError] = useState(null);
+    const [selectedDifficulty, setSelectedDifficulty] = useState(''); // State to keep track of selected difficulty
 
     useEffect(() => {
-        // Define an async function within the useEffect
         const fetchData = async () => {
             try {
-                // Await the fetch call and response transformation
-                const response = await fetch('http://localhost:8000/api/exercises/');
+                // Adjust the URL based on the selected difficulty
+                const url = `http://localhost:8000/api/exercises/${selectedDifficulty ? '?difficulty=' + selectedDifficulty : ''}`;
+                const response = await fetch(url);
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`); // Throw an error for non-2xx responses
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                setExercises(data); // Set the data in state
+                setExercises(data);
             } catch (e) {
-                setError(e.message); // Catch any errors and set an error state
-                console.log(e); // Log the error as well
+                setError(e.message);
+                console.error(e);
             }
         };
 
-        fetchData(); // Call the async function
-    }, []); // The empty array ensures this effect runs only once on mount
+        fetchData();
+    }, [selectedDifficulty]); // Depend on selectedDifficulty to re-fetch when it changes
 
     if (error) {
         return <div>Error: {error}</div>; // Render error message if there is an error
@@ -37,16 +38,24 @@ const ExerciseList = () => {
         window.location.href = `/exercise-detail/${exercise.id}`;
     };
 
+    // Update this function to handle difficulty filter change
+    const handleFilterChange = (difficulty) => {
+        setSelectedDifficulty(difficulty); // Update the selected difficulty
+    };
+
     
 
     return (
         /* console the data fetched from the backend */
+        <>
+            <FilterBar currentFilter={selectedDifficulty} setFilter={handleFilterChange} />
+            <div className='list-container'>
+                {exercises.map(exercise => (
+                    <ExerciseCard key={exercise.id} exercise={exercise} onSelect={handleSelectExercise} />
+                ))}
+            </div>
+        </>
 
-        <div className='list-container'>
-            {exercises.map(exercise => (
-                <ExerciseCard key={exercise.id} exercise={exercise} onSelect={handleSelectExercise} />
-            ))}
-        </div>
     );
 };
 

@@ -11,7 +11,6 @@ const ExerciseSelectionPage = () => {
 
     return (
         <div className='container'>
-            <FilterBar onFilterChange={handleFilterChange} />
             <ExerciseList />
         </div>
     );
