@@ -4,10 +4,11 @@
     justify-content: space-around;
     padding: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 30px;
+
     margin-bottom: 20px;
     margin: 30px;
-    margin-right: 15%;
+    margin-right: 10%;
+    background-color: #d6dcde;
 }
 
 .filter-item {
