@@ -14,6 +14,9 @@ import ForgotPassword from './components/forgotPassword.jsx';
 import Signup from './screens/signup.jsx';
 import Home from './screens/home.jsx';
 import Dashboard from './screens/dashboard.jsx';
+import Learning from './screens/learning.jsx';
+import Lesson from './screens/lesson.jsx';
+import Compiler from './components/compiler/compiler.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,7 +26,9 @@ const router = createBrowserRouter(
       <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/dashboard" element={<Dashboard />} />
-      
+      <Route path="/learning" element={<Learning />} />
+      <Route path="/lesson" element={<Lesson />} />
+      <Route path="/compiler" element={<Compiler />} />
       {/* Add new route below */}
 
       

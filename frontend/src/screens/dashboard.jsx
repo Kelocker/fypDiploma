@@ -8,13 +8,14 @@ const Dashboard = () => {
     <>
       <DashboardNavbar />
       <div className="DashboardWrapper">
-
+          
         <div className="DashboardSidebar">
           <DashboardSidebar />
+          
         </div>
 
         <div>
-
+          
         </div>
       </div>
       
