@@ -18,7 +18,7 @@ import Home from './screens/home.jsx';
 import Dashboard from './screens/dashboard.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 // import LoginScreen from './components/login.jsx';
-import LoginSignupScreen from './screens/LoginSignup.jsx';
+// import LoginSignupScreen from './screens/LoginSignup.jsx';
 import ExerciseSelectionPage from './screens/ExerciseSelectionPage.jsx';
 import RankScreen from './screens/rankScreen.jsx';
 import { ToastContainer} from 'react-toastify';
@@ -38,7 +38,7 @@ function Logout() {
 
 function registerAndLogout() {
   localStorage.clear();
-  return <LoginSignupScreen />;
+  // return <LoginSignupScreen />;
 }
 
 
@@ -46,10 +46,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="" element={<App />}>
       <Route path="/" index={true} element={<Home />} />
-      {/* <Route path="/login" element={<LoginScreen />} /> */}
-      <Route path="/login&Signup" element={<LoginSignupScreen />} />
       <Route path="/forgot-password" element={<ForgetPasswordScreen />} />
-      {/* <Route path="/signup" element={<Signup />} /> */}
       <Route path="/Logout" element={<Logout />} />
       <Route path="/exercise" element={<ExerciseSelectionPage />} />
       <Route path="/ranks" element={<RankScreen />} />
