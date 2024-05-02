@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import '../css/signup.css';
 import api from '../api';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer} from 'react-toastify';
+import toastNotifications from '../toastNotification';
 
 const Signups = () => {
 
@@ -58,7 +60,15 @@ const Signups = () => {
     
     if (!userInput.email) {
       newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(userInput.email) || (!userInput.email.endsWith('@gmail.com'))) {
+    } else if (!/\S+@\S+\.\S+/.test(userInput.email) || 
+      (
+        !(userInput.email.endsWith('@gmail.com')) && 
+        !(userInput.email.endsWith('@yahoo.com')) &&
+        !(userInput.email.endsWith('@hotmail.com')) &&
+        !(userInput.email.endsWith('@iclould.com'))
+      )
+    )
+    {
       newErrors.email = 'Please enter a valid email address.';
     }
     
@@ -82,7 +92,8 @@ const Signups = () => {
   }
   
 
-
+ 
+    
  
 
 
@@ -100,18 +111,27 @@ const Signups = () => {
 
         // Reset form data after submission
         setUserInput({ username: '', email: '', password: '', termsAccepted: false });
-        alert('Registered successfully! Please login to continue.');
-        navigate("/login&Signup");
+        
+        toastNotifications("success", "Registered successfully! Please login to continue.");
+
 
       } catch (error){
         if (error.response) {
             console.log('Error:', error.response.data);
             // Display error messages from the server, e.g., email already in use
             if(error.response.data.username) {
-              alert(error.response.data.username[0]); // Display the username error message
+              toastNotifications("error", error.response.data.username[0]);
+              
+
             }
             else if (error.response.data.email) {
-                alert(error.response.data.email[0]); // Display the email error message
+                // Display the email error message
+                // alert(error.response.data.email[0]); 
+                // toast(error.response.data.email[0]);
+                toastNotifications("error", error.response.data.email[0]);
+
+
+
             } 
         } else {
             console.log('Error:', error.message);
@@ -123,6 +143,7 @@ const Signups = () => {
 
   return (
     <div className="Signup-container">
+            <ToastContainer />
             <div>
 
             <div className="Signup-Quote">
