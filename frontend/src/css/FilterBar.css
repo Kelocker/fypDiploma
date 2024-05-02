@@ -1,0 +1,43 @@
+/* FilterBar.css */
+.filter-bar {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    margin: 30px;
+    margin-right: 10%;
+    background-color: #d6dcde;
+}
+
+.filter-item {
+    cursor: pointer;
+    padding: 5px 15px;
+    border-radius: 15px;
+    transition: background-color 0.3s;
+}
+
+.filter-item:hover,
+.filter-item.active {
+    background-color: #f2f9ff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transform: translateY(-px);
+}
+
+.filter-icon {
+    margin-right: 5px;
+}
+
+.beginner-icon {
+    color: #90EE90; 
+}
+
+.intermediate-icon {
+    color: #FFA500; 
+}
+
+.advanced-icon {
+    color: #B22222; 
+}
+
+

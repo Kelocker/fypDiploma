@@ -2,4 +2,42 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    current_exp = models.IntegerField(default=0)
+    current_level = models.IntegerField(default=1)
+
+
+#Lesson section
+class Chapter(models.Model):
+    number = models.IntegerField()
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+
+class Lesson(models.Model):
+    chapter = models.ForeignKey(Chapter, related_name='chapter', on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+
+class Quiz(models.Model):
+    lesson = models.ForeignKey(Lesson, related_name='lesson', on_delete=models.CASCADE)
+    question = models.TextField()
+    answer = models.TextField()
+
+
+#Exercise section
+class Exercise(models.Model):
+    DIFFICULTY_LEVELS = [
+        ('B', 'Beginner'),
+        ('I', 'Intermediate'),
+        ('A', 'Advanced'),
+    ]
+    title = models.CharField(max_length=200)
+    difficulty_level = models.CharField(max_length=1, choices=DIFFICULTY_LEVELS)
+    description = models.TextField()
+    question = models.TextField()
+    answer = models.TextField()
+    
+
+#Ranking section
 

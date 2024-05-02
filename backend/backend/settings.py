@@ -67,6 +67,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 ]
 
+
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',

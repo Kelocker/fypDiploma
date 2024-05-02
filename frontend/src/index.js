@@ -19,10 +19,10 @@ import Dashboard from './screens/dashboard.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 // import LoginScreen from './components/login.jsx';
 import LoginSignupScreen from './screens/LoginSignup.jsx';
+import ExerciseSelectionPage from './screens/ExerciseSelectionPage.jsx';
 import RankScreen from './screens/rankScreen.jsx';
 import { ToastContainer} from 'react-toastify';
 import toastNotifications from './toastNotification';
-
 
 
 function Logout() {
@@ -45,8 +45,8 @@ const router = createBrowserRouter(
       <Route path="/forgot-password" element={<ForgetPasswordScreen />} />
       {/* <Route path="/signup" element={<Signup />} /> */}
       <Route path="/Logout" element={<Logout />} />
+      <Route path="/exercise" element={<ExerciseSelectionPage />} />
       <Route path="/ranks" element={<RankScreen />} />
-     
       <Route 
         path = "/dashboard"
         element = {
