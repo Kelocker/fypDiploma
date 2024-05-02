@@ -3,6 +3,8 @@ import '../css/signup.css';
 import api from '../api';
 import { useNavigate } from 'react-router-dom';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants';
+import { ToastContainer} from 'react-toastify';
+import toastNotifications from '../toastNotification';
 
 const Login = () => {
 
@@ -75,7 +77,8 @@ const Login = () => {
             
         }
         catch (error) {
-            alert("Combination do not match")
+            // alert("Combination do not match")
+            toastNotifications("error", "Combination do not match");
            
 
         } finally {
@@ -85,6 +88,7 @@ const Login = () => {
     }
   return (
     <div className="Login-container">
+      <ToastContainer />
             <div>
               
             <div className="Login-Quote">
@@ -123,7 +127,7 @@ const Login = () => {
 
 
                 <div className="ForgotPassword">
-                  <span><a href="/forgotPassword">Forgot Password?</a></span>
+                  <span><a href="/forgot-Password">Forgot Password?</a></span>
                 </div>
 
                 <br />

@@ -1,0 +1,115 @@
+/* .Challenge-Dashboard-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 110vh;
+}
+
+.Challenge-Top-Board{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width:100%;
+    height: 30rem;
+    gap: 30px;
+}
+
+.Challenge{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 22rem;
+    background-color: yellow;
+}
+
+.card-wrapper {
+    padding: 30px; 
+}
+
+.swiper-pagination{
+    position: static !important;
+}
+
+  
+
+
+.slider-controler {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-controler .slider-arrow::after {
+    color:black;
+}
+  
+
+
+
+  
+  */
+
+
+
+
+
+.Challenge-Dashboard-wrapper {
+    display: flex;
+    flex-direction: column;
+    
+    width: 100%;
+    height: 220vh; /* Starts at full screen height, adjust with media queries */
+    max-height: 400vh; /* Ensures maximum height does not exceed twice the viewport */
+}
+
+
+.Challenge-Top-Board {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    min-height: 30rem; /* Using min-height for flexibility */
+    gap: 30px;
+    flex-wrap: wrap; /* Ensures wrapping on smaller screens */
+}
+
+.Challenge {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 20rem; /* Now using min-height for flexibility */
+    background-color: yellow;
+    flex-wrap: wrap; /* Allows items to wrap as needed on smaller screens */
+}
+
+
+
+/* Media Queries for Responsive Adjustments */
+@media (max-width: 1024px) {
+    .Challenge-Top-Board, .Challenge {
+        height: auto; /* Adjusts height to content on smaller screens */
+        padding: 15px 0; /* Reduces padding */
+    }
+
+    .Challenge-Dashboard-wrapper {
+        height: 100vh; /* Adjusts viewport height on smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .Challenge-Top-Board, .Challenge {
+        flex-direction: column; /* Stacks children vertically on small screens */
+    }
+
+    .card-wrapper {
+        padding: 20px; /* Adjusts padding on smaller devices */
+    }
+}
+
+
