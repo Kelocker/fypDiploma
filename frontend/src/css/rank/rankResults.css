@@ -1,0 +1,47 @@
+.User-Rank-Wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    /* height: 30%; */
+    
+}
+
+.User-Rank-Container{
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    color: #022626;
+    text-align: center;
+    column-gap: 10px;
+    /* margin-top:20px; */
+    border-radius: 6px;
+    
+    /* box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.2); */
+}
+
+.User-Rank-Container:hover{
+    cursor: default;
+}
+
+.User-Rank{
+    
+    
+    width: 10%;
+    /* background-color: antiquewhite; */
+}
+
+.User-Name{
+    width: 80%;
+    /* background-color: rebeccapurple; */
+}
+
+.User-Time{
+   
+    width: 10%;
+    /* background-color: green; */
+}

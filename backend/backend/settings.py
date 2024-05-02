@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'api',
+    'rest_framework.authtoken',
 ]
 
 
@@ -157,6 +158,18 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://example.com',
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+PASSWORD_RESET_CONFIRM_URL = 'http://localhost:3000/reset-Password/{uid}/{token}/'
+
+
+
+
 
 # CORS_ALLOWED_ORIGINS = True
 CORS_ALLOWS_CREDENTIALS = True

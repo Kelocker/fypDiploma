@@ -1,0 +1,27 @@
+
+.card-wrapper {
+    padding: 30px;
+    box-sizing: border-box; /* Includes padding in the width calculation */
+}
+
+.swiper-pagination {
+    position: static !important;
+}
+
+.slider-controler {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0; /* Adds padding for better control spacing */
+}
+
+.slider-controler .slider-arrow::after {
+   
+    color: black;
+}
+
+@media (max-width: 480px) {
+    .slider-controler {
+        flex-direction: column; /* Stacks navigation controls vertically */
+    }
+}
