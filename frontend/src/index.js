@@ -16,7 +16,10 @@ import Home from './screens/home.jsx';
 import Dashboard from './screens/dashboard.jsx';
 import Learning from './screens/learning.jsx';
 import Lesson from './screens/lesson.jsx';
+import Quiz from './components/quiz.jsx';
+import SubLesson from './components/sublesson.jsx';
 import Compiler from './components/compiler/compiler.jsx';
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,8 +31,11 @@ const router = createBrowserRouter(
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/learning" element={<Learning />} />
       <Route path="/lesson" element={<Lesson />} />
-      <Route path="/compiler" element={<Compiler />} />
+      <Route path="/quiz" element={<Quiz />} />
+      <Route path="/sublesson" element={<SubLesson />} />
       {/* Add new route below */}
+      <Route path="/compiler" element={<Compiler />} />
+
 
       
     </Route>

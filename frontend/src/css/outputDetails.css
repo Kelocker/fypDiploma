@@ -1,0 +1,16 @@
+.outDet-metrics-container {
+    margin-top: 1rem; 
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem; 
+}
+
+.outDet-span {
+    font-weight: 600; 
+    padding-left: 0.5rem; 
+    padding-right: 0.5rem;
+    padding-top: 0.25rem; 
+    padding-bottom: 0.25rem;
+    border-radius: 0.375rem; 
+    background-color: #f7fafc; 
+}

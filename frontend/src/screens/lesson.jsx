@@ -1,37 +1,50 @@
-// import React from 'react'
 import DashboardNavbar from '../components/dashboardNavbar'
 import '../css/lesson.css'
-import sky from '../assets/img/sky.jpg';
-import island from '../assets/img/island.jpg';
-// import mockData from '../screens/data.json';
-// import axios from 'axios';
-import React, { useState} from 'react';
-// import MockAdapter from 'axios-mock-adapter';
+import island from '../assets/img/island.png';
+import sea from '../assets/img/sea.png';
+import sky from '../assets/img/sky.png';
+import beach from '../assets/img/beach.png';
+import React, {useState} from 'react';
+
+const Lessons = [
+    { id: 1, title: "Chapter 1", desc: "this is chapter 1"},
+    { id: 2, title: "Chapter 2", desc: "this is chapter 2"},
+    { id: 3, title: "Chpater 3", desc: "this is chapter 3"}
+];
+
 
 
 const Lesson = () => {
-    const [toggle, setToggle] = useState(true);
-    const [data, setData] = useState(null);
-    const image1 = {island};  // URL of the first image
-
-    const handleClick = () => {
-        setToggle(!toggle);
-        setData({ some: 'data' });
-    };
-
     return (
         <div>
             <DashboardNavbar />
             <div className="LessonWrapper">
                 <div className="LessonContent">
-                    <h1>Lesson Title</h1>
-                    <img src={sky} alt="sky Image" className="skyImg"/>
-                    <img src={toggle && data ? image1 : {island}} alt="Toggle Image" className="islandImg"/>
-                    <button onClick={handleClick}>Load Data and Toggle Image</button>
-                </div>               
+                    <div className="ImageComposition">
+                        <img src={sky} alt="Sky" className="skyImg" />
+                        <img src={beach} alt="Beach" className="beachImg" />
+                        {Lessons.sort((a, b) => b.id - a.id).map((chapter) => (
+                            <div
+                                key={chapter.id}
+                                className="islandContainer"
+                            >
+                                <img 
+                                    src={island} alt={`Island ${chapter.id}`} 
+                                    className="islandImg" 
+                                />
+                                <div className="islandDesc">
+                                    {chapter.desc}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     );
 };
+    
+
+
 
 export default Lesson;

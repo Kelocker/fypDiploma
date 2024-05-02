@@ -1,0 +1,37 @@
+.subLesson-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    height: 100%;
+    width: 100%;
+    padding: 30px;
+}
+
+
+.subLesson-items {
+    display: flex;
+    justify-content: space-around; /* Adjust based on how you want them spaced */
+    align-items: center; /* Center items horizontally */
+    flex-wrap: wrap; 
+  }
+  
+  .subLesson-item {
+    position: relative;
+    /* other styles for individual item */
+  }
+  
+  .subLesson-item img {
+    display: block;
+    width: 90%;
+    height: 50%;
+  }
+  
+  .subLesson-text {
+    position: absolute;
+    top: 50%; /* Adjust based on your design */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Add text styles */
+  }

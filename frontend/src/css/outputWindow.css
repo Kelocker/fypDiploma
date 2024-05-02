@@ -1,0 +1,22 @@
+.outputWindow-header {
+    font-weight: bold; 
+    font-size: 1.25rem; 
+    background-clip: text; 
+    color: transparent; 
+    background-image: linear-gradient(to right, #1a202c, #4a5568); 
+    margin-bottom: 0.5rem; 
+    -webkit-background-clip: text; 
+    display: inline-block; 
+}
+
+
+
+
+.outputWindow-content {
+    background-color: #F3F4F6;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    overflow-y: auto;
+    height: 100px;
+}
