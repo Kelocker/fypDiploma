@@ -2,7 +2,7 @@ import React, { useEffect, useRef }  from 'react'
 import '../css/homeNavbar.css'
 import Login from '../components/login'
 // import Signup from './LoginSignup'
-import LoginSignup from './loginSignup'
+import LoginSignup from './LoginSignup'
 import About from '../components/About'
 
 
