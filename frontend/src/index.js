@@ -11,7 +11,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 // import LoginScreen from './screens/login.jsx';
-import ForgotPassword from './components/forgotPassword.jsx';
+import ForgetPasswordScreen from './screens/forgetPasswordScreen.jsx';
 // import Signup from './components/LoginSignup.jsx';
 import NotFound from './screens/notfound.jsx';
 import Home from './screens/home.jsx';
@@ -19,11 +19,16 @@ import Dashboard from './screens/dashboard.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 // import LoginScreen from './components/login.jsx';
 import LoginSignupScreen from './screens/LoginSignup.jsx';
+import RankScreen from './screens/rankScreen.jsx';
+import { ToastContainer} from 'react-toastify';
+import toastNotifications from './toastNotification';
+
 
 
 function Logout() {
   localStorage.clear();
   return <Navigate to="/" />;
+  
 }
 
 function registerAndLogout() {
@@ -37,9 +42,11 @@ const router = createBrowserRouter(
       <Route path="/" index={true} element={<Home />} />
       {/* <Route path="/login" element={<LoginScreen />} /> */}
       <Route path="/login&Signup" element={<LoginSignupScreen />} />
-      <Route path="/forgotpassword" element={<ForgotPassword />} />
+      <Route path="/forgot-password" element={<ForgetPasswordScreen />} />
       {/* <Route path="/signup" element={<Signup />} /> */}
       <Route path="/Logout" element={<Logout />} />
+      <Route path="/ranks" element={<RankScreen />} />
+     
       <Route 
         path = "/dashboard"
         element = {
@@ -48,6 +55,7 @@ const router = createBrowserRouter(
         </ProtectedRoute>
         }
       />
+
       <Route path="*" element={<NotFound/>} />
       
       {/* Add new route below */}
@@ -60,6 +68,7 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
+      <ToastContainer />
       <RouterProvider router={router} />
     </React.StrictMode>
 );
