@@ -9,13 +9,14 @@ const Dashboard = () => {
       {/* This is dashboard after login for client  */}
       <DashboardNavbar />
       <div className="DashboardWrapper">
-
+          
         <div className="DashboardSidebar">
           <DashboardSidebar />
+          
         </div>
 
         <div>
-
+          
         </div>
       </div>
       

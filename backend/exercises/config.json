@@ -1,0 +1,14 @@
+{
+    "slug": "word-count",
+    "name": "Word Count",
+    "uuid": "04316811-0bc3-4377-8ff5-5a300ba41d61",
+    "practices": ["dicts"],
+    "prerequisites": [
+      "basics",
+      "dicts",
+      "loops",
+      "strings",
+      "string-methods"
+    ],
+    "difficulty": 2
+}

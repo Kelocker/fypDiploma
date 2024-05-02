@@ -92,8 +92,7 @@ const Signups = () => {
   }
   
 
- 
-    
+
  
 
 
@@ -120,6 +119,7 @@ const Signups = () => {
             console.log('Error:', error.response.data);
             // Display error messages from the server, e.g., email already in use
             if(error.response.data.username) {
+
               toastNotifications("error", error.response.data.username[0]);
               
 
@@ -129,6 +129,7 @@ const Signups = () => {
                 // alert(error.response.data.email[0]); 
                 // toast(error.response.data.email[0]);
                 toastNotifications("error", error.response.data.email[0]);
+
 
 
 
@@ -143,7 +144,9 @@ const Signups = () => {
 
   return (
     <div className="Signup-container">
+
             <ToastContainer />
+
             <div>
 
             <div className="Signup-Quote">
