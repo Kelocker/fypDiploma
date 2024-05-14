@@ -1,7 +1,12 @@
 from django.contrib import admin
+from .models import UserProfile, Lesson, Chapter, Quiz, Exercise, CodeSnippet
+
 
 # Register your models here.
-from .models import TrackStatus, ExerciseFiles
+admin.site.register(UserProfile)
+admin.site.register(Lesson)
+admin.site.register(Chapter)
+admin.site.register(Quiz)
+admin.site.register(Exercise)
+admin.site.register(CodeSnippet)
 
-admin.site.register(TrackStatus)
-admin.site.register(ExerciseFiles)

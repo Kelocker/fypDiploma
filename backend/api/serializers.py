@@ -31,6 +31,42 @@ class UserSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         return user
     
-    
+from rest_framework import serializers
+from .models import CodeSnippet
 
-   
+class CodeSnippetSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CodeSnippet
+        fields = '__all__' 
+
+
+from .models import Chapter
+class ChapterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chapter
+        fields = ['id', 'number', 'title', 'description']  
+
+
+from .models import Lesson
+
+class LessonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lesson
+        fields = ['id', 'title', 'content', 'chapter_id']
+
+from .models import Quiz
+
+class QuizSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Quiz
+        fields = ['id', 'question', 'answer', 'lesson_id']
+
+from .models import Ans
+
+class AnsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Ans
+        fields = ['id', 'question', 'answer', 'lesson_id']

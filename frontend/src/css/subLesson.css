@@ -1,37 +1,52 @@
+
+
+.overlay-text {
+  position: absolute;
+  font-size: 20px;
+  top: 130px;
+  left: 20%;
+}
+
+.title-image {
+  width: 70%; 
+  height: 70%;
+  display: block;
+  margin-bottom: -65%;
+  
+}
+
 .subLesson-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    height: 100%;
-    width: 100%;
-    padding: 30px;
+  position: relative;  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  margin-bottom: 10%;
+  margin-top: 20px;
+}
+
+.sub-image {
+  width: 50%; 
+  height: auto;
+  margin-left: 10%;
+  cursor: pointer;
+}
+.sub-image-container {
+  width: 100%;
+  position: relative;
+  margin-top: -20px; 
+  margin-left: 55%;
 }
 
 
-.subLesson-items {
-    display: flex;
-    justify-content: space-around; /* Adjust based on how you want them spaced */
-    align-items: center; /* Center items horizontally */
-    flex-wrap: wrap; 
-  }
-  
-  .subLesson-item {
-    position: relative;
-    /* other styles for individual item */
-  }
-  
-  .subLesson-item img {
-    display: block;
-    width: 90%;
-    height: 50%;
-  }
-  
-  .subLesson-text {
-    position: absolute;
-    top: 50%; /* Adjust based on your design */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* Add text styles */
-  }
+.sub-text {
+  position: absolute;
+  top: 60px;
+  margin-left: 15%;
+  width: 45%; 
+  color: #4a3000; 
+  font-size: 10px;
+  cursor: pointer;
+
+}

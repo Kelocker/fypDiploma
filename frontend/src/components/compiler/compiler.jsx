@@ -1,61 +1,131 @@
-import { useRef, useState } from "react";
-import { Box, HStack } from "@chakra-ui/react";
-import { Editor } from "@monaco-editor/react";
-// import Language from './Language';
-import Output from "./outputWindow";
+// import { useState } from "react";
+// import TestResults from './TestResult.jsx';
+// import Editor from "@monaco-editor/react";
 
-export const LANGUAGE_VERSIONS = {
-    python: "3.10.0",
-};
-  
-export const CODE_SNIPPETS = {
-    python: `def greet(name):\n\tprint("Hello, " + name + "!")\n\ngreet("Alex")\n`,
-};
+
+// function Compiler() {
+//     const [code, setCode] = useState('');
+//     const [error, setError] = useState('');
+//     const [loading, setLoading] = useState(false);
+
+//     const handleSubmit = async (event) => {
+//         event.preventDefault();
+
+//         if (!code.trim()) {
+//             setError('Code cannot be empty');
+//             return; // Prevent form submission
+//         }
+
+//         setLoading(true);
+//         setError(''); // Clear previous errors
+
+//         try {
+//             console.log('Sending data:', JSON.stringify({ code })); // Debugging log
+//             const response = await fetch('http://localhost:8000/api/code-snippets/', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({ code })
+//             });
+
+//             if (!response.ok) {
+//                 const errorData = await response.json(); // Attempt to parse error data
+//                 throw new Error(`Failed to submit code: ${response.statusText} - ${errorData.detail || errorData.message || ''}`);
+//             }
+
+//             const data = await response.json();
+//             console.log('Code submitted successfully!', data);
+//             setCode(''); // Clear the textarea upon successful submission
+//             // check again i don't want clear, remain the code but prevent duplicate submission
+//         } catch (error) {
+//             console.error('Submission error:', error);
+//             setError(error.message || 'Unexpected error, please try again.'); // Display a user-friendly error message
+//         } finally {
+//             setLoading(false);
+//         }
+//     };
+
+//     return (
+//         <>
+//             <div>
+//             <Editor
+//                 height="50vh"
+//                 theme="vs-dark"
+//                 defaultLanguage="python"
+//                 defaultValue={code}
+//                 value={code}
+//                 onChange={(value) => setCode(value)}
+//             />
+//             <button onClick={handleSubmit} disabled={loading}>
+//                 {loading ? 'Submitting...' : 'Submit Code'}
+//             </button>
+//             {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
+//             </div>
+//             <div>
+//                 <TestResults />
+//             </div>
+//         </>
+//     );
+// }    
+// export default Compiler;
+
+import React, { useState } from 'react';
+import Editor from '@monaco-editor/react';
+import TestResults from './TestResult.jsx';
 
 const Compiler = () => {
-    const editorRef = useRef();
-    const [value, setValue] = useState("");
-    const [language, setLanguage] = useState("python");
+    const [code, setCode] = useState('');
+    const [results, setResults] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-    const onMount = (editor) => {
-        editorRef.current = editor;
-        editor.focus();
-    };
+    const handleSubmit = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await fetch('http://localhost:8000/api/code-snippets/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ code })
+            });
 
-    const onSelect = (language) => {
-        setLanguage(language);
-        setValue(CODE_SNIPPETS[language]);
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            setResults(data);
+        } catch (error) {
+            setError(`Submission failed: ${error.message}`);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
-        
-        <Box>
-            <HStack>
-                <Box w="50%">
-                    <div>Python</div>
-                    <Editor
-                        options={{
-                            minimap: {
-                                enabled: false,
-                            },
-                        }}
-
-                        height="50vh"
-                        theme="vs-dark" 
-                        defaultLanguage="python"
-                        defaultValue={CODE_SNIPPETS[language]}
-                        onMount={onMount}
-                        value={value}
-                        onChange={(value) => setValue(value)}
-                    />
-                </Box>
-                <Output 
-                    editorRef={editorRef} 
-                    language={language} 
-                    />
-            </HStack>
-        </Box>
+        <>
+            <div>
+                <Editor
+                    height="50vh"
+                    theme="vs-dark"
+                    defaultLanguage="python"
+                    defaultValue=""
+                    value={code}
+                    onChange={(value) => setCode(value || '')}
+                />
+                <button onClick={handleSubmit} disabled={loading}>
+                    {loading ? 'Submitting...' : 'Submit Code'}
+                </button>
+                {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
+            </div>
+            <div>
+                {results && <TestResults results={results} />}
+            </div>
+        </>
     );
-}
+};
 
 export default Compiler;
