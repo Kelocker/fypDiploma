@@ -10,8 +10,9 @@ import {
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import store from './store'; // Import your Redux store
 // import LoginScreen from './screens/login.jsx';
-import ForgetPasswordScreen from './screens/forgetPasswordScreen.jsx';
 // import Signup from './components/LoginSignup.jsx';
 import NotFound from './screens/notfound.jsx';
 import Home from './screens/home.jsx';
@@ -28,6 +29,8 @@ import Lesson from './screens/lesson.jsx';
 import Quiz from './components/quiz.jsx';
 import SubLesson from './components/sublesson.jsx';
 import Compiler from './components/compiler/compiler.jsx';
+import ResetPassword from './components/ResetPassword.jsx';
+import ResetPasswordConfirm from './components/ResetPasswordConfirm';
 
 
 function Logout() {
@@ -46,7 +49,8 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="" element={<App />}>
       <Route path="/" index={true} element={<Home />} />
-      <Route path="/forgot-password" element={<ForgetPasswordScreen />} />
+      <Route exact path='/reset-password' element={<ResetPassword />} />
+      <Route exact path='/password/reset/confirm/:uid/:token' element={ <ResetPasswordConfirm />} />
       <Route path="/Logout" element={<Logout />} />
       <Route path="/exercise" element={<ExerciseSelectionPage />} />
       <Route path="/ranks" element={<RankScreen />} />
@@ -58,6 +62,9 @@ const router = createBrowserRouter(
         </ProtectedRoute>
         }
       />
+
+
+      
 
       <Route path="*" element={<NotFound/>} />
       <Route path="/learning" element={<Learning />} />
@@ -77,8 +84,10 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-      <ToastContainer />
+      <Provider store={store}>
+      {/* <ToastContainer /> */}
       <RouterProvider router={router} />
+      </Provider>
     </React.StrictMode>
 );
 
