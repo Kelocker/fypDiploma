@@ -44,8 +44,13 @@ class Exercise(models.Model):
 class CodeSnippet(models.Model):
     id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     code = models.TextField()
-
+    quiz = models.ForeignKey('Quiz', on_delete=models.CASCADE, null=False)  # Default should be a valid quiz ID
+    result = models.TextField(null=True, blank=True)  # Add this line
 
 class Ans(models.Model):
     id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     code = models.TextField()
+
+class Result(models.Model):
+    snippet = models.ForeignKey(CodeSnippet, on_delete=models.CASCADE, related_name='results')
+    output = models.TextField()
