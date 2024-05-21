@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import Editor from '@monaco-editor/react';
-import TestResults from './TestResult.jsx';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+// import TestResults from './TestResult.jsx';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
