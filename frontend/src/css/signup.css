@@ -1,0 +1,244 @@
+.login-Signup-Wrapper{
+    display:flex;
+    /* background-color: aqua; */
+    height:100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-Signup-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    border-radius: 16px;
+    height: 450px;
+    background-color: #F2F9FF;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.Signup-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 100%;
+}
+
+.Login-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 100%;   
+    
+}
+
+.Signup-container form{
+    margin-top: 80px;
+}
+
+
+
+
+.overlay-container{
+    z-index:100;
+    position: absolute;
+    /* background-color: blue; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 700px;
+    height: 450px;
+    pointer-events: none; 
+}
+
+.overlay-content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    /* background-color: rgb(136, 156, 48); */
+}
+
+.overlay-left, .overlay-right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 95%;
+    border-radius: 20px;
+    margin: 10px;
+    pointer-events: all;
+    background: #C5E7FF ;
+    
+}
+
+.overlay-left{
+    visibility: visible;
+    transition-timing-function: linear;
+    transition-property: width;
+    transition-delay: 1s;
+    
+    
+
+    
+    /* transition: transform 0.200s; */
+}
+
+.overlay-right{
+    visibility: hidden;
+
+    
+}
+
+.overlay-content button{
+    width: 100px;
+    height: 40px;
+    border: solid 2px #022626;
+    border-radius: 20px;
+    background-color: #F2F9FF ;
+    color: #022626;
+    font-weight: 800;
+    cursor: pointer;
+    justify-content: center;
+    position:absolute;
+    bottom: 150px;
+
+}
+
+.overlay-content h1{
+    font-size: 35px;
+    font-weight: 800;
+    color: #022626;
+    position: relative;
+    bottom: 80px;
+}
+
+.overlay-content p{
+    font-size: 15px;
+    font-weight: 400;
+    color: #022626;
+    position: relative;
+    bottom: 80px;
+}
+
+
+
+
+.login-Signup-content input[type="text"], 
+.login-Signup-content input[type="email"], 
+.login-Signup-content input[type="password"]{
+    position: relative;
+    bottom: 20px;
+    right: 40px;
+    width:130%;
+    padding: 10px;
+    border-color: #dbe0e4;
+    border-width: 1px;
+    border-radius: 3px;
+    border-style: solid;
+}
+
+.login-Signup-content input:focus{
+    outline: none;
+    border-color: #97D9FC;
+    transition: ease-in 0.2s;
+}
+
+.Signup-Login-btn{
+    background-color: #C5E7FF ;
+    border: none;
+    border-radius: 4px;
+    border-width: 1px;
+    width: 140%;
+    padding: 8px;
+    position: relative;
+    right: 40px ;
+    text-align: center;
+    bottom:20px;
+    font-weight: 800;
+    color:#022626;
+}
+
+.Signup-Login-btn:hover{
+    background-color: #97D9FC;
+    transition: ease-in 0.2s;
+    cursor: pointer;
+}
+
+.Terms-cons {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    position: relative;
+    right: 40px;
+    padding: 20px 0px 15px;
+    font-size:10px;
+    bottom:10px;
+}
+
+.Signup-Quote{
+    position: relative;
+    margin-top: 9px;
+    top:20px;
+    right:40px;  
+    text-align: left; 
+}
+
+.Login-Quote{
+    position: relative;
+    bottom:60px;
+    right:40px;  
+    text-align: left; 
+}
+
+.LeftSpan{
+    font-size: 25px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.SmallQuote{
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.ForgotPassword{
+    position: relative;
+    bottom: 15px;
+    left: 125px;
+    font-size: 12px;
+}
+
+.ForgotPassword a{
+    text-decoration: none;
+    color: #000000;
+}
+
+.SignUp-Login-message-Indicator{
+    display: flex;
+    position: relative;
+    bottom: 20px;
+    right: 40px;
+    font-size: 10px;
+    color: red;
+}
+
+.terms-cons-indicator{
+    display: flex;
+    position: relative;
+    font-size: 10px;
+    color: red;
+    text-align: justify;
+    width: 200px;
+    height:15px;
+}

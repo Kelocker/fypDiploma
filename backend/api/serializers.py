@@ -33,9 +33,10 @@ class UserSerializer(serializers.ModelSerializer):
     
 from rest_framework import serializers
 from .models import CodeSnippet
+from .models import Quiz
 
 class CodeSnippetSerializer(serializers.ModelSerializer):
-
+    # quiz = serializers.PrimaryKeyRelatedField(queryset=Quiz.objects.all())
     class Meta:
         model = CodeSnippet
         fields = '__all__' 
@@ -70,3 +71,11 @@ class AnsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ans
         fields = ['id', 'question', 'answer', 'lesson_id']
+
+from .models import Result
+
+class ResultSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Result
+        fields = '__all__' 
+

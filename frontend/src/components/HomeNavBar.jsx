@@ -1,14 +1,15 @@
 import React, { useEffect, useRef }  from 'react'
 import '../css/homeNavbar.css'
-import Login from '../components/login'
+import LoginSignup from './loginSignup'
 import About from '../components/About'
 
 
 const HomeNavBar = () => {
 
+  const homeRef = useRef(null);
   const aboutRef = useRef(null);
-  // const galleryRef = useRef(null);
-  // const pricingRef = useRef(null);
+  const galleryRef = useRef(null);
+  const priceRef = useRef(null);
 
   useEffect(() => {
     // Initially hide the sidebar when the component mounts
@@ -34,8 +35,9 @@ const HomeNavBar = () => {
   function closeLoginComponent(){
     const LoginComponent = document.querySelector('.LoginComponentNav')
     LoginComponent.style.display = 'none'
+    
   }
-
+  
 
   
 
@@ -56,37 +58,36 @@ const HomeNavBar = () => {
         
           <ul className="sidebar">
             <li  onClick= {() => closeSideBar()}>
-              <a href="#">
+              <button>
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                   <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" fill="#055257"/>
                 </svg>
-              </a>
+              </button>
             </li>
-            <li><a href="/">Home</a></li>
-            <li onClick={() => scrollToSection(aboutRef)}><a href="#">About</a></li>
-            <li><a href="/login">Gallery</a></li>
-            <li><a href="/login">Price</a></li>
-            <li onClick={() => OpenLoginComponent() }><a href="#">Login</a></li>
-            <li><a href="/signup">Signup</a></li>
-
+            <li onClick={() => scrollToSection(homeRef)}><button>Home</button></li>
+            <li onClick={() => scrollToSection(aboutRef)}><button>About</button></li>
+            <li onClick={() => scrollToSection(galleryRef)}><button>Gallery</button></li>
+            <li onClick={() => scrollToSection(priceRef)}><button>Price</button></li>
+            <li onClick={() => OpenLoginComponent() }><button>Login</button></li>
+            
           </ul>
      
         
-        <ul>
+        <ul className="normal-bar">
 
             <li><a href="/" className="HomeNavLogo"><img src="/SOYA-Python-Logo.png" alt="" /></a></li>
-            <li className="hideOnMobile"><a href="/">Home</a></li>
-            <li className="hideOnMobile" onClick={() => scrollToSection(aboutRef)}><a href="#">About</a></li>
-            <li className="hideOnMobile"><a href="/login">Gallery</a></li>
-            <li className="hideOnMobile"><a href="/login">Price</a></li>
-            <li className="hideOnMobile" onClick={() => OpenLoginComponent() }><a href="#">Login</a></li>
-            <li className="hideOnMobile"><a href="/signup">Signup</a></li>
+            <li className="hideOnMobile"><button onClick={() => scrollToSection(homeRef)}>Home</button></li>
+            <li className="hideOnMobile"><button onClick={() => scrollToSection(aboutRef)}>About</button></li>
+            <li className="hideOnMobile"><button onClick={() => scrollToSection(galleryRef)}>Gallery</button></li>
+            <li className="hideOnMobile"><button onClick={() => scrollToSection(priceRef)}>Price</button></li>
+            <li className="hideOnMobile"><button onClick={() => OpenLoginComponent() }>Login</button></li>
+            
             <li className="menu-button" onClick={() => showSideBar() } >
-              <a href="#">
+              <button>
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="30">
                   <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" fill="#055257" />
                 </svg>
-              </a>
+              </button>
             </li>
 
             
@@ -105,15 +106,22 @@ const HomeNavBar = () => {
                 <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" fill="#055257"/>
           </svg>
         </button>
-        <Login />
+        < LoginSignup />
       </div>
+
+     
 
       <div className="ComponentSection">
 
         {/* Section components */}
+                <div ref={homeRef}><About /></div>
                 <div ref={aboutRef}><About /></div>
             
         {/* More sections as needed */}
+                <div ref={galleryRef}><About /></div>
+
+                <div ref={priceRef}><About /></div>
+                
 
       </div>
       

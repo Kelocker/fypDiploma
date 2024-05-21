@@ -77,6 +77,24 @@
     z-index: 999;
 }
 
+.sidebar button{
+    width:100%;
+    color: #022626;
+    background: none;
+    padding:20px 30px;
+    margin-left:0px;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 550;
+    border: none;
+
+}
+
+.sidebar button:hover{
+    color:#6d9c9c;
+    transition: ease-in 0.3;
+    cursor: pointer;
+}
 
 .sidebar a{
     width:100%;
@@ -129,7 +147,26 @@
     row-gap: 20px;
 }
 
+.normal-bar button{
+    height: 100%;
+    width:100%;
+    background: none;
+    color: #022626;
+    padding: 0 30px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    color:#055257;
+    align-items: center;
+}
 
+
+
+.normal-bar button:hover{
+    color:#6d9c9c;
+    transition: ease-in 0.3;
+}
 
 
 

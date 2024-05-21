@@ -114,6 +114,15 @@
     background-color: #97d9fc4b;
 }
 
+.dashBoard-option .active {
+    color: #055257;
+    background-color: #97d9fc4b;
+}
+
+.dashBoard-option .active svg {
+    fill:#055257;
+}
+  
 .dashboard-content-render{
     width: 78%;
     height: 100%;

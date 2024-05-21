@@ -10,7 +10,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
+# from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
 
@@ -78,68 +78,12 @@ class CompilerView(APIView):
         serializer = CodeSnippetSerializer(snippets, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def post(self, request, *args, **kwargs):
-        serializer = CodeSnippetSerializer(data=request.data)
-        if serializer.is_valid():
-            try:
+    def post(self, request):
+            serializer = CodeSnippetSerializer(data=request.data)
+            if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
-            except Exception as e:
-                # Log the exception to understand what went wrong
-                print(f"Error saving data: {str(e)}")
-                return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        else:
-            print(f"Validation Errors: {serializer.errors}")
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-    # def save_code(request):
-    #     if request.method == 'POST':
-    #         code_data = request.POST.get('code', '')
-    #         if code_data:
-    #             snippet = CodeSnippet(code=code_data)
-    #             snippet.save()
-    #             return HttpResponse("Code saved successfully!")
-    #         else:
-    #             return HttpResponse("No code provided!", status=400)
-    #     return HttpResponse("Invalid request", status=400)
-
-
-def code_snippets(request):
-    if request.method == 'GET':
-        snippets = CodeSnippet.objects.all().values()
-        return JsonResponse(list(snippets), safe=False)
-    elif request.method == 'POST':
-        # For simplicity, assuming you're sending data as application/json
-        data = request.JSON
-        snippet = CodeSnippet(code=data['code'])
-        snippet.save()
-        return JsonResponse({'id': snippet.id, 'code': snippet.code}, status=201)
-    else:
-        return JsonResponse({'error': 'Method not allowed'}, status=405)
-
-def execute_snippet(request, snippet_id):
-    try:
-        snippet = CodeSnippet.objects.get(id=snippet_id)
-        exec_globals = {}
-        exec(snippet.code, exec_globals)
-        return JsonResponse({'status': 'success', 'results': exec_globals})
-    except CodeSnippet.DoesNotExist:
-        return JsonResponse({'status': 'error', 'message': 'Snippet not found'}, status=404)
-    except Exception as e:
-        return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
-
-
-from django.http import JsonResponse
-from runner import run_tests
-
-# Create a view that returns test results as JSON
-def test_results_view(request):
-    test_results = run_tests()
-    return JsonResponse(test_results, safe=False)
-    
-
 
 from rest_framework import generics
 from .models import Chapter
@@ -213,4 +157,156 @@ class SubLessonListView(APIView):
         serializer = LessonSerializer(sublessons, many=True)
         return Response(serializer.data)
 
+
+from django.http import JsonResponse
+from .models import Quiz
+
+from django.http import JsonResponse
+from .models import Quiz
+import subprocess
+from django.core.exceptions import ObjectDoesNotExist
+from subprocess import TimeoutExpired, CalledProcessError
+
+import subprocess
+from subprocess import TimeoutExpired, CalledProcessError
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+from .models import CodeSnippet, Quiz
+from django.core.exceptions import ObjectDoesNotExist
+import logging
+import unittest
+import io
+
+
+
+
+
+# # Create a view that returns test results as JSON
+# def test_results_view(request):
+#     test_results = run_tests()
+#     return JsonResponse(test_results, safe=False)
+
+# from runner import run_all_tests
+
+# from rest_framework.decorators import api_view
+
+# @api_view(['GET'])
+# def run_all_tests_view(request):
+#     results = run_all_tests()
+#     return JsonResponse(results, safe=False)
+
+# def submit_code(request):
+#     code_text = request.POST.get('code')
+#     quiz_id = request.POST.get('quizId')  # Retrieve quizId from the request
+#     test_script_path = get_test_script_path(quiz_id)  # Fetch the path from the database
+
+#     new_snippet = CodeSnippet.objects.create(code=code_text)
+#     results = run_code_tests(new_snippet.code, test_script_path)  # Use the fetched script path
+#     new_snippet.test_results = results
+#     new_snippet.save()
+#     return JsonResponse({'status': 'submitted', 'snippet_id': new_snippet.id, 'results': results})
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Quiz, CodeSnippet
+from .serializers import CodeSnippetSerializer
+from rest_framework.permissions import AllowAny
+import os
+import subprocess
+import logging
+import traceback
+import io
+import importlib.util
+from contextlib import redirect_stdout
+import sys
+logger = logging.getLogger(__name__)
+class CodeSnippetView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        snippets = CodeSnippet.objects.all()
+        serializer = CodeSnippetSerializer(snippets, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request, *args, **kwargs):
+        logger.debug(f"Incoming request data: {request.data}")
+        serializer = CodeSnippetSerializer(data=request.data)
+        if serializer.is_valid():
+            quiz_id = serializer.validated_data['quiz']
+            answer_path = request.data.get('answerPath')
+            if not answer_path:
+                logger.error("Answer path not provided")
+                return Response({'detail': 'Answer path not provided'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            if not os.path.exists(answer_path):
+                logger.error("Answer file does not exist")
+                return Response({'detail': 'Answer file does not exist'}, status=status.HTTP_404_NOT_FOUND)
+            
+            code = serializer.validated_data['code']
+            logger.debug(f"Executing code for quiz {quiz_id} with file {answer_path}")
+            result = self.execute_code(code, answer_path)
+            logger.debug(f"Execution result: {result}")
+
+            # Save the code snippet using quiz_id directly
+            snippet = CodeSnippet.objects.create(code=code, quiz=quiz_id, result=result)
+            return Response({
+                'id': snippet.id,
+                'code': code,
+                'quiz': snippet.quiz_id,
+                'result': snippet.result
+            }, status=status.HTTP_201_CREATED)
+        else:
+            logger.error(f"Serializer errors: {serializer.errors}")
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+   
+    def execute_code(self, code, file_path):
+        try:
+            # Prepare the directory and module name
+            module_name = os.path.splitext(os.path.basename(file_path))[0]
+            directory = os.path.dirname(file_path)
+            
+            # Write the fetched code to a temporary file
+            temp_code_file = os.path.join(directory, "temp_code.py")
+            with open(temp_code_file, "w") as f:
+                f.write(code)
+            
+            # Add the directory to sys.path
+            sys.path.append(directory)
+            
+            # Load and execute the dynamically created module to make its functions available
+            spec = importlib.util.spec_from_file_location("temp_code", temp_code_file)
+            temp_module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(temp_module)
+            
+            # Ensure the dynamically created module is available for import
+            sys.modules["temp_code"] = temp_module
+            
+            # Dynamically add the fetched code functions to the test script's module namespace
+            test_module_name = os.path.splitext(os.path.basename(file_path))[0]
+            test_case = importlib.import_module(test_module_name)
+            
+            for name, obj in temp_module.__dict__.items():
+                if not name.startswith("__"):
+                    setattr(test_case, name, obj)
+            
+            # Run the test suite
+            loader = unittest.TestLoader()
+            suite = loader.loadTestsFromModule(test_case)
+            stream = io.StringIO()
+            runner = unittest.TextTestRunner(stream=stream, verbosity=2)
+            result = runner.run(suite)
+            
+            # Get the result as a string
+            result = stream.getvalue()
+            
+            # Clean up the temporary file
+            os.remove(temp_code_file)
+            
+            return result
+            
+        except Exception as e:
+            logger.error(f"Error executing code: {e}")
+            logger.error(traceback.format_exc())
+            return str(e)
+        
 

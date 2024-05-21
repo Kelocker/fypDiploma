@@ -1,30 +1,13 @@
+import sys
+import os
 import unittest
+import io
 
+script_dir = os.path.dirname(__file__)  
+sys.path.append(script_dir)
 from word_count import (
     count_words,
 )
-# from collections import Counter
-# import re
-
-# def count_words(subtitle: str) -> dict:
-#     # Convert the subtitle to lowercase for case insensitivity
-#     subtitle = subtitle.lower()
-
-#     # Use a regex to find words, considering letters, digits, and apostrophes, but splitting on underscores
-#     words = re.findall(r"\b[a-z0-9']+\b", re.sub(r'[_]+', ' ', subtitle))
-
-#     # Count each word's occurrences using a Counter
-#     word_count = Counter(words)
-
-#     return dict(word_count)
-
-# # Example subtitle text
-# subtitle = "hey,my_spacebar_is_broken"
-# word_counts = count_words(subtitle)
-
-# # Print the results in a readable format
-# for word, count in sorted(word_counts.items()):
-#     print(f"{word}: {count}")
 
 class WordCountTest(unittest.TestCase):
     def test_count_one_word(self):
@@ -142,5 +125,84 @@ class WordCountTest(unittest.TestCase):
     def test_multiple_apostrophes_ignored(self):
         self.assertEqual(count_words("''hey''"), {"hey": 1})
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
+# def format_final_results(result, output):
+#     """Format and return the test results."""
+#     results_summary = {
+#         'total_tests': result.testsRun,
+#         'failures': len(result.failures),
+#         'errors': len(result.errors),
+#         'passed': len(result.successes) 
+#     }
+#     detailed_results = {
+#         'Failures': [f[0]._testMethodName for f in result.failures],
+#         'Errors': [e[0]._testMethodName for e in result.errors],
+#         'Passed': [s._testMethodName for s in result.successes]
+#     }
+#     return {
+#         'summary': results_summary,
+#         'details': detailed_results,
+#         'output': output
+#     }
+# class CollectingTestResult(unittest.TextTestResult):
+#     def __init__(self, stream, descriptions, verbosity):
+#         super().__init__(stream, descriptions, verbosity)
+#         self.successes = []
+
+#     def addSuccess(self, test):
+#         super().addSuccess(test)
+#         self.successes.append(test)
+# def execute_code(file_path):
+#     code_from_db = fetch_code_from_db()
+#     if not code_from_db:
+#         return {'message': 'No code found in the database.'}
+
+#     try:
+#         exec(code_from_db, globals())
+
+#         stream = io.StringIO()
+#         runner = unittest.TextTestRunner(stream=stream, resultclass=CollectingTestResult, verbosity=2)
+#         module_name = os.path.splitext(os.path.basename(file_path))[0]
+#         suite = unittest.defaultTestLoader.loadTestsFromModule(__import__(module_name))
+#         result = runner.run(suite)
+#         return format_final_results(result, stream.getvalue())
+
+#     except Exception as e:
+#         return {'error': str(e)}
+
+# # Example usage
+# file_path = '../backend/exercises/word-count/word_count_test.py'
+# results = execute_code(file_path)
+# print(results)
+
+
+
+
+# def fetch_code_from_db():
+#     """Fetch the most recent code snippet from the database."""
+#     with sqlite3.connect('db.sqlite3') as conn:
+#         cursor = conn.cursor()
+#         cursor.execute("SELECT code FROM api_codesnippet ORDER BY id DESC LIMIT 1")
+#         row = cursor.fetchone()
+#         return row[0] if row else None
+
+# def run_tests():
+#     """Run the tests after fetching code from the database."""
+#     code_from_db = fetch_code_from_db()
+#     if not code_from_db:
+#         return {'message': 'No code found in the database.'}
+
+#     exec(code_from_db, globals())
+
+#     stream = io.StringIO()
+#     runner = unittest.TextTestRunner(stream=stream, resultclass=CollectingTestResult, verbosity=2)
+#     suite = unittest.defaultTestLoader.loadTestsFromTestCase(WordCountTest)
+#     result = runner.run(suite)
+#     return format_final_results(result, stream.getvalue())
+
+
+
+# if __name__ == "__main__":
+#     results = run_tests()
+#     print(results)
