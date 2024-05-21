@@ -1,8 +1,8 @@
-
-
 import React, { useState } from 'react';
 import Editor from '@monaco-editor/react';
 import TestResults from './TestResult.jsx';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
@@ -23,7 +23,14 @@ const Compiler = () => {
             return;
         }
 
+        if (!code.trim()) {
+            setError('Code cannot be empty');
+            return;
+        }
+
         setLoading(true);
+        setError(null);  // Clear previous errors
+
         setError(null);  // Clear previous errors
 
         try {
@@ -46,6 +53,8 @@ const Compiler = () => {
                 throw new Error('Failed to submit code');
             }
         } catch (error) {
+            console.error('Submission error:', error);
+            setError(error.response?.data?.detail || 'Unexpected error, please try again.');
             console.error('Submission error:', error);
             setError(error.response?.data?.detail || 'Unexpected error, please try again.');
         } finally {
@@ -82,3 +91,36 @@ const Compiler = () => {
 };
 
 export default Compiler;
+// const handleSubmit = async () => {
+    //     const response = await axios.get(`http://127.0.0.1:8000/api/code-snippets/${quizId}`);
+    //     console.log(response.data);
+    //     // Handle response and update UI accordingly
+    // };
+
+    // const handleSubmit = async () => {
+    //     if (!code.trim()) {
+    //         setError('Code cannot be empty');
+    //         return; // Prevents form submission if code is empty
+    //     }
+    
+    //     setLoading(true);
+    //     setError(null); // Clear any previous errors
+    
+    //     try {
+    //         const response = await axios.post(`http://127.0.0.1:8000/api/code-snippets/`, { code });
+    
+    //         if (response.status === 201) {
+    //             console.log('Code submitted successfully!', response.data);
+    //             setResults(response.data);
+    //             // Optional: Clear the code if needed
+    //             // setCode(''); 
+    //         } else {
+    //             throw new Error('Failed to submit code');
+    //         }
+    //     } catch (error) {
+    //         console.error('Submission error:', error);
+    //         setError(error.response?.data?.detail || 'Unexpected error, please try again.');
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
