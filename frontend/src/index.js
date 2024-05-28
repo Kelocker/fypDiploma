@@ -25,7 +25,6 @@ import { ToastContainer} from 'react-toastify';
 import toastNotifications from './toastNotification';
 import Learning from './screens/learning.jsx';
 import Lesson from './screens/lesson.jsx';
-import Quiz from './components/quiz.jsx';
 import SubLesson from './components/sublesson.jsx';
 import Compiler from './components/compiler/compiler.jsx';
 
