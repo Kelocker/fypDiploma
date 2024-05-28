@@ -37,7 +37,27 @@ class Exercise(models.Model):
     description = models.TextField()
     question = models.TextField()
     answer = models.TextField()
+
+class Submission(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
+    submitted_code = models.TextField()
     
 
-#Ranking section
+# Challenge section
+class Challenge(models.Model):
+    description = models.TextField()
+    test_script = models.TextField()
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+
+class ChallengeSubmission(models.Model):
+    challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rank = models.IntegerField()
+
+# Progress section
+class Progress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
 
