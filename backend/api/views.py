@@ -46,6 +46,5 @@ def exercise_list(request):
         'difficulty_level': exercise.get_difficulty_level_display(),  
         'description': exercise.description,
         'question': exercise.question,
-        'answer': exercise.answer
     } for exercise in exercises]
     return JsonResponse(exercise_list, safe=False)
