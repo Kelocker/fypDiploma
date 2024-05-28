@@ -64,7 +64,6 @@ const router = createBrowserRouter(
       <Route path="*" element={<NotFound/>} />
       <Route path="/learning" element={<Learning />} />
       <Route path="/lesson" element={<Lesson />} />
-      <Route path="/quiz" element={<Quiz />} />
       <Route path="/sublesson" element={<SubLesson />} />
       
       {/* Add new route below */}
