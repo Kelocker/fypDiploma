@@ -6,7 +6,12 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.http import JsonResponse
 from .models import Exercise
 from django.db.models import Case, When, Value, IntegerField
-
+from rest_framework.views import APIView
+from .models import Chapter, Lesson, Topic, Example
+from .serializers import ChapterSerializer, LessonSerializer, TopicSerializer, ExampleSerializer
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework import viewsets
 
 # Create your views here.
 
@@ -49,3 +54,85 @@ def exercise_list(request):
         'answer': exercise.answer
     } for exercise in exercises]
     return JsonResponse(exercise_list, safe=False)
+
+
+
+
+
+class ChapterViewSet(viewsets.ModelViewSet):
+    queryset = Chapter.objects.all()
+    serializer_class = ChapterSerializer
+    permission_classes = [AllowAny]
+
+    def list(self, request):
+        chapters = Chapter.objects.all()
+        serializer = ChapterSerializer(chapters, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, chapterId=None):
+        try:
+            chapter = Chapter.objects.get(pk=chapterId)
+            serializer = ChapterSerializer(chapter)
+            return Response(serializer.data)
+        except Chapter.DoesNotExist:
+            return Response({'error': 'Chapter not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+    def post(self, request, *args, **kwargs):
+        serializer = ChapterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class LessonViewSet(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        chapter_id = request.query_params.get('chapter_id', None)
+        if chapter_id is not None:
+            lessons = Lesson.objects.filter(chapter_id=chapter_id)
+        else:
+            lessons = Lesson.objects.all()
+        serializer = LessonSerializer(lessons, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        serializer = LessonSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TopicViewSet(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        sublesson_id = request.query_params.get('sublesson', None)
+        if sublesson_id is not None:
+            topics = Topic.objects.filter(sublesson_id=sublesson_id)
+        else:
+            topics = Topic.objects.all()
+        serializer = TopicSerializer(topics, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        serializer = TopicSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ExampleViewSet(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        examples = Example.objects.all()
+        serializer = ExampleSerializer(examples, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        serializer = ExampleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
