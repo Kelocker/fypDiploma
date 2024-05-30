@@ -35,7 +35,7 @@ urlpatterns = [
     path('api/chapters/', ChapterViewSet.as_view({'get': 'list'}), name='chapter-list'),
     path('api/chapters/<int:chapterId>/', ChapterViewSet.as_view({'get': 'retrieve'}), name='chapter-detail'),
     path('api/sublesson/', LessonViewSet.as_view()),
-    path('api/sublesson/<int:pk>/', LessonViewSet.as_view()),
+    path('api/sublesson/<int:sublesson_id>/', LessonViewSet.as_view()),
     path('api/topics/', TopicViewSet.as_view()),
     path('api/topics/<int:pk>/', TopicViewSet.as_view()),
     path('api/examples/', ExampleViewSet.as_view()),

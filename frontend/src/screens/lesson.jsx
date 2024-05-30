@@ -34,7 +34,6 @@ const Lesson = () => {
     }, []);
 
     const handleChapterClick = (chapterId) => {
-        // Navigate to the sublesson page with the chapterId
         navigate(`/sublesson/${chapterId}`);
     };
     if (loading) return <div>Loading chapters...</div>;
@@ -68,6 +67,7 @@ const Lesson = () => {
                                     right: index % 2 === 0 ? '0' : '0', // Align right if island is on the right
                                     textAlign: index % 2 === 0 ? 'left' : 'right' // Text align based on side
                                 }}>
+                                    {chapter.title}
                                     {chapter.description}
                                 </div>
                             </div>

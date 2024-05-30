@@ -86,6 +86,9 @@ class ChapterViewSet(viewsets.ModelViewSet):
 
 class LessonViewSet(APIView):
     permission_classes = [AllowAny]
+    def get_queryset(self):
+        chapter_id = self.kwargs['chapter_id']
+        return Lesson.objects.filter(chapter_id=chapter_id)
 
     def get(self, request, *args, **kwargs):
         chapter_id = request.query_params.get('chapter_id', None)
@@ -107,11 +110,17 @@ class TopicViewSet(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request, *args, **kwargs):
+        print(f'Request: {request}')  # Log entire request object
         sublesson_id = request.query_params.get('sublesson', None)
+        print(f'Received sublesson_id: {sublesson_id}')  # Debug statement
+
         if sublesson_id is not None:
             topics = Topic.objects.filter(sublesson_id=sublesson_id)
+            print(f'Filtered topics: {topics}')  # Debug statement
         else:
             topics = Topic.objects.all()
+            print(f'All topics: {topics}')  # Debug statement
+
         serializer = TopicSerializer(topics, many=True)
         return Response(serializer.data)
 

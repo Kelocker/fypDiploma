@@ -40,13 +40,21 @@ const SubLesson = () => {
         }
     }, [chapterId, navigate]);
 
+
     const handleLessonClick = (subLessonId) => {
-        // Navigate to the sublesson page with the chapterId
-        navigate(`/subContent/${subLessonId}`);
+        navigate(`/subContent/${subLessonId}?chapterId=${chapterId}`);
+    };
+
+    const handleTitleClick = () => {
+        navigate('/lesson');  // Navigate back to the lessons page
     };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
+
+    // Ensure chapter is defined before accessing its properties
+    const chapterTitle = chapter ? chapter.title : '';
+    const chapterDescription = chapter ? chapter.description : '';
 
     // Filter subLessons to only include those with the same chapter ID
     const filteredSubLessons = subLessons.filter(subLesson => subLesson.chapter === parseInt(chapterId));
@@ -57,10 +65,15 @@ const SubLesson = () => {
             <div className="subLesson-wrapper">
                 {chapter && (
                     <div className="sub-image-container">
-                        <img src={titleImg} alt="Title Background" className="title-image" />
+                        <img 
+                            src={titleImg} 
+                            alt="Title Background" 
+                            className="title-image" 
+                            onClick={handleTitleClick}  // Add onClick handler to title image
+                        />
                         <div className="overlay-text">
-                            <h1>{chapter.title}</h1>
-                            <p>{chapter.description}</p>
+                            <h1>{chapterTitle}</h1>
+                            <p>{chapterDescription}</p>
                         </div>
                     </div>
                 )}
@@ -84,3 +97,4 @@ const SubLesson = () => {
 };
 
 export default SubLesson;
+
