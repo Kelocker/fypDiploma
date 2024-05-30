@@ -5,13 +5,14 @@ import 'react-toastify/dist/ReactToastify.css';
 const toastNotifications = (status, message) => {
   const commonOptions = {
     position: "top-center",
-    autoClose: 5000,
+    autoClose: 2000,
     hideProgressBar: false,
-    closeOnClick: true,
+    closeOnClick: false,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
     theme: "light",
+    closeButton: false,
     transition: Bounce,
   };
 

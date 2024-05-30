@@ -5,7 +5,8 @@ import Dashboard from '../screens/dashboard.jsx'
 const Learning = () => {
     return (
         <div className="Learning">
-            <Dashboard />
+            {/* <Dashboard /> */}
+            this is learning
             
             
         </div>
