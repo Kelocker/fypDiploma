@@ -1,62 +1,38 @@
-import { useState } from "react";
-import { Box, Button, Text, useToast } from "@chakra-ui/react";
-import { executeCode } from "../api";
-import '../../css/compiler.css';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Box, Button, Textarea } from "@chakra-ui/react";
 
 const Output = ({ editorRef, language }) => {
-  const toast = useToast();
-  const [output, setOutput] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+    const [output, setOutput] = useState('');
 
-  const runCode = async () => {
-    const sourceCode = editorRef.current.getValue();
-    if (!sourceCode) return;
-    try {
-      setIsLoading(true);
-      const { run: result } = await executeCode(language, sourceCode);
-      setOutput(result.output.split("\n"));
-      result.stderr ? setIsError(true) : setIsError(false);
-    } catch (error) {
-      console.log(error);
-      toast({
-        title: "An error occurred.",
-        description: error.message || "Unable to run code",
-        status: "error",
-        duration: 6000,
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    const runCode = async () => {
+        const code = editorRef.current.getValue();
+        try {
+            const response = await axios.post('http://localhost:8000/api/run_code/', { code, language });
+            setOutput(response.data.output);
+        } catch (error) {
+            console.error(error);
+            setOutput('Error running code.');
+        }
+    };
 
-  return (
-    <Box w="50%">
-      <Text mb={2} fontSize="lg">
-        Output
-      </Text>
-      <Button
-        variant="outline"
-        colorScheme="green"
-        mb={4}
-        isLoading={isLoading}
-        onClick={runCode}
-      >
-        Run Code
-      </Button>
-      <Box
-        p={2}
-        color={isError ? "red.400" : ""}
-        borderRadius={4}
-        borderColor={isError ? "red.500" : "#333"}
-      >
-        <div className='comp-outputWindow'>
-        {output
-          ? output.map((line, i) => <Text m={4} key={i}>{line}</Text>)
-          : 'Click "Run Code" to see the output here'}
-        </div>
-      </Box>
-    </Box>
-  );
+    const runTests = async () => {
+        try {
+            const response = await axios.post('http://localhost:8000/api/run_tests/');
+            setOutput(response.data.output);
+        } catch (error) {
+            console.error(error);
+            setOutput('Error running tests.');
+        }
+    };
+
+    return (
+        <Box w="50%">
+            <Button onClick={runCode} colorScheme="blue" mb={4}>Run Code</Button>
+            <Button onClick={runTests} colorScheme="green" mb={4}>Run Tests</Button>
+            <Textarea readOnly value={output} height="50vh" />
+        </Box>
+    );
 };
+
 export default Output;

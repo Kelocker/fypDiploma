@@ -26,7 +26,7 @@ import toastNotifications from './toastNotification';
 import Learning from './screens/learning.jsx';
 import Lesson from './screens/lesson.jsx';
 import SubLesson from './components/sublesson.jsx';
-import Compiler from './components/compiler/compiler.jsx';
+import ExerciseDetail from './components/ExerciseDetail.jsx';
 
 
 function Logout() {
@@ -67,7 +67,7 @@ const router = createBrowserRouter(
       <Route path="/sublesson" element={<SubLesson />} />
       
       {/* Add new route below */}
-      <Route path="/compiler" element={<Compiler />} />
+      <Route path="/exercise-detail/:id" element={<ExerciseDetail />} />
 
 
       
