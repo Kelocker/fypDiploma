@@ -32,3 +32,26 @@ class UserSerializer(serializers.ModelSerializer):
         return user
     
    
+# serializers.py
+from rest_framework import serializers
+from .models import Chapter, Lesson, Topic, Example
+
+class ChapterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chapter
+        fields = '__all__'
+
+class LessonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lesson
+        fields = '__all__'
+
+class TopicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Topic
+        fields = '__all__'
+
+class ExampleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Example
+        fields = '__all__'

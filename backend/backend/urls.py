@@ -20,6 +20,7 @@ from api.views import CreatreUserView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from api.views import exercise_list
 from dj_rest_auth.views import PasswordResetView, PasswordResetConfirmView
+from api.views import ChapterViewSet, LessonViewSet, TopicViewSet, ExampleViewSet
 
 
 urlpatterns = [
@@ -31,4 +32,12 @@ urlpatterns = [
     path('api/exercises/', exercise_list, name='exercise-list'),
     path('users/reset_password/', PasswordResetView.as_view(), name='rest_password_reset'),
     path('users/reset_password_confirm/', PasswordResetConfirmView.as_view(), name='rest_password_reset_confirm'),
+    path('api/chapters/', ChapterViewSet.as_view({'get': 'list'}), name='chapter-list'),
+    path('api/chapters/<int:chapterId>/', ChapterViewSet.as_view({'get': 'retrieve'}), name='chapter-detail'),
+    path('api/sublesson/', LessonViewSet.as_view()),
+    path('api/sublesson/<int:sublesson_id>/', LessonViewSet.as_view()),
+    path('api/topics/', TopicViewSet.as_view()),
+    path('api/topics/<int:pk>/', TopicViewSet.as_view()),
+    path('api/examples/', ExampleViewSet.as_view()),
+    path('api/examples/<int:pk>/', ExampleViewSet.as_view()),
 ]

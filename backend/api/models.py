@@ -20,6 +20,23 @@ class Lesson(models.Model):
     content = models.TextField()
 
 
+class Topic(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    sublesson = models.ForeignKey('Lesson', related_name='topics', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
+class Example(models.Model):
+    description = models.TextField(null=True, blank=True)  # New optional field for description
+    code = models.TextField()
+    is_executable = models.BooleanField(default=False)  # New field to indicate if the code can be run
+    topic = models.ForeignKey(Topic, related_name='examples', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Example for {self.topic.title}'
+    
 #Exercise section
 class Exercise(models.Model):
     DIFFICULTY_LEVELS = [
