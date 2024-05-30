@@ -4,13 +4,13 @@ import { CardActionArea } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
 
-const BoardChallengeCard = () => {
+const BoardChallengeCard = ({Challenge, OnSelect}) => {
   return (
    
 
    
         <div className="Board-wrapper Challenge-Card-Wrapper">
-             <CardActionArea onClick={() => console.log('Card clicked!')}>
+             <CardActionArea onClick={() => OnSelect(Challenge) && console.log('Card clicked!')}  >
 
             <div className="Board-media Challenge-Card-Media">
             
@@ -19,11 +19,12 @@ const BoardChallengeCard = () => {
 
             <div className="Board-content challenge-Card-Content">
                 <Typography gutterBottom variant="h6" component="div">
-                    Lizard
+                    {Challenge.title} 
+                    {/* title */}
                 </Typography>
                 <Typography variant="body3" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                    species, ranging across all continents except Antarctica
+                    {Challenge.description} 
+                    {/* discription */}
                 </Typography>
 
             </div>
@@ -31,7 +32,6 @@ const BoardChallengeCard = () => {
             </CardActionArea>
 
         </div>
-
     
   )
 }

@@ -41,7 +41,9 @@ class Submission(models.Model):
 
 # Challenge section
 class Challenge(models.Model):
+    title = models.CharField(max_length=200)
     description = models.TextField()
+    question = models.TextField()
     test_script = models.TextField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()

@@ -18,21 +18,27 @@ const ChallengeDashboard = () => {
       </div>
 
       <div className="Challenge">
-        Weekly challenge
+        <div className="Weekly-challenge-word">
+          Weekly challenge
+        </div>
 
-        {/* Weekly challenge */}
+
+
+        <div className="challenge-render">
+
+        </div>
        
 
       </div>
 
        
 
-      <div className="Challenge">
+      {/* <div className="Challenge">
 
-         {/* Day challenge */}
+         Day challenge
          
 
-      </div>
+      </div> */}
 
     </div>
   )

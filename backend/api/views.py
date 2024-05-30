@@ -4,7 +4,7 @@ from rest_framework import generics
 from .serializers import UserSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.http import JsonResponse
-from .models import Exercise
+from .models import Exercise, Challenge
 from django.db.models import Case, When, Value, IntegerField
 
 
@@ -49,3 +49,13 @@ def exercise_list(request):
         'answer': exercise.answer
     } for exercise in exercises]
     return JsonResponse(exercise_list, safe=False)
+
+def challenge_list():
+    challenges = Challenge.objects.all()
+
+    challenge_list = [{
+        'title': challenge.title,  
+        'description': challenge.description,
+        'question': challenge.question,
+    } for challenge in challenges]
+    return JsonResponse(challenge_list, safe=False)
