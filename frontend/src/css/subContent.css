@@ -1,4 +1,4 @@
-.subContent-container {
+/* .subContent-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,7 +32,7 @@ h2 {
     padding-left: 10px;
 }
 
-p {
+.pre {
     text-align: left;
     padding-left: 10px;
 }
@@ -41,6 +41,75 @@ p {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+}
+
+.subContent-buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.subContent-buttons button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+} */
+
+
+.subContent-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.subcontent {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+
+.topic {
+    margin-bottom: 2rem;
+    width: 100%; /* Ensure the topic takes full width of the container */
+}
+
+.example {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Ensure examples take full width */
+}
+
+h2 {
+    text-align: left;
+    padding-left: 10px;
+    width: 100%; /* Ensure the heading takes full width */
+}
+
+pre {
+    text-align: left;
+    padding-left: 10px;
+    width: 100%; /* Ensure pre takes full width */
+    white-space: pre-wrap; /* Ensure text inside pre wraps correctly */
+    word-wrap: break-word; /* Allow long words to break and wrap onto the next line */
+}
+
+.subContent-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 100%;
 }
 
 .subContent-buttons button {
