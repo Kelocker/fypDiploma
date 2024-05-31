@@ -76,12 +76,12 @@ const SubContent = () => {
                     {topics.map(topic => (
                         <div key={topic.id} className="topic">
                             <h2>{topic.title}</h2>
-                            <p>{topic.description}</p>
+                            <pre>{topic.description}</pre>
                             <div className="examples">
                                 {Array.isArray(topic.examples) && topic.examples.map(example => (
                                     <div key={example.id} className="example">
                                         <CodeEditor initialCode={example.code.replace(/\\n/g, '\n')} isExecutable={example.is_executable} />
-                                        <p>{example.description}</p>
+                                        <pre>{example.description}</pre>
                                     </div>
                                 ))}
                             </div>
