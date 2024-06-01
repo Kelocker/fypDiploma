@@ -14,7 +14,6 @@ const ExerciseDetail = () => {
         const fetchExercise = async () => {
             try {
                 const response = await axios.get(`http://localhost:8000/api/exercises/`);
-                // find the exercise with the given id
                 const exercise = response.data.find((exercise) => exercise.id === parseInt(id));
                 setExercise(exercise);
                 console.log(exercise);
@@ -37,7 +36,7 @@ const ExerciseDetail = () => {
     return (
         <div className='exercise-detail'>
             <div className='exercise-detail-left'>
-                <Compiler exerciseId={id} />
+                <Compiler testType="exercise" testId={id} />
             </div>
             <div className='exercise-detail-right'>
                 <h1>{exercise.title}</h1>

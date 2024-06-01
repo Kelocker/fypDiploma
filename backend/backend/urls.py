@@ -32,7 +32,7 @@ urlpatterns = [
     path('api/exercises/', exercise_list, name='exercise-list'),
     path('users/reset_password/', PasswordResetView.as_view(), name='rest_password_reset'),
     path('users/reset_password_confirm/', PasswordResetConfirmView.as_view(), name='rest_password_reset_confirm'),
-    path('api/execute_code/<int:exercise_id>/', execute_code, name='execute_code'),
+    path('api/execute_code/<str:test_type>/<int:test_id>/', execute_code, name='execute_code'),
 
 
 ]

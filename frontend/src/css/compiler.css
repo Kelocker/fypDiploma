@@ -1,8 +1,7 @@
 /* Compiler.css */
 .compiler {
     margin-top: 2rem;
-    max-height: 600px;
-    overflow-y: auto;
+    max-width: 700px;
 }
 
 .compiler textarea {
@@ -31,13 +30,31 @@
     background-color: #0056b3;
 }
 
+.result-status {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.result-status.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.result-status.fail {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
 .result {
     margin-top: 2rem;
     background-color: #f1f1f1;
     padding: 1rem;
     border-radius: 8px;
     border: 1px solid #ddd;
-    max-height: 300px; /* Set a max height for the result */
+    max-height: 200px; /* Set a fixed max height for the result section */
     overflow-y: auto; /* Add scroll if content overflows */
 }
 
@@ -51,4 +68,12 @@
     padding: 1rem;
     border-radius: 4px;
     overflow-x: auto;
+}
+
+.error {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 4px;
 }
