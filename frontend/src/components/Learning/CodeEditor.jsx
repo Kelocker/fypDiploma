@@ -1,13 +1,15 @@
 import { useRef, useState, useEffect } from "react";
 import { Box, HStack, Text } from "@chakra-ui/react";
 import { Editor } from "@monaco-editor/react";
-import { executeCode } from './executeCode'; // Adjust the path as needed
+import ResizeObserver from 'resize-observer-polyfill';
+import { executeCode } from './executeCode'; 
 import '../../css/Editor.css';
 
 const CodeEditor = ({ initialCode, isExecutable }) => {
   const editorRef = useRef();
   const [value, setValue] = useState('');
   const [output, setOutput] = useState('');
+  const containerRef = useRef();
   const [editorHeight, setEditorHeight] = useState('30vh'); // Default height
 
   useEffect(() => {
@@ -16,6 +18,22 @@ const CodeEditor = ({ initialCode, isExecutable }) => {
     const newHeight = Math.min(Math.max(lineCount * 20, 100), 500); // Adjust min and max height as needed
     setEditorHeight(`${newHeight}px`);
   }, [initialCode]);
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(() => {
+      if (editorRef.current) {
+        editorRef.current.layout();
+      }
+    });
+
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
 
   const onMount = (editor) => {
     editorRef.current = editor;
@@ -33,16 +51,18 @@ const CodeEditor = ({ initialCode, isExecutable }) => {
   };
 
   return (
-    <Box className="editor-container">
+    <Box className="editor-container" ref={containerRef}>
       <HStack spacing={4}>
         <Box w="100%" className="code-editor">
           <Editor
             options={{
-              minimap: {
-                enabled: false,
-              },
+              minimap: { enabled: false },
               scrollBeyondLastLine: false,
               mouseWheelZoom: false,
+              eventResizeFeature: {
+                disabled: true,
+              },
+              forceUseResizeObserver: true,
             }}
             height={editorHeight}
             theme="vs-dark"
@@ -69,3 +89,5 @@ const CodeEditor = ({ initialCode, isExecutable }) => {
 };
 
 export default CodeEditor;
+
+

@@ -1,5 +1,5 @@
 import React from 'react'
-
+import UserProfile from './userProfile.jsx';
 const Preference = () => {
 
 
@@ -8,7 +8,7 @@ const Preference = () => {
   return (
     <div>
         <div>
-{/* add here */}
+          <UserProfile/>
         </div>
         This is preference
         <a href="/logout">logout</a>

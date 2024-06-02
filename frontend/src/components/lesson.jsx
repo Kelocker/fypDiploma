@@ -1,10 +1,8 @@
-import DashboardNavbar from '../components/dashboardNavbar'
 import '../css/lesson.css'
 import island from '../assets/img/island.png';
 import sky from '../assets/img/sky.png';
 import beach from '../assets/img/beach.png';
 import React, {useState, useEffect} from 'react';
-// import SubLesson from '../components/sublesson.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const Lesson = () => {
@@ -41,10 +39,9 @@ const Lesson = () => {
 
     return (
         <div>
-            <DashboardNavbar />
             <div className="LessonWrapper">
                 <div className="LessonContent">
-                    <div className="ImageComposition">
+                    <div className="lessonImageComposition">
                         <img src={sky} alt="Sky" className="skyImg" />
                         <img src={beach} alt="Beach" className="beachImg" />
                         {chapters.sort((a, b) => b.id - a.id).map((chapter, index) => (

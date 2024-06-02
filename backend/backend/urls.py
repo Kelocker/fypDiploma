@@ -21,6 +21,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from api.views import exercise_list
 from dj_rest_auth.views import PasswordResetView, PasswordResetConfirmView
 from api.views import ChapterViewSet, LessonViewSet, TopicViewSet, ExampleViewSet
+from api.views import UpdateUserView
 
 
 urlpatterns = [
@@ -40,4 +41,6 @@ urlpatterns = [
     path('api/topics/<int:pk>/', TopicViewSet.as_view()),
     path('api/examples/', ExampleViewSet.as_view()),
     path('api/examples/<int:pk>/', ExampleViewSet.as_view()),
+    path('api/user/', UpdateUserView.as_view(), name='user-update'),
+
 ]

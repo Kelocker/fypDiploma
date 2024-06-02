@@ -1,22 +1,103 @@
-import React from 'react';
-import '../styles/userProfile.css';
-// TO DO import header on top
+import React, { useState, useEffect } from 'react';
+import '../css/userProfile.css';
+import api from '../api';
+import { ACCESS_TOKEN } from '../constants';
 
-const userProfile = () => {
+const UserProfile = () => {
+  const [userData, setUserData] = useState({
+    username: '',
+    email: '',
+    password: ''
+  });
+
+  const [editState, setEditState] = useState({
+    email: false,
+    password: false
+  });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem(ACCESS_TOKEN); 
+      console.log('Fetching user data...');
+
+      if (token) {
+        try {
+          const response = await api.get('/api/user/', { 
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          console.log('Fetched user data:', response.data);
+          setUserData(response.data);
+        } catch (error) {
+          console.error("There was an error fetching the user data!", error);
+        }
+      } else {
+        console.error("No token found");
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUserData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleEditClick = (field) => {
+    setEditState(prevState => ({
+      ...prevState,
+      [field]: !prevState[field]
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const token = localStorage.getItem(ACCESS_TOKEN); 
+
+    if (token) {
+      try {
+        const response = await api.put('/api/user/', {
+          // username: userData.username,
+          email: userData.email,
+          // password: userData.password
+        }, { // Ensure the endpoint is correct
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        console.log('User data updated successfully:', response.data);
+        // Reset edit state after save
+        setEditState({
+          email: false,
+          password: false
+        });
+      } catch (error) {
+        console.error("There was an error updating the user data!", error);
+      }
+    } else {
+      console.error("No token found for update");
+    }
+  };
+
   return (
-   
-    <div className="Setting">
+    <div className="userSetting">
       <h1>Settings</h1>
       <div className="User">
         <div className="avatar-container">
-          <img src="{userAvatarUrl}" alt="" className='avatar-container'/>
+          <img src="{userAvatarUrl}" className='avatar-container'/>
           <div className="camera-icon"></div>
         </div>
-        <div className='username'>
-          Username:
+        <div className='Profileusername'>
+          Username: {userData.username}
         </div>
       </div>
-      <div className='formContainer'>
+      <form onSubmit={handleSubmit} className='userformContainer'>
         <table>
           <thead>
             <tr>
@@ -25,42 +106,54 @@ const userProfile = () => {
           </thead>
           <tbody>
             <tr>
-              <td>First Name</td>
-              <td><input type="text" name="firstName" /></td>
-              <td>Edit</td>
-            </tr>
-            <tr>
-              <td>Last Name</td>
-              <td><input type="text" name="lastName" /></td>
-              <td>Edit</td>
-            </tr>
-            <tr>
-              <td>Gender</td>
-              <td>
-                <input type="radio" id="male" name="gender" value="male"/>
-                <label htmlFor="male">Male</label>
-                <input type="radio" id="female" name="gender" value="female"/>
-                <label htmlFor="female">Female</label>
-              </td>
-              <td>Edit</td>
-            </tr>
-            <tr>
               <td>Email</td>
-              <td><input type="email" name="email" autoComplete="email"/></td>
-              <td>Edit</td>
+              <td>
+                {editState.email ? (
+                  <input
+                    type="email"
+                    name="email"
+                    value={userData.email || ''}
+                    onChange={handleChange}
+                    autoComplete="email"
+                  />
+                ) : (
+                  userData.email
+                )}
+              </td>
+              <td>
+                <button type="button" onClick={() => handleEditClick('email')}>
+                  {editState.email ? 'Cancel' : 'Edit'}
+                </button>
+              </td>
             </tr>
             <tr>
               <td>Password</td>
-              <td><input type="password" name="password" /></td>
-              <td>Edit</td>
+              <td>
+                {editState.password ? (
+                  <input
+                    type="password"
+                    name="password"
+                    value={userData.password || ''}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  '******'
+                )}
+              </td>
+              <td>
+                <button type="button" onClick={() => handleEditClick('password')}>
+                  {editState.password ? 'Cancel' : 'Edit'}
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
-      </div>  
+        {editState.email || editState.password ? (
+          <button type="submit">Save</button>
+        ) : null}
+      </form>
     </div>
-    
-  )
+  );
 }
 
-export default userProfile;
-
+export default UserProfile;

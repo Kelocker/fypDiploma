@@ -26,6 +26,30 @@ class CreatreUserView(generics.CreateAPIView):
     #  who can call this
     permission_classes = [AllowAny]
 
+    
+    
+class UpdateUserView(generics.RetrieveUpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+    def get_object(self):
+        return self.request.user
+
+    def put(self, request, *args, **kwargs):
+        user = self.get_object()
+        serializer = self.get_serializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            print("Validation Errors:", serializer.errors)  # Add this line for debugging
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 def exercise_list(request):
     # Get the difficulty level from the query parameters

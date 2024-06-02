@@ -21,12 +21,10 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import LoginSignupScreen from './screens/LoginSignup.jsx';
 import ExerciseSelectionPage from './screens/ExerciseSelectionPage.jsx';
 import RankScreen from './screens/rankScreen.jsx';
-import { ToastContainer} from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import toastNotifications from './toastNotification';
-import Learning from './screens/learning.jsx';
-import Lesson from './screens/lesson.jsx';
+import Lesson from './components/lesson.jsx';
 import SubLesson from './components/sublesson.jsx';
-import Compiler from './components/compiler/compiler.jsx';
 import SubContent from './components/subContent.jsx';
 
 
@@ -63,13 +61,11 @@ const router = createBrowserRouter(
       />
 
       <Route path="*" element={<NotFound/>} />
-      <Route path="/learning" element={<Learning />} />
       <Route path="/lesson" element={<Lesson />} />
       <Route path="/sublesson/:chapterId" element={<SubLesson />} />
       <Route path="/subContent/:subLessonId" element={<SubContent />} />
 
       {/* Add new route below */}
-      <Route path="/compiler" element={<Compiler />} />
 
       
     </Route>
