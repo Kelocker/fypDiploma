@@ -20,6 +20,7 @@ from api.views import CreatreUserView, ChapterViewSet, LessonViewSet, TopicViewS
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from api.views import exercise_list
 from dj_rest_auth.views import PasswordResetView, PasswordResetConfirmView
+from api.views import UpdateUserView
 
 
 urlpatterns = [
@@ -40,4 +41,6 @@ urlpatterns = [
     path('api/examples/', ExampleViewSet.as_view()),
     path('api/examples/<int:pk>/', ExampleViewSet.as_view()),
     path('api/execute_code/<str:test_type>/<int:test_id>/', execute_code, name='execute_code'),
+    path('api/user/', UpdateUserView.as_view(), name='user-update'),
+
 ]

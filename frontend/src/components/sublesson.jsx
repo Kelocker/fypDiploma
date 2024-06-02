@@ -21,8 +21,6 @@ const SubLesson = () => {
                 const chapterResponse = await axios.get(`http://127.0.0.1:8000/api/chapters/${chapterId}`);
                 const subLessonsResponse = await axios.get(`http://127.0.0.1:8000/api/sublesson/${chapterId}`);
 
-                console.log(chapterResponse.data); // Debugging line
-                console.log(subLessonsResponse.data); // Debugging line
 
                 setChapter(chapterResponse.data);
                 setSubLessons(Array.isArray(subLessonsResponse.data) ? subLessonsResponse.data : [subLessonsResponse.data]);
@@ -36,7 +34,7 @@ const SubLesson = () => {
         if (chapterId) {
             fetchChapterAndSubLessons();
         } else {
-            navigate('/');  // Redirect if no chapterId
+            navigate('/');  
         }
     }, [chapterId, navigate]);
 
@@ -44,19 +42,17 @@ const SubLesson = () => {
     const handleLessonClick = (subLessonId) => {
         navigate(`/subContent/${subLessonId}?chapterId=${chapterId}`);
     };
-
+// check again the code
     const handleTitleClick = () => {
-        navigate('/lesson');  // Navigate back to the lessons page
+        navigate('/dashboard');  
     };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
-    // Ensure chapter is defined before accessing its properties
     const chapterTitle = chapter ? chapter.title : '';
     const chapterDescription = chapter ? chapter.description : '';
 
-    // Filter subLessons to only include those with the same chapter ID
     const filteredSubLessons = subLessons.filter(subLesson => subLesson.chapter === parseInt(chapterId));
 
     return (
@@ -68,10 +64,10 @@ const SubLesson = () => {
                         <img 
                             src={titleImg} 
                             alt="Title Background" 
-                            className="title-image" 
-                            onClick={handleTitleClick}  // Add onClick handler to title image
+                            className="subtitle-image" 
+                            onClick={handleTitleClick}  
                         />
-                        <div className="overlay-text">
+                        <div className="subLessonoverlay-text">
                             <h1>{chapterTitle}</h1>
                             <p>{chapterDescription}</p>
                         </div>
