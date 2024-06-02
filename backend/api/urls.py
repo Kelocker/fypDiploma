@@ -5,6 +5,6 @@ urlpatterns = [
 
     path('', home),
     path('api/', include('exercises.urls')),
-    path('api/', include('challenges.urls'))
+    path('api/challenges/', challenge_list),
 
 ]

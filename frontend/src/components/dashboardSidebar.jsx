@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Preference from './preference'
 import '../css/dashboard/dashboardSidebar.css'
+import Challenge from './rankComponents/Challenge'
 
 const DashboardSidebar = () => {
 
@@ -118,6 +119,7 @@ const DashboardSidebar = () => {
     <div className="dashboard-content-render">
 
       {activeContent === "Preference" && < Preference />}
+      {activeContent === "Rank" && < Challenge />}
 
     </div>
     </div>

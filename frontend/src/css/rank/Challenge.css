@@ -1,0 +1,64 @@
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  font-size: 1.5rem; /* Adjust the font size for smaller arrows */
+  width: 30px; /* Adjust the width */
+  height: 30px; /* Adjust the height */
+}
+
+.swiper-button-prev {
+  left: -40px; /* Move the left arrow outside the container */
+}
+
+.swiper-button-next {
+  right: -40px; /* Move the right arrow outside the container */
+}
+
+.swiper_container {
+  margin-top: 10px;
+  width: 95%;
+  height: 500px; /* Increase height to fit content */
+  position: relative;
+  overflow: hidden;
+}
+
+.slider-controler {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Board-wrapper {
+  max-width: 300px;
+  width: 100%;
+}
+
+.Challenge-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.Other-challenge {
+    margin-left: 20px;
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping of items */
+    justify-content: center;
+    align-items: center;
+    width: 98%;
+    height: 80%;
+    margin-top: 20px; /* Add some spacing between Swiper and other challenges */
+    overflow:auto;
+    gap:50px;
+}

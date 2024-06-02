@@ -50,10 +50,10 @@ def exercise_list(request):
     } for exercise in exercises]
     return JsonResponse(exercise_list, safe=False)
 
-def challenge_list():
+def challenge_list(request):
     challenges = Challenge.objects.all()
-
     challenge_list = [{
+        'id': challenge.id,
         'title': challenge.title,  
         'description': challenge.description,
         'question': challenge.question,
