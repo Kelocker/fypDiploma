@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Exercise, Submission
-
+from rest_framework import serializers
+from .models import Chapter, Lesson, Topic, Example
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -43,11 +44,6 @@ class UserSerializer(serializers.ModelSerializer):
         return instance
     
 
-   
-# serializers.py
-from rest_framework import serializers
-from .models import Chapter, Lesson, Topic, Example
-
 class ChapterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chapter
@@ -73,4 +69,7 @@ class SubmissionSerializer(serializers.ModelSerializer):
         model = Submission
         fields = '__all__'
     
-
+class ExampleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Example
+        fields = '__all__'
