@@ -40,7 +40,7 @@ const ExerciseDetail = () => {
             </div>
             <div className='exercise-detail-right'>
                 <h1>{exercise.title}</h1>
-                <p>{exercise.description}</p>
+                <pre>{exercise.question}</pre>
             </div>
         </div>
     );
