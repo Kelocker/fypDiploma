@@ -27,6 +27,7 @@ import Lesson from './components/lesson.jsx';
 import SubLesson from './components/sublesson.jsx';
 import SubContent from './components/subContent.jsx';
 import ExerciseDetail from './components/ExerciseDetail.jsx';
+import PasswordResetConfirmScreen from './screens/PasswordResetConfirm.jsx';
 
 
 
@@ -69,6 +70,7 @@ const router = createBrowserRouter(
 
       {/* Add new route below */}
       <Route path="/exercise-detail/:id" element={<ExerciseDetail />} />
+      <Route path="/reset-password/:uidb64/:token" element={<PasswordResetConfirmScreen />} />
 
       
     </Route>
