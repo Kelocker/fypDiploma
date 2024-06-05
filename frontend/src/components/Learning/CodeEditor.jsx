@@ -10,12 +10,12 @@ const CodeEditor = ({ initialCode, isExecutable }) => {
   const [value, setValue] = useState('');
   const [output, setOutput] = useState('');
   const containerRef = useRef();
-  const [editorHeight, setEditorHeight] = useState('30vh'); // Default height
+  const [editorHeight, setEditorHeight] = useState('30vh'); 
 
   useEffect(() => {
     setValue(initialCode);
     const lineCount = (initialCode.match(/\n/g) || []).length + 1;
-    const newHeight = Math.min(Math.max(lineCount * 20, 100), 500); // Adjust min and max height as needed
+    const newHeight = Math.min(Math.max(lineCount * 20, 100), 500); 
     setEditorHeight(`${newHeight}px`);
   }, [initialCode]);
 

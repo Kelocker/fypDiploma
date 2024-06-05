@@ -28,9 +28,9 @@ class Topic(models.Model):
 
 
 class Example(models.Model):
-    description = models.TextField(null=True, blank=True)  # New optional field for description
+    description = models.TextField(null=True, blank=True)  
     code = models.TextField()
-    is_executable = models.BooleanField(default=False)  # New field to indicate if the code can be run
+    is_executable = models.BooleanField(default=False)  
     topic = models.ForeignKey(Topic, related_name='examples', on_delete=models.CASCADE)
 
     

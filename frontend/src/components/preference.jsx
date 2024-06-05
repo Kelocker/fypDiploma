@@ -10,8 +10,8 @@ const Preference = () => {
         <div>
           <UserProfile/>
         </div>
-        This is preference
-        <a href="/logout">logout</a>
+        
+        <a href="/logout" className="logout-button">logout</a>
     </div>
   )
 }

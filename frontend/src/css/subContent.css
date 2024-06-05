@@ -42,7 +42,7 @@ pre {
     width: 100%; 
     white-space: pre-wrap; 
     word-wrap: break-word; 
-    font-family: Consolas, "Courier New", Courier, monospace; 
+    font-family: sans-serif; 
     font-size: 16px; 
     line-height: 1.5; 
 }

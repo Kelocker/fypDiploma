@@ -1,8 +1,8 @@
 .userSetting{
     color: #022626;
-
+    padding-left: 50px;
+    padding-top: 20px;
 }
-
 
 .avatar-container {
     position: relative;
@@ -74,11 +74,12 @@ input[type="password"] {
     box-sizing: border-box;
 } */
 
-/* .table{
+.table{
     padding: 5px;
     table-layout: fixed;
     border-collapse: collapse;
     width: 100%;
+
 }
 
 .th, td {
@@ -88,4 +89,51 @@ input[type="password"] {
     border-bottom: 2px solid #ddd;
     width: 50%;
     gap: 20%;
-}   */
+}   
+
+.edit-button {
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 10px 20px; /* Some padding */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition */
+  }
+  
+  .edit-button.edit {
+    background-color: #007bff; /* Blue background for Edit */
+  }
+  
+  .edit-button.cancel {
+    background-color: #dc3545; /* Red background for Cancel */
+  }
+  
+  .edit-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  .edit-button.cancel:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+  
+
+  .logout-button {
+    display: inline-block;
+    background-color: #260516; /* Red background */
+    color: white; /* White text */
+    border: none; /* No border */
+    margin-left: 50px;
+    padding: 10px 20px; /* Some padding */
+    font-size: 16px; /* Font size */
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition */
+    text-align: center; /* Center text */
+  }
+  
+  .logout-button:hover {
+    background-color: #851540; /* Darker red on hover */
+  }
+  

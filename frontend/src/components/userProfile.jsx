@@ -62,9 +62,7 @@ const UserProfile = () => {
     if (token) {
       try {
         const response = await api.put('/api/user/', {
-          // username: userData.username,
           email: userData.email,
-          // password: userData.password
         }, { // Ensure the endpoint is correct
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -89,10 +87,10 @@ const UserProfile = () => {
     <div className="userSetting">
       <h1>Settings</h1>
       <div className="User">
-        <div className="avatar-container">
+        {/* <div className="avatar-container">
           <img src="{userAvatarUrl}" className='avatar-container'/>
           <div className="camera-icon"></div>
-        </div>
+        </div> */}
         <div className='Profileusername'>
           Username: {userData.username}
         </div>
@@ -121,30 +119,27 @@ const UserProfile = () => {
                 )}
               </td>
               <td>
-                <button type="button" onClick={() => handleEditClick('email')}>
-                  {editState.email ? 'Cancel' : 'Edit'}
+                <button type="button" className={`edit-button ${editState.email ? 'cancel' : 'edit'}`} 
+                    onClick={() => handleEditClick('email')}
+                  >
+                    {editState.email ? 'Cancel' : 'Edit'}
                 </button>
               </td>
             </tr>
             <tr>
               <td>Password</td>
               <td>
-                {editState.password ? (
-                  <input
-                    type="password"
-                    name="password"
-                    value={userData.password || ''}
-                    onChange={handleChange}
-                  />
-                ) : (
-                  '******'
-                )}
+                <a href="/change-password">
+                  Change Password?
+                </a>
               </td>
-              <td>
+              {/* <td>
                 <button type="button" onClick={() => handleEditClick('password')}>
                   {editState.password ? 'Cancel' : 'Edit'}
                 </button>
-              </td>
+              </td> */}
+              <td></td>
+
             </tr>
           </tbody>
         </table>

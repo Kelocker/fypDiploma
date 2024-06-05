@@ -39,7 +39,7 @@
 
 .islandDesc {
     opacity: 0;
-    width: 15%; 
+    width: 20%; 
     position: absolute;
     bottom: 100%; 
     background-color: #fff; 
@@ -65,10 +65,5 @@
     display: block; 
 }
 
-/* .lessonImageComposition {
-    display: flex;
-    flex-direction: column;
-    max-height: auto;
-    width: auto;
-} */
+
 
