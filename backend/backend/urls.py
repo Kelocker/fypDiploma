@@ -16,10 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.views import CreatreUserView, ChapterViewSet, LessonViewSet, TopicViewSet, ExampleViewSet, execute_code
+from api.views import CreatreUserView, ChapterViewSet, LessonViewSet, TopicViewSet, ExampleViewSet, execute_code, ForgetPasswordView, PasswordResetConfirmView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from api.views import exercise_list
-from dj_rest_auth.views import PasswordResetView, PasswordResetConfirmView
+# from dj_rest_auth.views import PasswordResetView, PasswordResetConfirmView
 from api.views import UpdateUserView
 
 
@@ -30,8 +30,8 @@ urlpatterns = [
     path("api/token/refresh/", TokenRefreshView.as_view(), name="refresh_token"),
     path("api-auth/", include("rest_framework.urls")),
     path('api/exercises/', exercise_list, name='exercise-list'),
-    path('users/reset_password/', PasswordResetView.as_view(), name='rest_password_reset'),
-    path('users/reset_password_confirm/', PasswordResetConfirmView.as_view(), name='rest_password_reset_confirm'),
+    # path('users/reset_password/', PasswordResetView.as_view(), name='rest_password_reset'),
+    # path('users/reset_password_confirm/', PasswordResetConfirmView.as_view(), name='rest_password_reset_confirm'),
     path('api/chapters/', ChapterViewSet.as_view({'get': 'list'}), name='chapter-list'),
     path('api/chapters/<int:chapterId>/', ChapterViewSet.as_view({'get': 'retrieve'}), name='chapter-detail'),
     path('api/sublesson/', LessonViewSet.as_view()),
@@ -42,5 +42,7 @@ urlpatterns = [
     path('api/examples/<int:pk>/', ExampleViewSet.as_view()),
     path('api/execute_code/<str:test_type>/<int:test_id>/', execute_code, name='execute_code'),
     path('api/user/', UpdateUserView.as_view(), name='user-update'),
+    path('api/forget-password/', ForgetPasswordView.as_view(), name='forget-password'),
+    path('api/reset-password/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
 
 ]

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Exercise, Submission
-
+from rest_framework import serializers
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -43,9 +43,22 @@ class UserSerializer(serializers.ModelSerializer):
         return instance
     
 
-   
-# serializers.py
+
+class PasswordResetRequestSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
 from rest_framework import serializers
+
+class SetNewPasswordSerializer(serializers.Serializer):
+    password = serializers.CharField(write_only=True, min_length=8, required=True)
+
+    def validate_password(self, value):
+        # You can add more password validation here if needed
+        return value
+
+
+
+# serializers.py
 from .models import Chapter, Lesson, Topic, Example
 
 class ChapterSerializer(serializers.ModelSerializer):
@@ -72,5 +85,8 @@ class SubmissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Submission
         fields = '__all__'
-    
 
+class ExampleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Example
+        fields = '__all__'

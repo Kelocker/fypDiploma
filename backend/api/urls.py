@@ -8,5 +8,5 @@ from django.urls import path, include
 urlpatterns = [
 
     path('', home),
-    path('api/', include('exercises.urls'))
+    path('api/', include('exercises.urls')),
 ]
