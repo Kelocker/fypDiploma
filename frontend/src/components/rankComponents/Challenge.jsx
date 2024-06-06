@@ -234,10 +234,9 @@ const Challenge = () => {
         const today = new Date();
         const endDate = new Date(challenge.end_time);
         console.log("Debug: Selecting challenge", challenge.id, "Attempted:", challenge.has_attempted, "End date:", endDate);
-
+    
         if (endDate > today && challenge.has_attempted) {
             window.location.href = `/rank-countdown/${challenge.id}`;
-            // alert("You have attemp");
         } else if (endDate > today) {
             window.location.href = `/challenge-detail/${challenge.id}`;
         } else {

@@ -74,7 +74,7 @@ const router = createBrowserRouter(
 
       <Route path="/challenge-detail/:id" element={<ChallengeDetails />} />
       <Route path="/rank-results/:id" element={<RankResults />} />
-      <Route path="/rank-countdown/:id" component={RankCountdown} />
+      <Route path="/rank-countdown/:id" component={<RankCountdown />} />
 
       
     </Route>
