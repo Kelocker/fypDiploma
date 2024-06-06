@@ -6,7 +6,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import api from '../api';
+// import api from '../api';
 import { ACCESS_TOKEN } from '../../constants';
 
 // const Challenge = () => {
