@@ -167,14 +167,18 @@ const UserProfile = () => {
             <tr>
               <td>Email</td>
               <td>
+
                 {editState.email ? (
-                  <input
-                    type="email"
-                    name="email"
-                    value={userData.email || ''}
-                    onChange={handleChange}
-                    autoComplete="email"
-                  />
+                  <div className="userProfile">
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="New Password"
+                      value={newPassword}
+                      onChange={handlePasswordChange}
+                      autoComplete="new-password"
+                    />
+                  </div>
                 ) : (
                   userData.email
                 )}
@@ -203,16 +207,20 @@ const UserProfile = () => {
               <td>Password</td>
               <td>
                 {editState.password ? (
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="New Password"
-                    value={newPassword}
-                    onChange={handlePasswordChange}
-                    autoComplete="new-password"
-                  />
+                  <div className="userProfile">
+
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="New Password"
+                      value={newPassword}
+                      onChange={handlePasswordChange}
+                      autoComplete="new-password"
+                    />
+                  </div>
                 ) : (
                   <div>Change Password?</div>
+              
                 )}
               </td>
               <td>
