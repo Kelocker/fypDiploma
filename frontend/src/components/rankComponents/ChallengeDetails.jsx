@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Compiler from '../Compiler';
+import Compiler from '../compiler';
 import DashboardNavbar from '../dashboardNavbar';
 // import '../css/ExerciseDetail.css';
 
