@@ -27,6 +27,9 @@ import Learning from './screens/learning.jsx';
 import Lesson from './screens/lesson.jsx';
 import SubLesson from './components/sublesson.jsx';
 import Compiler from './components/compiler/compiler.jsx';
+import ChallengeDetails from './components/rankComponents/ChallengeDetails.jsx';
+import RankResults from './components/rankComponents/rankResults.jsx';
+import RankCountdown from './components/rankComponents/RankCountdown.jsx';
 
 
 function Logout() {
@@ -69,6 +72,9 @@ const router = createBrowserRouter(
       {/* Add new route below */}
       <Route path="/compiler" element={<Compiler />} />
 
+      <Route path="/challenge-detail/:id" element={<ChallengeDetails />} />
+      <Route path="/rank-results/:id" element={<RankResults />} />
+      <Route path="/rank-countdown/:id" component={RankCountdown} />
 
       
     </Route>

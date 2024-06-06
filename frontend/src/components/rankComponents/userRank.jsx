@@ -1,7 +1,8 @@
 import React from 'react'
 import '../../css/rank/rankResults.css'
 
-const UserRank = () => {
+const UserRank = ({ result }) => {
+
   return (
     // username, timing
 
@@ -13,22 +14,21 @@ const UserRank = () => {
 
             <div className="User-Rank">
 
-                {/* {userRank} */}
-                1
+                {result.rank}
 
             </div>
 
             <div className="User-Name">
 
                 {/* {username} */}
-                Coolest User
+                {result.user}
 
             </div>
 
             <div className="User-Time">
 
                 {/* {timing} */}
-                12.09.80
+                {/* 12.09.80 */}
 
             </div>
 
