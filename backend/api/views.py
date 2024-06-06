@@ -13,7 +13,7 @@ from .models import Exercise, Challenge
 from django.db.models import Case, When, Value, IntegerField
 from rest_framework.views import APIView
 from .models import Chapter, Lesson, Topic, Example
-from .serializers import ChapterSerializer, LessonSerializer, TopicSerializer, ExampleSerializer
+from .serializers import ChapterSerializer, LessonSerializer, TopicSerializer, ExampleSerializer, PasswordResetRequestSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
@@ -22,6 +22,14 @@ from rest_framework.decorators import api_view, permission_classes
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
+from django.conf import settings
+from django.core.mail import send_mail, BadHeaderError
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from datetime import datetime
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_decode
 from django.utils.http import urlsafe_base64_decode
 import logging
 from django.utils.http import urlsafe_base64_decode
@@ -40,13 +48,131 @@ from rest_framework.permissions import AllowAny
 
 
 
+
 class CreatreUserView(generics.CreateAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
+
+
+
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from datetime import datetime
+
+class OneDayPasswordResetTokenGenerator(PasswordResetTokenGenerator):
+    def _make_hash_value(self, user, timestamp):
+        login_timestamp = '' if user.last_login is None else user.last_login.replace(microsecond=0, tzinfo=None)
+        return (
+            str(user.pk) + user.password +
+            str(login_timestamp) +
+            str(timestamp) +
+            str(datetime.now().day)
+        )
+
+token_generator = OneDayPasswordResetTokenGenerator()
+
+
+
+
+
+
+
    
-    
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.core.mail import send_mail, BadHeaderError
+from django.conf import settings
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
+from rest_framework.generics import GenericAPIView
+from django.contrib.auth.models import User
+from .serializers import PasswordResetRequestSerializer
+from .models import UsedToken
+from .tokens import token_generator
+import logging
+from datetime import datetime
+
+logger = logging.getLogger('myapp')
+
+class ForgetPasswordView(GenericAPIView):
+    serializer_class = PasswordResetRequestSerializer
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            email = serializer.validated_data['email']
+            try:
+                user_email = User.objects.get(email=email)
+                user_name = user_email.username
+                uid = urlsafe_base64_encode(force_bytes(user_email.pk))
+                token = token_generator.make_token(user_email)
+
+                # Store the token in UsedToken model
+                UsedToken.objects.create(user=user_email, token=token)
+
+                password_reset_url = settings.PASSWORD_RESET_CONFIRM_URL.format(uid=uid, token=token)
+                mail_subject = 'Reset your password'
+                message = f'''Please click on the link to reset your password: {password_reset_url}, 
+                In case you forgot your username, it is {user_name}. 
+                If you did not request for password reset, please ignore this email.'''
+                try:
+                    send_mail(mail_subject, message, settings.EMAIL_HOST_USER, [user_email.email])
+                    return Response({'message': 'Password reset email has been sent.'}, status=status.HTTP_200_OK)
+                except BadHeaderError:
+                    return Response({'error': 'Invalid header found.'}, status=status.HTTP_400_BAD_REQUEST)
+                except Exception as e:
+                    return Response({'error': 'Failed to send reset email. Please try again later.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            except User.DoesNotExist:
+                return Response({'error': 'Email not registered'}, status=status.HTTP_404_NOT_FOUND)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PasswordResetConfirmView(generics.GenericAPIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, uidb64, token):
+        logger.debug("Password reset request received.")
+        logger.debug(f"uidb64: {uidb64}, token: {token}")
+
+        try:
+            uid = urlsafe_base64_decode(uidb64).decode()
+            logger.debug(f"Decoded UID: {uid}")
+            user = User.objects.get(pk=uid)
+            logger.debug(f"User found: {user}")
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist) as e:
+            logger.error(f"Error decoding UID or fetching user: {e}")
+            user = None
+
+        if user is not None and token_generator.check_token(user, token):
+            # Check if the token has been used
+            if UsedToken.objects.filter(user=user, token=token).exists():
+                password = request.data.get('password')
+                logger.debug(f"Password provided: {password}")
+                if password:
+                    user.set_password(password)
+                    user.save()
+                    logger.debug("Password has been reset successfully.")
+                    # Delete the used token
+                    UsedToken.objects.filter(user=user, token=token).delete()
+                    return Response({'message': 'Password has been reset.'}, status=status.HTTP_200_OK)
+                else:
+                    logger.error("Password not provided or invalid")
+                    return Response({'error': 'Password reset unsuccessful'}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                logger.error("Token has already been used")
+                return Response({'error': 'Token has already been used'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            logger.error("Invalid token or user not found")
+            return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+
 class UpdateUserView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer

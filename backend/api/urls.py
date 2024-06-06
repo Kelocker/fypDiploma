@@ -10,5 +10,4 @@ urlpatterns = [
     path('api/', include('exercises.urls')),
     path('api/challenges/', challenge_list),
 
-
 ]

@@ -13,7 +13,7 @@ const ForgetPasswordScreen = () => {
 
         <div className="forget-password-screen">
           <PasswordResetRequestForm />
-          <ResetPasswordConfirmForm />
+          {/* <ResetPasswordConfirmForm /> */}
           
 
         </div>
