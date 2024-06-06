@@ -46,12 +46,11 @@
 
 .sub-text {
   position: absolute;
-  top: 70%;
-  left: 51%;
+  top: 63%;
+  left: 52%;
   width: 45%; 
   color: #4a3000; 
   font-size: 1vw; 
-  text-align: center;
   cursor: pointer;
   transform: translate(-50%, -50%);
   pointer-events: none;

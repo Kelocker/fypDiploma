@@ -138,14 +138,22 @@
     cursor: pointer;
 }
 
-.ComponentSection{
+.ComponentSection {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: #F2F9FF;
-    row-gap: 20px;
-}
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center align the content horizontally */
+    width: 100%;
+  }
+  
+  .ComponentSection > div {
+    width: 100%;
+    min-height: 100vh; /* Ensure each section takes up at least the full viewport height */
+    padding: 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+  }
 
 .normal-bar button{
     height: 100%;

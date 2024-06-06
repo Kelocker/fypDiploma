@@ -3,6 +3,7 @@ import Preference from './preference'
 import '../css/dashboard/dashboardSidebar.css'
 import Lesson from '../components/lesson.jsx'
 import api from '../api';
+import Challenge from './rankComponents/Challenge'
 
 const DashboardSidebar = () => {
 
@@ -120,6 +121,7 @@ const DashboardSidebar = () => {
       {activeContent === "Lesson" && < Lesson />}
 
       {activeContent === "Preference" && < Preference />}
+      {activeContent === "Rank" && < Challenge />}
 
     </div>
     </div>

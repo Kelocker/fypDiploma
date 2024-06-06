@@ -33,9 +33,9 @@ class Topic(models.Model):
 
 
 class Example(models.Model):
-    description = models.TextField(null=True, blank=True)  # New optional field for description
+    description = models.TextField(null=True, blank=True)  
     code = models.TextField()
-    is_executable = models.BooleanField(default=False)  # New field to indicate if the code can be run
+    is_executable = models.BooleanField(default=False)  
     topic = models.ForeignKey(Topic, related_name='examples', on_delete=models.CASCADE)
 
     
@@ -61,7 +61,9 @@ class Submission(models.Model):
 
 # Challenge section
 class Challenge(models.Model):
+    title = models.CharField(max_length=200)
     description = models.TextField()
+    question = models.TextField()
     test_script = models.TextField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
