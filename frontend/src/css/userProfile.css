@@ -4,35 +4,7 @@
     padding-top: 20px;
 }
 
-.avatar-container {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid black;
-}
-.avatar-container img {
-    width: 100%;
-    height: auto;
-    border-radius: 50%;
-}
-.avatar-container:hover .camera-icon {
-    display: block;
-}
-.camera-icon {
-    height: 100px;
-    width: 100px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: none;
-    /* Replace the content URL with the path to your camera icon image */
-    content: url('../assets/img/camLogo.png');
-}
 
-/* change again */
 .User{
     display: flex;
     flex-direction: row;
@@ -59,10 +31,9 @@
     margin-top: 10px;
     margin-bottom: 20px;
     width: auto;
-    
+    padding-top: 20px;   
 }
 
-/* input[type="text"],
 input[type="email"],
 input[type="password"] {
     width: calc(100% - 100px);
@@ -72,7 +43,7 @@ input[type="password"] {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-} */
+}
 
 .table{
     padding: 5px;
@@ -81,6 +52,9 @@ input[type="password"] {
     width: 100%;
 
 }
+
+
+
 
 .th, td {
     box-sizing: border-box;
@@ -92,22 +66,27 @@ input[type="password"] {
 }   
 
 .edit-button {
-    background-color: #007bff; /* Blue background */
-    color: white; /* White text */
-    border: none; /* No border */
-    padding: 10px 20px; /* Some padding */
-    font-size: 16px; /* Font size */
-    cursor: pointer; /* Pointer cursor on hover */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s ease; /* Smooth transition */
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    border-radius: 5px; 
+    transition: background-color 0.3s ease; 
+    width: 100px; 
+    text-align: center; 
+    margin: 5px; 
   }
+
+  
   
   .edit-button.edit {
-    background-color: #007bff; /* Blue background for Edit */
+    background-color: #3ABFE8; /* Blue background for Edit */
   }
   
   .edit-button.cancel {
-    background-color: #dc3545; /* Red background for Cancel */
+    background-color: #E34B73; /* Red background for Cancel */
   }
   
   .edit-button:hover {
@@ -116,6 +95,14 @@ input[type="password"] {
   
   .edit-button.cancel:hover {
     background-color: #c82333; /* Darker red on hover */
+  }
+
+  .edit-button.save {
+    background-color: #68CCF5; /* Green background for Save */
+  }
+
+  .edit-button.save:hover {
+    background-color: #0A7987; /* Darker green on hover */
   }
   
 
@@ -137,3 +124,12 @@ input[type="password"] {
     background-color: #851540; /* Darker red on hover */
   }
   
+
+  .userButton-container {
+    display: flex; /* Use flexbox for button layout */
+    flex-direction: column; /* Stack buttons vertically */
+  }
+
+  .error{
+    margin: 15px;
+  }

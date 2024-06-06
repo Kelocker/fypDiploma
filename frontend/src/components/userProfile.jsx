@@ -15,6 +15,10 @@ const UserProfile = () => {
     password: false
   });
 
+  const [newPassword, setNewPassword] = useState('');
+  const [error, setError] = useState({ email: '', password: '' });
+  const [originalEmail, setOriginalEmail] = useState('');
+
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem(ACCESS_TOKEN); 
@@ -29,6 +33,7 @@ const UserProfile = () => {
           });
           console.log('Fetched user data:', response.data);
           setUserData(response.data);
+          setOriginalEmail(response.data.email);
         } catch (error) {
           console.error("There was an error fetching the user data!", error);
         }
@@ -49,32 +54,90 @@ const UserProfile = () => {
   };
 
   const handleEditClick = (field) => {
-    setEditState(prevState => ({
-      ...prevState,
-      [field]: !prevState[field]
-    }));
+    setEditState(prevState => {
+      const newState = { ...prevState, [field]: !prevState[field] };
+      if (!newState.email) {
+        setUserData(prevData => ({
+          ...prevData,
+          email: originalEmail
+        }));
+      }
+      return newState;
+    });
+    setError({ email: '', password: '' }); 
   };
 
-  const handleSubmit = async (event) => {
+  const handlePasswordChange = (event) => {
+    setNewPassword(event.target.value);
+  };
+
+  const validateInputs = (field) => {
+    const newErrors = { email: '', password: '' };
+    if (field === 'email') {
+      if (!userData.email) {
+        newErrors.email = 'Email is required';
+      } else if (
+        !/\S+@\S+\.\S+/.test(userData.email) || 
+        !(
+          userData.email.endsWith('@gmail.com') || 
+          userData.email.endsWith('@yahoo.com') || 
+          userData.email.endsWith('@hotmail.com') || 
+          userData.email.endsWith('@icloud.com')
+        )
+      ) {
+        newErrors.email = 'Please enter a valid email address.';
+      }
+    }
+    if (field === 'password') {
+      if (!newPassword) {
+        newErrors.password = 'Password is required';
+      } else if (newPassword.length < 8) {
+        newErrors.password = 'Password must be at least 8 characters.';
+      } else if (/['";]+/.test(newPassword)) {
+        newErrors.password = `Password cannot contain ' " and ;.`;
+      }
+    }
+    return newErrors;
+  };
+
+  const handleSubmit = async (event, field) => {
     event.preventDefault();
     const token = localStorage.getItem(ACCESS_TOKEN); 
 
+    const newErrors = validateInputs(field);
+    if (newErrors.email || newErrors.password) {
+      setError(newErrors);
+      return;
+    }
+
     if (token) {
       try {
-        const response = await api.put('/api/user/', {
-          email: userData.email,
-        }, { // Ensure the endpoint is correct
+        const updatedData = {};
+        if (field === 'email') {
+          updatedData.email = userData.email;
+        }
+        if (field === 'password') {
+          updatedData.password = newPassword;
+        }
+
+        console.log('Sending updated data:', updatedData); // Log the data being sent
+
+        const response = await api.put('/api/user/', updatedData, { 
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
           }
         });
         console.log('User data updated successfully:', response.data);
-        // Reset edit state after save
         setEditState({
           email: false,
           password: false
         });
+        setNewPassword('');
+        setError({ email: '', password: '' }); // Clear error message on successful update
+        if (field === 'email') {
+          setOriginalEmail(userData.email);
+        }
       } catch (error) {
         console.error("There was an error updating the user data!", error);
       }
@@ -87,15 +150,13 @@ const UserProfile = () => {
     <div className="userSetting">
       <h1>Settings</h1>
       <div className="User">
-        {/* <div className="avatar-container">
-          <img src="{userAvatarUrl}" className='avatar-container'/>
-          <div className="camera-icon"></div>
-        </div> */}
         <div className='Profileusername'>
           Username: {userData.username}
         </div>
       </div>
-      <form onSubmit={handleSubmit} className='userformContainer'>
+      <form className='userformContainer'>
+        {error.email && <div className="error">{error.email}</div>} 
+        {error.password && <div className="error">{error.password}</div>} 
         <table>
           <thead>
             <tr>
@@ -119,33 +180,62 @@ const UserProfile = () => {
                 )}
               </td>
               <td>
-                <button type="button" className={`edit-button ${editState.email ? 'cancel' : 'edit'}`} 
-                    onClick={() => handleEditClick('email')}
-                  >
-                    {editState.email ? 'Cancel' : 'Edit'}
-                </button>
+                <div className="button-container">
+                  <button type="button" className={`edit-button ${editState.email ? 'cancel' : 'edit'}`} 
+                      onClick={() => handleEditClick('email')}
+                    >
+                      {editState.email ? 'Cancel' : 'Edit'}
+                  </button>
+                  {editState.email && userData.email && userData.email !== originalEmail && (
+                    <button 
+                      type="submit" 
+                      className="edit-button save" 
+                      onClick={(e) => handleSubmit(e, 'email')}
+                      disabled={userData.email === originalEmail}
+                    >
+                      Save
+                    </button>
+                  )}
+                </div>
               </td>
             </tr>
             <tr>
               <td>Password</td>
               <td>
-                <a href="/change-password">
-                  Change Password?
-                </a>
+                {editState.password ? (
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="New Password"
+                    value={newPassword}
+                    onChange={handlePasswordChange}
+                    autoComplete="new-password"
+                  />
+                ) : (
+                  <div>Change Password?</div>
+                )}
               </td>
-              {/* <td>
-                <button type="button" onClick={() => handleEditClick('password')}>
-                  {editState.password ? 'Cancel' : 'Edit'}
-                </button>
-              </td> */}
-              <td></td>
-
+              <td>
+                <div className="button-container">
+                  <button type="button" className={`edit-button ${editState.password ? 'cancel' : 'edit'}`} 
+                      onClick={() => handleEditClick('password')}
+                    >
+                      {editState.password ? 'Cancel' : 'Edit'}
+                  </button>
+                  {editState.password && newPassword && (
+                    <button 
+                      type="submit" 
+                      className="edit-button save" 
+                      onClick={(e) => handleSubmit(e, 'password')}
+                    >
+                      Save
+                    </button>
+                  )}
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
-        {editState.email || editState.password ? (
-          <button type="submit">Save</button>
-        ) : null}
       </form>
     </div>
   );
