@@ -21,9 +21,11 @@ from rest_framework.decorators import api_view, permission_classes
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-
-
-
+from django.utils.http import urlsafe_base64_decode
+import logging
+from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Create your views here.
@@ -39,7 +41,7 @@ class CreatreUserView(generics.CreateAPIView):
     #  who can call this
     permission_classes = [AllowAny]
 
-    
+   
     
 class UpdateUserView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
@@ -51,18 +53,30 @@ class UpdateUserView(generics.RetrieveUpdateAPIView):
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
-    def get_object(self):
-        return self.request.user
 
     def put(self, request, *args, **kwargs):
-        user = self.get_object()
-        serializer = self.get_serializer(user, data=request.data, partial=True)
+        user = request.user
+        if not user.is_authenticated:
+            return Response({"detail": "Authentication credentials were not provided."}, status=status.HTTP_401_UNAUTHORIZED)
+        
+        serializer = UserSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         else:
-            print("Validation Errors:", serializer.errors)  # Add this line for debugging
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+    # def put(self, request, *args, **kwargs):
+    #     user = self.get_object()
+    #     serializer = self.get_serializer(user, data=request.data, partial=True)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data)
+    #     else:
+    #         print("Validation Errors:", serializer.errors)  # Add this line for debugging
+    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 def exercise_list(request):
     # Get the difficulty level from the query parameters
