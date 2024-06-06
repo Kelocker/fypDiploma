@@ -4,6 +4,7 @@ import '../css/dashboard/dashboardSidebar.css'
 import Lesson from '../components/lesson.jsx'
 import api from '../api';
 import Challenge from './rankComponents/Challenge'
+import ExerciseSelectionPage from '../screens/ExerciseSelectionPage'
 
 const DashboardSidebar = () => {
 
@@ -119,6 +120,7 @@ const DashboardSidebar = () => {
     </div>
     <div className="dashboard-content-render">
       {activeContent === "Lesson" && < Lesson />}
+      {activeContent == "Excercise" && < ExerciseSelectionPage />}
 
       {activeContent === "Preference" && < Preference />}
       {activeContent === "Rank" && < Challenge />}
