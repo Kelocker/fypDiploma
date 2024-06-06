@@ -171,12 +171,11 @@ const UserProfile = () => {
                 {editState.email ? (
                   <div className="userProfile">
                     <input
-                      type="password"
-                      name="password"
-                      placeholder="New Password"
-                      value={newPassword}
-                      onChange={handlePasswordChange}
-                      autoComplete="new-password"
+                      type="email"
+                      name="email"
+                      value={userData.email || ''}
+                      onChange={handleChange}
+                      autoComplete="email"
                     />
                   </div>
                 ) : (
