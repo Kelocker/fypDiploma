@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Exercise, Submission
+from .models import Exercise, Submission, Chapter, Lesson, Topic, Example
 from rest_framework import serializers
+
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -42,6 +43,7 @@ class UserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
     
+
 
 
 class PasswordResetRequestSerializer(serializers.Serializer):
@@ -90,3 +92,4 @@ class ExampleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Example
         fields = '__all__'
+

@@ -28,6 +28,11 @@ import SubLesson from './components/sublesson.jsx';
 import SubContent from './components/subContent.jsx';
 import ExerciseDetail from './components/ExerciseDetail.jsx';
 import PasswordResetConfirmScreen from './screens/PasswordResetConfirm.jsx';
+import Compiler from './components/compiler/compiler.jsx';
+import ChallengeDetails from './components/rankComponents/ChallengeDetails.jsx';
+import RankResults from './components/rankComponents/rankResults.jsx';
+import RankCountdown from './components/rankComponents/RankCountdown.jsx';
+
 
 
 
@@ -68,9 +73,15 @@ const router = createBrowserRouter(
       <Route path="/sublesson/:chapterId" element={<SubLesson />} />
       <Route path="/subContent/:subLessonId" element={<SubContent />} />
 
+
       {/* Add new route below */}
       <Route path="/exercise-detail/:id" element={<ExerciseDetail />} />
       <Route path="/reset-password/:uidb64/:token" element={<PasswordResetConfirmScreen />} />
+
+      <Route path="/challenge-detail/:id" element={<ChallengeDetails />} />
+      <Route path="/rank-results/:id" element={<RankResults />} />
+      <Route path="/rank-countdown/:id" component={RankCountdown} />
+
 
       
     </Route>
