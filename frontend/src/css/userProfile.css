@@ -34,8 +34,8 @@
     padding-top: 20px;   
 }
 
-/* input[type="email"],
-input[type="password"] {
+.userProfile input[type="email"],
+.userProfile input[type="password"] {
     width: calc(100% - 100px);
     margin-right: 100px;
     padding: 10px;
