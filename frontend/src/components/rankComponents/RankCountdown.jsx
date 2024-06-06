@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useTimer } from 'react-timer-hook';
 import { ACCESS_TOKEN } from '../../constants';
+import DashboardNavbar from '../dashboardNavbar';
+import '../../css/rank/rankCountdown.css';
 
 const RankCountdown = () => {
     const { id } = useParams();
     const [challenge, setChallenge] = useState(null);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchChallenge = async () => {
@@ -42,39 +45,40 @@ const RankCountdown = () => {
     const expiryTimestamp = new Date(challenge.end_time);
 
     return (
-        <div style={{ textAlign: 'center' }}>
-            <h1>Countdown to Challenge End</h1>
-            <MyTimer expiryTimestamp={expiryTimestamp} />
-        </div>
+        <>
+            <DashboardNavbar />
+            <div className="RankCountdown-container">
+                <div style={{ textAlign: 'center' }}>
+                    <h1>Countdown to Challenge End</h1>
+                    <MyTimer expiryTimestamp={expiryTimestamp} challengeId={challenge.id} />
+                </div>
+            </div>
+        </>
     );
 };
 
-function MyTimer({ expiryTimestamp }) {
+function MyTimer({ expiryTimestamp, challengeId }) {
+    const navigate = useNavigate();
     const {
         seconds,
         minutes,
         hours,
         days,
         isRunning,
-        start,
-        pause,
-        resume,
-        restart,
-    } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
+    } = useTimer({
+        expiryTimestamp,
+        onExpire: () => {
+            console.warn('Timer expired');
+            navigate(`/rank-results/${challengeId}`);
+        }
+    });
 
     return (
         <div style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '100px' }}>
                 <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
             </div>
-            <p>{isRunning ? 'Running' : 'Not running'}</p>
-            <button onClick={start}>Start</button>
-            <button onClick={pause}>Pause</button>
-            <button onClick={resume}>Resume</button>
-            <button onClick={() => {
-                // Restarts to the initial expiry timestamp
-                restart(expiryTimestamp)
-            }}>Restart</button>
+            <p>{isRunning ? 'You have no attempt left.' : 'Not running'}</p>
         </div>
     );
 }
