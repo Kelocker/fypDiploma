@@ -28,7 +28,6 @@ import SubLesson from './components/sublesson.jsx';
 import SubContent from './components/subContent.jsx';
 import ExerciseDetail from './components/ExerciseDetail.jsx';
 import PasswordResetConfirmScreen from './screens/PasswordResetConfirm.jsx';
-import Compiler from './components/compiler/compiler.jsx';
 import ChallengeDetails from './components/rankComponents/ChallengeDetails.jsx';
 import RankResults from './components/rankComponents/rankResults.jsx';
 import RankCountdown from './components/rankComponents/RankCountdown.jsx';

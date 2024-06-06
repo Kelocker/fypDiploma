@@ -22,7 +22,7 @@ from api.views import exercise_list
 # from dj_rest_auth.views import PasswordResetView, PasswordResetConfirmView
 from api.views import CreatreUserView, exercise_list, challenge_list, challenge_results, user_challenge_attempt_checker, get_user_details, get_challenge, ChapterViewSet, LessonViewSet, TopicViewSet, ExampleViewSet, execute_code
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from dj_rest_auth.views import PasswordResetView, PasswordResetConfirmView
+# from dj_rest_auth.views import PasswordResetView, PasswordResetConfirmView
 from api.views import UpdateUserView
 
 

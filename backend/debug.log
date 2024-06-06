@@ -1,0 +1,17 @@
+Bad Request: /api/reset-password/MTQ/c888yq-1060d5177e72f81620a1e7244d446450/
+C:\Users\theke\.vscode\fypDiploma\backend\api\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\theke\.vscode\fypDiploma\backend\backend\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Password reset request received.
+uidb64: MTQ, token: c888yq-1060d5177e72f81620a1e7244d446450
+Decoded UID: 14
+User found: dingderxin-
+Invalid token or user not found
+Bad Request: /api/reset-password/MTQ/c888yq-1060d5177e72f81620a1e7244d446450/
+Password reset request received.
+uidb64: MTQ, token: c889jl-d54fcc5b873b6ea7a82cf1a8d7fc112b
+Decoded UID: 14
+User found: dingderxin-
+Password provided: 987654321
+Password has been reset successfully.
