@@ -160,3 +160,13 @@
     cursor: pointer;
     transform: translateY(-5px); /* Add this line */
 }
+
+.most-popular{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.invisible-font{
+    color:transparent;
+}
