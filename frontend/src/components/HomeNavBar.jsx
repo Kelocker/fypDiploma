@@ -6,6 +6,7 @@ import HomePage from './homepage'
 import AboutPage from './aboutpage'
 import GalleryPage from './gallerypage'
 import PaymentPage from './paymentpage'
+import Price from '../components/Price'
 
 
 const HomeNavBar = () => {
@@ -124,7 +125,8 @@ const HomeNavBar = () => {
         {/* More sections as needed */}
                 <div ref={galleryRef}><GalleryPage /></div>
 
-                <div ref={priceRef}><PaymentPage /></div>
+                {/* <div ref={priceRef}><PaymentPage /></div> */}
+                <div ref={priceRef}><Price /></div>
                 
 
       </div>
