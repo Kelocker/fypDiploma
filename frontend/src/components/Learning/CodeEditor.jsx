@@ -78,7 +78,7 @@ const CodeEditor = ({ initialCode, isExecutable }) => {
           )}
           {output && (
             <Box className="output-container">
-              <Text fontSize="lg">Output:</Text>
+              <Text className='output' fontSize="lg">Output:</Text>
               <pre>{output}</pre>
             </Box>
           )}
