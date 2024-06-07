@@ -2,11 +2,10 @@ import React, { useEffect, useRef }  from 'react'
 import '../css/homeNavbar.css'
 import LoginSignup from './loginSignup'
 import About from '../components/About'
-import HomePage from './homepage'
-import AboutPage from './aboutpage'
+// import HomePage from './homepage'
 import GalleryPage from './gallerypage'
-import PaymentPage from './paymentpage'
 import Price from '../components/Price'
+import Home from './Home'
 
 
 const HomeNavBar = () => {
@@ -119,13 +118,12 @@ const HomeNavBar = () => {
       <div className="ComponentSection">
 
         {/* Section components */}
-                <div ref={homeRef}><HomePage /></div>
-                <div ref={aboutRef}><AboutPage /></div>
+                <div ref={homeRef}><Home /></div>
+                <div ref={aboutRef}><About /></div>
             
         {/* More sections as needed */}
                 <div ref={galleryRef}><GalleryPage /></div>
 
-                {/* <div ref={priceRef}><PaymentPage /></div> */}
                 <div ref={priceRef}><Price /></div>
                 
 

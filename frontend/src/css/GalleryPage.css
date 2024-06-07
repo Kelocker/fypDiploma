@@ -49,8 +49,10 @@
     width: 30vw; /* Width of image is 50% of the viewport width */
 }
 
+
 .section h2, .section p {
     transition: visibility 0.3s ease;
+
 }
 
 .section:hover h2, .section:hover p {
