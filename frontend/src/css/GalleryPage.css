@@ -2,7 +2,6 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: url('../assets/img/homepage.jpg') no-repeat center center fixed;
     background-size: cover;
     color: var(--neutral-900);
 }
@@ -57,3 +56,4 @@ body {
     margin-bottom: 0; /* Consistent space below the paragraph */
     line-height: 1.5; /* Improved line height for better text spacing */
 }
+
