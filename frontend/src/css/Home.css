@@ -1,0 +1,128 @@
+.Home-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    font-family: 'montserrat', 'open-sans';
+}
+
+.Home-title{
+    
+    color: #022626;
+    width:60%;
+    height:100%;
+    /* background-color: bisque; */
+    display: flex;
+    flex-direction: column; 
+}
+
+.Home-Welcome{
+    width:500px;
+    font-size: 55px;
+    font-weight: 500;
+    margin-top:70px;
+    margin-left:50px;
+    text-align: justify;
+    
+}
+
+.Home-Python{
+    color:#97D9FC;
+    
+}
+
+
+.Home-Subtitle{
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+    justify-content: left;
+    font-size: 18px;
+    font-weight: 400;
+    margin-left:50px;
+    margin-top: 25px;
+    
+}
+
+
+.tiny5-regular {
+    font-family: "Tiny5", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.Home-Game{
+    font-family: tiny5;
+    
+}
+
+
+
+
+.Home-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 100%;
+    margin-bottom:40px;
+}
+.Home-img{
+    width: 500px;
+    height: 500px;
+}
+
+.Home-content img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.Home-Button-container{
+    margin-top:50px;
+    display: flex;
+    flex-direction: row;   
+}
+
+.Home-Button{
+    width: 200px;
+    height: 50px;
+    background-color: #97D9FC;
+    color: #022626;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 50px;
+    transition: transform 0.3s ease;
+    border: none ;
+    font-size:15px;
+}
+
+.Home-Learn-more{
+    background-color: #055257;
+    color: #ffffff;
+    transition: transform 0.3s ease;
+}
+
+.Home-Button:hover{
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+.Home-Learn-more:hover{
+    box-shadow: 0px 30px 90px #055257;
+}
+
+
+.Home-Scroll{
+    display:flex;
+    flex-direction: row;
+    gap:10px;
+    align-items: center;
+    justify-content: left;
+    font-size: 15px;
+    font-weight: 400;
+    margin-left:50px;
+    margin-top: 20px;
+}
