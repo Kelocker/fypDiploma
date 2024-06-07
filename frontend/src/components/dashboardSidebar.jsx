@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Preference from './preference'
 import '../css/dashboard/dashboardSidebar.css'
 import Lesson from '../components/lesson.jsx'
@@ -6,10 +6,12 @@ import api from '../api';
 import Challenge from './rankComponents/Challenge'
 import ExerciseSelectionPage from '../screens/ExerciseSelectionPage'
 import CodeEditor from './editor.jsx';
+import { ACCESS_TOKEN } from '../constants';
+
 const DashboardSidebar = () => {
 
 
-  const [activeContent, setActiveContent] = useState("Overview");
+  const [activeContent, setActiveContent] = useState("Lesson");
 
   const handleContentChange = (content) => {
     setActiveContent(content);
@@ -23,6 +25,35 @@ const DashboardSidebar = () => {
     return "";
   }
 
+  const [userData, setUserData] = useState({
+    username: '',
+  });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem(ACCESS_TOKEN); 
+      console.log('Fetching user data...');
+
+      if (token) {
+        try {
+          const response = await api.get('/api/user/', { 
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          console.log('Fetched user data:', response.data);
+          setUserData(response.data);
+        } catch (error) {
+          console.error("There was an error fetching the user data!", error);
+        }
+      } else {
+        console.error("No token found");
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   return (
     <div className="dashboard-content">
     <div className="dashBoard-Sidebar-Wrapper">
@@ -31,9 +62,13 @@ const DashboardSidebar = () => {
 
          
         <li className="dashBoard-option-special">
-          <button>
+          <button
+          onClick={() => handleContentChange("Preference")}
+          className={getButtonClass("Preference")}
+          >
+            
             <img className="dashboard-profile" src="/defaultProfilePicture.jpg" alt="" />
-            Coolest User
+            {userData.username}
             <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/></svg>
           </button>
         </li>
@@ -41,7 +76,7 @@ const DashboardSidebar = () => {
 
 
         {/* Dashboard */}
-        <li className="dashBoard-option">
+        {/* <li className="dashBoard-option">
           <button
           onClick={() => handleContentChange("Overview")}
           className={getButtonClass("Overview")}
@@ -49,7 +84,7 @@ const DashboardSidebar = () => {
           <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M441-82Q287-97 184-211T81-480q0-155 103-269t257-129v120q-104 14-172 93t-68 185q0 106 68 185t172 93v120Zm80 0v-120q94-12 159-78t79-160h120q-14 143-114.5 243.5T521-82Zm238-438q-14-94-79-160t-159-78v-120q143 14 243.5 114.5T879-520H759Z"/></svg>
               Overview
           </button>
-        </li>
+        </li> */}
 
 
         {/* Lesson */}
@@ -71,7 +106,7 @@ const DashboardSidebar = () => {
           className={getButtonClass("Excercise")}
           >
           <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m82-120 258-360h202l298-348v708H82Zm70-233-64-46 172-241h202l188-219 60 52-212 247H300L152-353Zm86 153h522v-412L578-400H380L238-200Zm522 0Z"/></svg>
-            Exersice
+            Excersice
           </button>
         </li>
 
@@ -120,8 +155,8 @@ const DashboardSidebar = () => {
     </div>
     <div className="dashboard-content-render">
       {activeContent === "Lesson" && < Lesson />}
-      {activeContent == "Excercise" && < ExerciseSelectionPage />}
-      {activeContent == "Compiler" && < CodeEditor />}
+      {activeContent === "Excercise" && < ExerciseSelectionPage />}
+      {activeContent === "Compiler" && < CodeEditor />}
 
       {activeContent === "Preference" && < Preference />}
       {activeContent === "Rank" && < Challenge />}
