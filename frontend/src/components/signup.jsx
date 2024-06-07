@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import '../css/signup.css';
 import api from '../api';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer} from 'react-toastify';
+// import { ToastContainer} from 'react-toastify';
 import toastNotifications from '../toastNotification';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signups = () => {
 
@@ -145,7 +146,6 @@ const Signups = () => {
   return (
     <div className="Signup-container">
 
-            <ToastContainer />
 
             <div>
 
