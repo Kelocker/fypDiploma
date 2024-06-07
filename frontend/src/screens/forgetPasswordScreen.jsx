@@ -1,7 +1,7 @@
 import React from 'react'
 import DashboardNavbar from '../components/dashboardNavbar'
 import '../css/forgotPw/forgotPasswordScreen.css'
-import { PasswordResetRequestForm, ResetPasswordConfirmForm } from '../components/forgetPassword'
+import { PasswordResetRequestForm } from '../components/forgetPassword'
 
 
 const ForgetPasswordScreen = () => {
@@ -13,7 +13,6 @@ const ForgetPasswordScreen = () => {
 
         <div className="forget-password-screen">
           <PasswordResetRequestForm />
-          {/* <ResetPasswordConfirmForm /> */}
           
 
         </div>
