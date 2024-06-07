@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Compiler from './compiler';
 import '../css/ExerciseDetail.css';
+import DashboardNavbar from './dashboardNavbar';
 
 const ExerciseDetail = () => {
     const { id } = useParams();
@@ -34,13 +35,17 @@ const ExerciseDetail = () => {
     }
 
     return (
-        <div className='exercise-detail'>
-            <div className='exercise-detail-left'>
-                <Compiler testType="exercise" testId={id} />
-            </div>
-            <div className='exercise-detail-right'>
-                <h1>{exercise.title}</h1>
-                <pre>{exercise.question}</pre>
+        <div>
+            <DashboardNavbar />
+            <div className='exercise-detail'>
+                
+                <div className='exercise-detail-left'>
+                    <Compiler testType="exercise" testId={id} />
+                </div>
+                <div className='exercise-detail-right'>
+                    <h1>{exercise.title}</h1>
+                    <pre>{exercise.question}</pre>
+                </div>
             </div>
         </div>
     );
