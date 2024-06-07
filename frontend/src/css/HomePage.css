@@ -2,7 +2,6 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: url('../assets/img/homepage.jpg') no-repeat center center fixed;
     background-size: cover;
     color: var(--neutral-900);
 }
