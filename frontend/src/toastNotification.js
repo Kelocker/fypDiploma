@@ -1,8 +1,7 @@
-// toastNotifications.js
 import { toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const toastNotifications = (status, message) => {
+const toastNotifications = (status, message, onClose = null) => {
   const commonOptions = {
     position: "top-center",
     autoClose: 5000,
@@ -13,6 +12,7 @@ const toastNotifications = (status, message) => {
     progress: undefined,
     theme: "light",
     transition: Bounce,
+    onClose: onClose, // Optional onClose callback
   };
 
   if (status === "success") {
