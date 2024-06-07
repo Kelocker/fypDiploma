@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useTimer } from 'react-timer-hook';
 import { ACCESS_TOKEN } from '../../constants';
+import DashboardNavbar from '../dashboardNavbar';
+import '../../css/rank/rankCountdown.css';
 
 const RankCountdown = () => {
     const { id } = useParams();
     const [challenge, setChallenge] = useState(null);
     const [error, setError] = useState(null);
-    const [timeLeft, setTimeLeft] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchChallenge = async () => {
@@ -22,7 +25,6 @@ const RankCountdown = () => {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 setChallenge(response.data);
-                calculateTimeLeft(response.data.end_time);
             } catch (error) {
                 console.error("Failed to fetch challenge data", error);
                 setError("Failed to load challenge data");
@@ -32,37 +34,6 @@ const RankCountdown = () => {
         fetchChallenge();
     }, [id]);
 
-    const calculateTimeLeft = (endTime) => {
-        const endDate = new Date(endTime);
-        const now = new Date();
-        const difference = endDate - now;
-
-        let timeLeft = {};
-
-        if (difference > 0) {
-            timeLeft = {
-                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-                minutes: Math.floor((difference / 1000 / 60) % 60),
-                seconds: Math.floor((difference / 1000) % 60),
-            };
-        } else {
-            timeLeft = null;
-        }
-
-        setTimeLeft(timeLeft);
-    };
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            if (challenge) {
-                calculateTimeLeft(challenge.end_time);
-            }
-        }, 1000);
-
-        return () => clearInterval(timer);
-    }, [challenge]);
-
     if (error) {
         return <div>Error: {error}</div>;
     }
@@ -71,21 +42,45 @@ const RankCountdown = () => {
         return <div>Loading...</div>;
     }
 
+    const expiryTimestamp = new Date(challenge.end_time);
+
     return (
-        <div>
-            <h1>Countdown to Challenge End</h1>
-            {timeLeft ? (
-                <div>
-                    <p>{timeLeft.days} Days</p>
-                    <p>{timeLeft.hours} Hours</p>
-                    <p>{timeLeft.minutes} Minutes</p>
-                    <p>{timeLeft.seconds} Seconds</p>
+        <>
+            <DashboardNavbar />
+            <div className="RankCountdown-container">
+                <div style={{ textAlign: 'center' }}>
+                    <h1>Countdown to Challenge End</h1>
+                    <MyTimer expiryTimestamp={expiryTimestamp} challengeId={challenge.id} />
                 </div>
-            ) : (
-                <div>The challenge has ended!</div>
-            )}
-        </div>
+            </div>
+        </>
     );
 };
+
+function MyTimer({ expiryTimestamp, challengeId }) {
+    const navigate = useNavigate();
+    const {
+        seconds,
+        minutes,
+        hours,
+        days,
+        isRunning,
+    } = useTimer({
+        expiryTimestamp,
+        onExpire: () => {
+            console.warn('Timer expired');
+            navigate(`/rank-results/${challengeId}`);
+        }
+    });
+
+    return (
+        <div style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: '100px' }}>
+                <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+            </div>
+            <p>{isRunning ? 'You have no attempt left.' : 'Not running'}</p>
+        </div>
+    );
+}
 
 export default RankCountdown;
