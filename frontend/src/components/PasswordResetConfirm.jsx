@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import '../css/forgotPw/forgotPasswordScreen.css';
 
 export function PasswordResetConfirm() {
     const [password, setPassword] = useState('');
@@ -35,7 +36,10 @@ export function PasswordResetConfirm() {
     };
 
     return (
-        <div>
+        <div className="forget-password-screen">
+
+        
+        <div className="forget-password-form">
             <form onSubmit={handleSubmit}>
                 <label htmlFor="password">New Password:</label>
                 <input
@@ -49,6 +53,8 @@ export function PasswordResetConfirm() {
                 <button type="submit" disabled={loading}>Reset Password</button>
             </form>
             {message && <p>{message}</p>}
+        </div>
+
         </div>
     );
 }
