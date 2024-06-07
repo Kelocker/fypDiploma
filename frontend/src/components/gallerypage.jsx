@@ -1,10 +1,12 @@
 import React from 'react';
+import { useEffect } from 'react';
 import chapters from '../assets/img/chapters.jpg';
 import exercises from '../assets/img/exercises.jpg';
 import pythonlessons from '../assets/img/pythonlessons.jpg';
 import '../css/GalleryPage.css';
 
 const GalleryPage = () => {
+
   return (
     <div className="gallerypage">
       <div className="section">
