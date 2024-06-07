@@ -1,0 +1,172 @@
+.Price-conainer{
+    font-family: 'montserrat', 'open-sans';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    color: #022626;
+    /* background-color: #F2F9FF; */
+}
+
+.price-title{
+    width: 100%;
+    height: 90px;
+    /* background-color: #0c599c; */
+    text-align: center;
+    
+    
+    justify-content: center;
+    align-items: center;
+    /* display: flex;
+    flex-direction: column; */
+    column-gap: 10px;
+
+}
+
+.plan-price-title{
+    font-size: 55px;
+    font-weight: 500;
+}
+
+.plan-price-subtitle{
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.price-container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    gap:50px;
+    /* background-color: #99b7d1 */
+}
+
+.price-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 345px;
+    height: 440px;
+    background-color: #EAF3F8;
+    border-radius: 16px;
+    margin-bottom: 10px;
+}
+
+.Pro{
+    background-color: #CED9DA;
+}
+
+.Plan-type{
+    margin-top:20px;
+    width:100%;
+    height:110px;
+    /* background-color: beige; */
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.Plan-level{
+    font-size:40px;
+    font-weight: 500;
+}
+
+.Plan-details{
+    margin-top:20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 170px;
+    color: #022626;
+    text-align: center;
+    height: 380px;
+    /* background-color: blue; */
+    font-size:20px;
+}
+
+
+
+.Plan-feature{
+    margin-left:150px;
+    display: flex;
+    width: 100%;
+    text-align: left;
+}
+
+.Plan-feature ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.Plan-feature li{
+    margin-bottom: 24px;
+    padding-left: 48px;
+    background-position: 0 2px;
+    background-image: url(../assets/icon/tick.svg);
+    background-repeat: no-repeat;
+    font-size:20px;
+}
+
+.Plan-button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 120px;
+    margin-bottom:20px;
+}
+
+.Plan-button button{
+    background-color: #C5E7FF ;
+    border: none;
+    border-radius: 4px;
+    border-width: 1px;
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+    font-weight: 500;
+    color:#022626;
+    transition: transform 0.1s ease-in; /* Add this line */
+
+}
+
+.Pro-button button{
+    background-color:#055257;
+    color:#FFFFFF;
+    box-shadow: 0px;
+}
+.Pro-button button{
+    background-color:#055257;
+    color:#FFFFFF;
+    transition: box-shadow 0.1s ease-in; /* Add this line */
+}
+
+.Pro-button button:hover{
+    box-shadow: 0px 30px 90px #055257;
+}
+
+.Plan-button button:hover{
+    cursor: pointer;
+    transform: translateY(-5px); /* Add this line */
+}
+
+.most-popular{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.invisible-font{
+    color:transparent;
+}
