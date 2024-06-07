@@ -1,96 +1,69 @@
-/* hover error */
-.LessonWrapper {
-    width: 90vw; 
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
-    background-color: #68CCF5;
-    
+.LessonWrapper { 
+    background-image: url('../assets/img/sea.png');  
 }
 
 .LessonContent{
     position: relative;
-    width: 100%; /* Takes the full width */
-    height: 100%;
-    overflow: auto; 
-}
-
-.ImageComposition {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
+    width: auto; 
+    height: auto;
+    overflow: hidden; 
 }
 
 
 .skyImg {
-    max-height: 100%;
-    width: 100%;
-    object-fit: cover;
-    position: relative;
+    width: 200%;
     z-index: 1;
-    flex: 1;
-    align-self: stretch;
+    display: block;  /* Ensure it behaves as a block element */
 
 }
 
 .beachImg {
     max-height: 100%;
     width: 100%;
-    object-fit: cover;
     position: absolute;
     bottom: 0;
     z-index: 2;
 }
 
-.seaImg {
-    max-height: 100%;
-    width: 100%;
-    object-fit: cover; 
-    position: relative;
-    top: 0;
-    z-index: 2;
-}
 
 .islandImg {
     position: relative;
-    width: 10%; 
+    width: 8%; 
     z-index: 3;
-    object-fit: cover;
     margin-left: 35%;
-    margin-top: 5%;     
 }
-
 .islandImg:hover {
-    transform: scale(1.2); /* Scales the island image slightly on hover */
+    transform: scale(1.2); 
     cursor: pointer;
-}
+} 
 
 .islandDesc {
     opacity: 0;
-    width: 10%; /* Ensure the description box is as wide as the image */
+    width: 20%; 
     position: absolute;
     bottom: 100%; 
-    background-color: #fff; /* Background color for the description box */
-    color: #000; /* Text color */
-    padding: 10px; /* Padding inside the box */
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Optional: Adds a shadow for better visibility */
+    background-color: #fff; 
+    color: #000; 
+    padding: 10px; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 
     transition: visibility 0.2s, opacity 0.2s ease-in-out;
-    z-index: 4; /* Ensures the description is above other elements */
+    z-index: 4; 
     margin-left: 20%;
-    margin-top: 5%;
-    
-}
+} 
 
 .islandContainer {
     position: relative;
     width: auto; 
-    z-index: 3; 
+    z-index: 3;
+    bottom: 180px;
+    padding: 20px;
 }
 
 .islandImg:hover + .islandDesc {
-    visibility: visible; /* Make the description visible */
+    visibility: visible; 
     opacity: 1;
-    display: block; /* Make the description block level */
+    display: block; 
 }
+
+
+

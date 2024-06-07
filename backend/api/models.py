@@ -1,7 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
+
+class UsedToken(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    token = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     current_exp = models.IntegerField(default=0)
@@ -20,6 +25,20 @@ class Lesson(models.Model):
     content = models.TextField()
 
 
+class Topic(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    sublesson = models.ForeignKey('Lesson', related_name='topics', on_delete=models.CASCADE)
+
+
+
+class Example(models.Model):
+    description = models.TextField(null=True, blank=True)  
+    code = models.TextField()
+    is_executable = models.BooleanField(default=False)  
+    topic = models.ForeignKey(Topic, related_name='examples', on_delete=models.CASCADE)
+
+    
 #Exercise section
 class Exercise(models.Model):
     DIFFICULTY_LEVELS = [
@@ -32,6 +51,7 @@ class Exercise(models.Model):
     description = models.TextField()
     question = models.TextField()
     test_script = models.TextField()
+
 
 class Submission(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

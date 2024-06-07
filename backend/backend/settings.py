@@ -175,8 +175,33 @@ PASSWORD_RESET_CONFIRM_URL = 'http://localhost:3000/reset-Password/{uid}/{token}
 
 
 # CORS_ALLOWED_ORIGINS = True
-CORS_ALLOWS_CREDENTIALS = True
+# CORS_ALLOWS_CREDENTIALS = True
+# CORS_ORIGIN_ALLOW_ALL = False
+# CORS_ORIGIN_WHITELIST = [
+#     'http://localhost:3000',  # React app
+# ]
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',  # React app
+]
 
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'root': {
+        'handlers': ['file'],
+        'level': 'DEBUG',
+    },
+}
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend', 'build', 'static')]
 

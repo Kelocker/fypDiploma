@@ -21,15 +21,18 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import LoginSignupScreen from './screens/LoginSignup.jsx';
 import ExerciseSelectionPage from './screens/ExerciseSelectionPage.jsx';
 import RankScreen from './screens/rankScreen.jsx';
-import { ToastContainer} from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import toastNotifications from './toastNotification';
-import Learning from './screens/learning.jsx';
-import Lesson from './screens/lesson.jsx';
+import Lesson from './components/lesson.jsx';
 import SubLesson from './components/sublesson.jsx';
-import Compiler from './components/compiler/compiler.jsx';
+import SubContent from './components/subContent.jsx';
+import ExerciseDetail from './components/ExerciseDetail.jsx';
+import PasswordResetConfirmScreen from './screens/PasswordResetConfirm.jsx';
 import ChallengeDetails from './components/rankComponents/ChallengeDetails.jsx';
 import RankResults from './components/rankComponents/rankResults.jsx';
 import RankCountdown from './components/rankComponents/RankCountdown.jsx';
+
+
 
 
 function Logout() {
@@ -65,16 +68,19 @@ const router = createBrowserRouter(
       />
 
       <Route path="*" element={<NotFound/>} />
-      <Route path="/learning" element={<Learning />} />
       <Route path="/lesson" element={<Lesson />} />
-      <Route path="/sublesson" element={<SubLesson />} />
-      
+      <Route path="/sublesson/:chapterId" element={<SubLesson />} />
+      <Route path="/subContent/:subLessonId" element={<SubContent />} />
+
+
       {/* Add new route below */}
-      <Route path="/compiler" element={<Compiler />} />
+      <Route path="/exercise-detail/:id" element={<ExerciseDetail />} />
+      <Route path="/reset-password/:uidb64/:token" element={<PasswordResetConfirmScreen />} />
 
       <Route path="/challenge-detail/:id" element={<ChallengeDetails />} />
       <Route path="/rank-results/:id" element={<RankResults />} />
       <Route path="/rank-countdown/:id" element={<RankCountdown />} />
+
 
       
     </Route>
