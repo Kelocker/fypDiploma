@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
     margin: 0;
     padding: 0;
     background-size: cover;
@@ -51,7 +51,7 @@ body {
 
 .section p {
     color: #666; /* Medium grey color for paragraph */
-    text-align: center;
+    text-align: justify;
     font-size: 1.1em; /* Slightly larger font size for better readability */
     margin-bottom: 0; /* Consistent space below the paragraph */
     line-height: 1.5; /* Improved line height for better text spacing */
