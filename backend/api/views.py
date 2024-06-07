@@ -405,24 +405,91 @@ class ExampleViewSet(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+
+
+
+
+
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# def execute_code(request, test_type, test_id):
+#     try:
+#         # Determine the type of test and fetch the appropriate model instance
+#         if test_type == 'exercise':
+#             test_instance = Exercise.objects.get(pk=test_id)
+#         elif test_type == 'challenge':
+#             test_instance = Challenge.objects.get(pk=test_id)
+#         else:
+#             return JsonResponse({'error': 'Invalid test type'}, status=400)
+
+#         folder_name = test_instance.test_script  # Use the folder name from the database
+#         data = json.loads(request.body)
+#         code = data.get('code')
+
+#         if code is None:
+#             return JsonResponse({'error': 'No code provided'}, status=400)
+
+#         exercise_file_path = f'test/{folder_name}/{folder_name}.py'
+        
+#         # Write user code to file
+#         with open(exercise_file_path, 'w') as file:
+#             file.write(code)
+
+#         # Execute the test script using unittest
+#         original_dir = os.getcwd()
+#         os.chdir(f'test/{folder_name}')
+#         cmd = ['python', '-m', 'unittest', f'{folder_name}_test.py']
+#         result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+
+#         os.chdir(original_dir)
+#         return JsonResponse({'output': result.stdout, 'error': result.stderr, 'success': result.returncode == 0})
+    
+#     except json.JSONDecodeError:
+#         return JsonResponse({'error': 'Invalid JSON'}, status=400)
+#     except Exercise.DoesNotExist:
+#         return JsonResponse({'error': 'Exercise not found'}, status=404)
+#     except subprocess.TimeoutExpired:
+#         return JsonResponse({'error': 'Execution timed out', 'success': False})
+
+import json
+import os
+import subprocess
+from django.http import JsonResponse
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from .models import Exercise, Challenge, ChallengeSubmission
+from django.contrib.auth.models import User
+from django.utils import timezone
+
 @api_view(['POST'])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])  # Require authentication
 def execute_code(request, test_type, test_id):
     try:
+        print("Received request to execute code")
         # Determine the type of test and fetch the appropriate model instance
         if test_type == 'exercise':
             test_instance = Exercise.objects.get(pk=test_id)
         elif test_type == 'challenge':
             test_instance = Challenge.objects.get(pk=test_id)
         else:
+            print("Invalid test type")
             return JsonResponse({'error': 'Invalid test type'}, status=400)
 
         folder_name = test_instance.test_script  # Use the folder name from the database
         data = json.loads(request.body)
         code = data.get('code')
-
+        username = data.get('username')
+        
+        print("Code received:", code)
+        print("Username received:", username)
+        
         if code is None:
+            print("No code provided")
             return JsonResponse({'error': 'No code provided'}, status=400)
+        if username is None:
+            print("No username provided")
+            return JsonResponse({'error': 'No username provided'}, status=400)
 
         exercise_file_path = f'test/{folder_name}/{folder_name}.py'
         
@@ -435,16 +502,51 @@ def execute_code(request, test_type, test_id):
         os.chdir(f'test/{folder_name}')
         cmd = ['python', '-m', 'unittest', f'{folder_name}_test.py']
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
-
         os.chdir(original_dir)
-        return JsonResponse({'output': result.stdout, 'error': result.stderr, 'success': result.returncode == 0})
+
+        success = result.returncode == 0
+
+        # If the test is successful and it's a challenge, save the submission record
+        if success and test_type == 'challenge':
+            user = User.objects.get(username=username)
+            user_id = user.id
+            print("Authenticated user ID:", user_id)
+
+            # Get the number of correct submissions before this one
+            previous_submissions = ChallengeSubmission.objects.filter(
+                challenge=test_instance
+            ).count()
+            rank = previous_submissions + 1
+
+            # Create a new ChallengeSubmission instance
+            submission = ChallengeSubmission(
+                challenge=test_instance,
+                user_id=user_id,
+                rank=rank
+            )
+            submission.save()
+
+        return JsonResponse({'output': result.stdout, 'error': result.stderr, 'success': success})
     
     except json.JSONDecodeError:
+        print("Invalid JSON")
         return JsonResponse({'error': 'Invalid JSON'}, status=400)
     except Exercise.DoesNotExist:
+        print("Exercise not found")
         return JsonResponse({'error': 'Exercise not found'}, status=404)
+    except Challenge.DoesNotExist:
+        print("Challenge not found")
+        return JsonResponse({'error': 'Challenge not found'}, status=404)
     except subprocess.TimeoutExpired:
+        print("Execution timed out")
         return JsonResponse({'error': 'Execution timed out', 'success': False})
+    except User.DoesNotExist:
+        print("User not found")
+        return JsonResponse({'error': 'User not found'}, status=404)
+    except Exception as e:
+        print("Exception:", str(e))
+        return JsonResponse({'error': str(e)}, status=500)
+
 
 
 
@@ -537,4 +639,6 @@ def get_challenge(request, id):
         return JsonResponse({'error': 'Challenge not found'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
+
 
