@@ -22,7 +22,6 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem(ACCESS_TOKEN); 
-      console.log('Fetching user data...');
 
       if (token) {
         try {
@@ -31,7 +30,6 @@ const UserProfile = () => {
               'Authorization': `Bearer ${token}`
             }
           });
-          console.log('Fetched user data:', response.data);
           setUserData(response.data);
           setOriginalEmail(response.data.email);
         } catch (error) {
@@ -120,15 +118,12 @@ const UserProfile = () => {
           updatedData.password = newPassword;
         }
 
-        console.log('Sending updated data:', updatedData); // Log the data being sent
-
         const response = await api.put('/api/user/', updatedData, { 
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
           }
         });
-        console.log('User data updated successfully:', response.data);
         setEditState({
           email: false,
           password: false
@@ -148,7 +143,7 @@ const UserProfile = () => {
 
   return (
     <div className="userSetting">
-      <h1>Settings</h1>
+      <h1>Preference</h1>
       <div className="User">
         <div className='Profileusername'>
           Username: {userData.username}

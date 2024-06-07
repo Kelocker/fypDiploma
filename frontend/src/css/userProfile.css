@@ -4,6 +4,9 @@
     padding-top: 20px;
 }
 
+.userSetting h1{
+    padding-left: 30px;
+}
 
 .User{
     display: flex;
@@ -18,7 +21,8 @@
     font-size: 20px;
     font-weight: bold;
     margin-top: 60px;
-}
+    padding-left: 12px;
+  }
 
 .userformContainer{
     background-color: #FAFBFC;
@@ -30,7 +34,6 @@
     margin-right: 50px;
     margin-top: 10px;
     margin-bottom: 20px;
-    width: auto;
     padding-top: 20px;   
 }
 
@@ -47,10 +50,8 @@
 
 .table{
     padding: 5px;
-    table-layout: fixed;
     border-collapse: collapse;
     width: 100%;
-
 }
 
 
@@ -59,10 +60,9 @@
 .th, td {
     box-sizing: border-box;
     text-align: left;
-    padding: 8px;
+    padding: 11px;
     border-bottom: 2px solid #ddd;
     width: 50%;
-    gap: 20%;
 }   
 
 .edit-button {
@@ -82,54 +82,67 @@
   
   
   .edit-button.edit {
-    background-color: #3ABFE8; /* Blue background for Edit */
+    background-color: #3ABFE8; 
   }
   
   .edit-button.cancel {
-    background-color: #E34B73; /* Red background for Cancel */
+    background-color: #E34B73; 
   }
   
   .edit-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3; 
   }
   
   .edit-button.cancel:hover {
-    background-color: #c82333; /* Darker red on hover */
+    background-color: #c82333; 
   }
 
   .edit-button.save {
-    background-color: #68CCF5; /* Green background for Save */
+    background-color: #68CCF5; 
   }
 
   .edit-button.save:hover {
-    background-color: #0A7987; /* Darker green on hover */
+    background-color: #0A7987; 
   }
   
 
   .logout-button {
     display: inline-block;
-    background-color: #260516; /* Red background */
-    color: white; /* White text */
-    border: none; /* No border */
+    background-color: #260516; 
+    color: white; 
+    border: none; 
     margin-left: 50px;
-    padding: 10px 20px; /* Some padding */
-    font-size: 16px; /* Font size */
-    text-decoration: none; /* Remove underline */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s ease; /* Smooth transition */
-    text-align: center; /* Center text */
+    padding: 10px 20px; 
+    font-size: 16px; 
+    text-decoration: none; 
+    border-radius: 5px; 
+    transition: background-color 0.3s ease; 
+    text-align: center; 
   }
   
   .logout-button:hover {
-    background-color: #851540; /* Darker red on hover */
+    background-color: #851540; 
   }
   
 
   .userButton-container {
-    display: flex; /* Use flexbox for button layout */
-    flex-direction: column; /* Stack buttons vertically */
+    display: flex; 
+    flex-direction: column; 
   }
 
   .error{
     margin: 15px;
+  }
+
+  @media (max-width: 768px) {
+    .userSetting {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+    }
+
+    .userformContainer {
+        width: 160%;
+    }
   }
