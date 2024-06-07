@@ -1,6 +1,6 @@
 .DashboardWrapper{
     display: flex;
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     margin-top:20px;
     margin-left: auto;
     margin-right: auto;
@@ -11,7 +11,7 @@
 .DashboardSidebar{
     width: 100%;
     height: 90%;
-    background-color: #055257;
+    /* background-color: #055257; */
     display: flex;
     flex-direction: column;
     align-items: center;

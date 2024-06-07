@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Compiler from '../compiler';
 import DashboardNavbar from '../dashboardNavbar';
-// import '../css/ExerciseDetail.css';
+import '../../css/ExerciseDetail.css';
 
 
 const ChallengeDetails = () => {
@@ -39,8 +39,8 @@ const ChallengeDetails = () => {
     return (
       <>
         <DashboardNavbar />
-        <div className='challenge-detail'>
-            <div className='challenge-detail-left'>
+        <div className='exercise-detail'>
+            <div className='exercise-detail-left'>
                 <Compiler testType="challenge" testId={id} />
             </div>
             <div className='exercise-detail-right'>

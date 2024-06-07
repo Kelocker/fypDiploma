@@ -79,7 +79,7 @@ const Footer = () => {
                             </li>
 
                             <li>
-                                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdTnVpokY8Tc2_x6J1SEjQzfF-6-cG7qawy-qrVwYpr65JC8g/viewform?usp=sf_link" target="_blank" rel="noopener noreferrer">Sugguest</a>
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdTnVpokY8Tc2_x6J1SEjQzfF-6-cG7qawy-qrVwYpr65JC8g/viewform?usp=sf_link" target="_blank" rel="noopener noreferrer">Suggest</a>
                             </li>
 
                             <li>
