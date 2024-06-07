@@ -5,7 +5,7 @@ import Lesson from '../components/lesson.jsx'
 import api from '../api';
 import Challenge from './rankComponents/Challenge'
 import ExerciseSelectionPage from '../screens/ExerciseSelectionPage'
-
+import CodeEditor from './editor.jsx';
 const DashboardSidebar = () => {
 
 
@@ -121,6 +121,7 @@ const DashboardSidebar = () => {
     <div className="dashboard-content-render">
       {activeContent === "Lesson" && < Lesson />}
       {activeContent == "Excercise" && < ExerciseSelectionPage />}
+      {activeContent == "Compiler" && < CodeEditor />}
 
       {activeContent === "Preference" && < Preference />}
       {activeContent === "Rank" && < Challenge />}
