@@ -12,16 +12,19 @@ const GalleryPage = () => {
         <p>Here are some pictures of what you will be expecting from our SOYA website!</p>
       </div>
       <div className="section">
-        <img src={exercises} alt="Exercises" className="gallery-image" />
         <h2>Exercises</h2>
+        <img src={exercises} alt="Exercises" className="gallery-image" />
+        
       </div>
       <div className="section">
-        <img src={chapters} alt="Chapters" className="gallery-image" />
         <h2>Chapters</h2>
+        <img src={chapters} alt="Chapters" className="gallery-image" />
+        
       </div>
       <div className="section">
-        <img src={pythonlessons} alt="Python Lessons" className="gallery-image" />
         <h2>Python Lessons</h2>
+        <img src={pythonlessons} alt="Python Lessons" className="gallery-image" />
+        
       </div>
     </div>
   );
