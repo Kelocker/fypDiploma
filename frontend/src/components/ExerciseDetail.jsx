@@ -5,11 +5,39 @@ import axios from 'axios';
 import Compiler from './compiler';
 import '../css/ExerciseDetail.css';
 import DashboardNavbar from './dashboardNavbar';
+import { ACCESS_TOKEN } from '../constants';
+import api from '../api';
 
 const ExerciseDetail = () => {
     const { id } = useParams();
     const [exercise, setExercise] = useState(null);
     const [error, setError] = useState(null);
+    const [userData, setUserData] = useState({ username: '' });
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            const token = localStorage.getItem(ACCESS_TOKEN);
+            console.log('Fetching user data...');
+
+            if (token) {
+                try {
+                    const response = await api.get('/api/user/', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    console.log('Fetched user data:', response.data);
+                    setUserData(response.data);
+                } catch (error) {
+                    console.error("There was an error fetching the user data!", error);
+                }
+            } else {
+                console.error("No token found");
+            }
+        };
+
+        fetchUserData();
+    }, []);
 
     useEffect(() => {
         const fetchExercise = async () => {
@@ -40,7 +68,7 @@ const ExerciseDetail = () => {
             <div className='exercise-detail'>
                 
                 <div className='exercise-detail-left'>
-                    <Compiler testType="exercise" testId={id} />
+                    <Compiler testType="exercise" testId={id} username={userData.username}/>
                 </div>
                 <div className='exercise-detail-right'>
                     <h1>{exercise.title}</h1>
