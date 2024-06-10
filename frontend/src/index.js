@@ -58,6 +58,12 @@ const router = createBrowserRouter(
       <Route path="/Logout" element={<Logout />} />
       <Route path="/exercise" element={<ExerciseSelectionPage />} />
       <Route path="/ranks" element={<RankScreen />} />
+      <Route path="/reset-password/:uidb64/:token" element={<PasswordResetConfirmScreen />} />
+      <Route path="*" element={<NotFound/>} />
+
+
+      {/* Protected Routes */}
+
       <Route 
         path = "/dashboard"
         element = {
@@ -67,19 +73,73 @@ const router = createBrowserRouter(
         }
       />
 
-      <Route path="*" element={<NotFound/>} />
-      <Route path="/lesson" element={<Lesson />} />
-      <Route path="/sublesson/:chapterId" element={<SubLesson />} />
-      <Route path="/subContent/:subLessonId" element={<SubContent />} />
+      
+
+      <Route 
+        path="/lesson" 
+        element={
+        <ProtectedRoute>
+          <Lesson />
+        </ProtectedRoute>
+      } 
+      />
 
 
-      {/* Add new route below */}
-      <Route path="/exercise-detail/:id" element={<ExerciseDetail />} />
-      <Route path="/reset-password/:uidb64/:token" element={<PasswordResetConfirmScreen />} />
+      <Route 
+        path="/sublesson/:chapterId" 
+        element={
+        <ProtectedRoute>
+          <SubLesson />
+        </ProtectedRoute>
+      } 
+      />
 
-      <Route path="/challenge-detail/:id" element={<ChallengeDetails />} />
-      <Route path="/rank-results/:id" element={<RankResults />} />
-      <Route path="/rank-countdown/:id" element={<RankCountdown />} />
+
+      <Route 
+        path="/subContent/:subLessonId" 
+        element={
+        <ProtectedRoute>
+          <SubContent />
+        </ProtectedRoute>
+      } 
+      />
+
+      <Route 
+        path="/exercise-detail/:id" 
+        element={
+        <ProtectedRoute>
+          <ExerciseDetail />
+        </ProtectedRoute>
+      } 
+      />
+      
+
+      <Route 
+        path="/challenge-detail/:id" 
+        element={
+        <ProtectedRoute>
+          <ChallengeDetails />
+        </ProtectedRoute>
+      } 
+      />
+
+      <Route 
+        path="/rank-results/:id" 
+        element={
+        <ProtectedRoute>
+          <RankResults />
+        </ProtectedRoute>
+      } 
+      />
+      
+      <Route 
+        path="/rank-countdown/:id" 
+        element={
+        <ProtectedRoute>
+          <RankCountdown />
+        </ProtectedRoute>
+      } 
+      />
 
 
       
