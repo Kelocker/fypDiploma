@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../css/userProfile.css';
 import api from '../api';
 import { ACCESS_TOKEN } from '../constants';
@@ -21,11 +23,11 @@ const UserProfile = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const token = localStorage.getItem(ACCESS_TOKEN); 
+      const token = localStorage.getItem(ACCESS_TOKEN);
 
       if (token) {
         try {
-          const response = await api.get('/api/user/', { 
+          const response = await api.get('/api/user/', {
             headers: {
               'Authorization': `Bearer ${token}`
             }
@@ -62,7 +64,7 @@ const UserProfile = () => {
       }
       return newState;
     });
-    setError({ email: '', password: '' }); 
+    setError({ email: '', password: '' });
   };
 
   const handlePasswordChange = (event) => {
@@ -75,11 +77,11 @@ const UserProfile = () => {
       if (!userData.email) {
         newErrors.email = 'Email is required';
       } else if (
-        !/\S+@\S+\.\S+/.test(userData.email) || 
+        !/\S+@\S+\.\S+/.test(userData.email) ||
         !(
-          userData.email.endsWith('@gmail.com') || 
-          userData.email.endsWith('@yahoo.com') || 
-          userData.email.endsWith('@hotmail.com') || 
+          userData.email.endsWith('@gmail.com') ||
+          userData.email.endsWith('@yahoo.com') ||
+          userData.email.endsWith('@hotmail.com') ||
           userData.email.endsWith('@icloud.com')
         )
       ) {
@@ -100,7 +102,7 @@ const UserProfile = () => {
 
   const handleSubmit = async (event, field) => {
     event.preventDefault();
-    const token = localStorage.getItem(ACCESS_TOKEN); 
+    const token = localStorage.getItem(ACCESS_TOKEN);
 
     const newErrors = validateInputs(field);
     if (newErrors.email || newErrors.password) {
@@ -118,7 +120,7 @@ const UserProfile = () => {
           updatedData.password = newPassword;
         }
 
-        const response = await api.put('/api/user/', updatedData, { 
+        const response = await api.put('/api/user/', updatedData, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -133,6 +135,7 @@ const UserProfile = () => {
         if (field === 'email') {
           setOriginalEmail(userData.email);
         }
+        toast.success('Profile updated successfully!');
       } catch (error) {
         console.error("There was an error updating the user data!", error);
       }
@@ -143,6 +146,7 @@ const UserProfile = () => {
 
   return (
     <div className="userSetting">
+      <ToastContainer position="top-center" />
       <h1>Preference</h1>
       <div className="User">
         <div className='Profileusername'>
@@ -150,8 +154,8 @@ const UserProfile = () => {
         </div>
       </div>
       <form className='userformContainer'>
-        {error.email && <div className="error">{error.email}</div>} 
-        {error.password && <div className="error">{error.password}</div>} 
+        {error.email && <div className="error">{error.email}</div>}
+        {error.password && <div className="error">{error.password}</div>}
         <table>
           <thead>
             <tr>
@@ -162,7 +166,6 @@ const UserProfile = () => {
             <tr>
               <td>Email</td>
               <td>
-
                 {editState.email ? (
                   <div className="userProfile">
                     <input
@@ -179,15 +182,15 @@ const UserProfile = () => {
               </td>
               <td>
                 <div className="button-container">
-                  <button type="button" className={`edit-button ${editState.email ? 'cancel' : 'edit'}`} 
-                      onClick={() => handleEditClick('email')}
-                    >
-                      {editState.email ? 'Cancel' : 'Edit'}
+                  <button type="button" className={`edit-button ${editState.email ? 'cancel' : 'edit'}`}
+                    onClick={() => handleEditClick('email')}
+                  >
+                    {editState.email ? 'Cancel' : 'Edit'}
                   </button>
                   {editState.email && userData.email && userData.email !== originalEmail && (
-                    <button 
-                      type="submit" 
-                      className="edit-button save" 
+                    <button
+                      type="submit"
+                      className="edit-button save"
                       onClick={(e) => handleSubmit(e, 'email')}
                       disabled={userData.email === originalEmail}
                     >
@@ -202,7 +205,6 @@ const UserProfile = () => {
               <td>
                 {editState.password ? (
                   <div className="userProfile">
-
                     <input
                       type="password"
                       name="password"
@@ -214,20 +216,19 @@ const UserProfile = () => {
                   </div>
                 ) : (
                   <div>Change Password?</div>
-              
                 )}
               </td>
               <td>
                 <div className="button-container">
-                  <button type="button" className={`edit-button ${editState.password ? 'cancel' : 'edit'}`} 
-                      onClick={() => handleEditClick('password')}
-                    >
-                      {editState.password ? 'Cancel' : 'Edit'}
+                  <button type="button" className={`edit-button ${editState.password ? 'cancel' : 'edit'}`}
+                    onClick={() => handleEditClick('password')}
+                  >
+                    {editState.password ? 'Cancel' : 'Edit'}
                   </button>
                   {editState.password && newPassword && (
-                    <button 
-                      type="submit" 
-                      className="edit-button save" 
+                    <button
+                      type="submit"
+                      className="edit-button save"
                       onClick={(e) => handleSubmit(e, 'password')}
                     >
                       Save
