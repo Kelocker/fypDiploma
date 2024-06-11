@@ -39,7 +39,7 @@ h2 {
 pre {
     text-align: left;
     padding-left: 10px;
-    width: 100%; 
+    /* width: 100%;  */
     white-space: pre-wrap; 
     word-wrap: break-word; 
     font-family: sans-serif; 
