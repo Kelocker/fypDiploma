@@ -89,12 +89,21 @@ import DashboardNavbar from '../dashboardNavbar';
 import '../../css/ExerciseDetail.css';
 import { ACCESS_TOKEN } from '../../constants';
 import api from '../../api';
+import { useNavigate } from 'react-router-dom';
+import '../../css/backButton.css';
+
 
 const ChallengeDetails = () => {
     const { id } = useParams();
     const [challenge, setChallenge] = useState(null);
     const [error, setError] = useState(null);
     const [userData, setUserData] = useState({ username: '' });
+    const navigate = useNavigate();
+
+    const handleBackToDashboard = () => {
+        
+        navigate('/dashboard');
+    };
 
     useEffect(() => {
         const fetchChallenge = async () => {
@@ -144,10 +153,13 @@ const ChallengeDetails = () => {
         return <div>Loading...</div>;
     }
 
+    
+
     return (
         <>
             <DashboardNavbar />
-            Good Luck, {userData.username}!
+            <button onClick={handleBackToDashboard} className="back-button">Back</button>
+            {/* Good Luck, {userData.username}! */}
             <div className='exercise-detail'>
                 <div className='exercise-detail-left'>
                     <Compiler testType="challenge" testId={id} username={userData.username} />

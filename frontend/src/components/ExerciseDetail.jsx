@@ -7,12 +7,20 @@ import '../css/ExerciseDetail.css';
 import DashboardNavbar from './dashboardNavbar';
 import { ACCESS_TOKEN } from '../constants';
 import api from '../api';
+import { useNavigate } from 'react-router-dom';
+import '../css/backButton.css';
 
 const ExerciseDetail = () => {
     const { id } = useParams();
     const [exercise, setExercise] = useState(null);
     const [error, setError] = useState(null);
     const [userData, setUserData] = useState({ username: '' });
+    const navigate = useNavigate();
+
+    const handleBackToDashboard = () => {
+        
+        navigate('/dashboard');
+    };
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -65,6 +73,7 @@ const ExerciseDetail = () => {
     return (
         <div>
             <DashboardNavbar />
+            <button onClick={handleBackToDashboard} className="back-button">Back</button>
             <div className='exercise-detail'>
                 
                 <div className='exercise-detail-left'>

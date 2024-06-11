@@ -4,6 +4,8 @@ import axios from 'axios';
 import '../../css/rank/rankDisplay.css'
 import UserRank from './userRank'
 import DashboardNavbar from '../dashboardNavbar';
+import { useNavigate } from 'react-router-dom';
+import '../../css/backButton.css';
 
 
 
@@ -11,6 +13,12 @@ const RankResults = () => {
     const { id } = useParams();
     const [challengeResults, setChallengeResults] = useState([]);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
+
+    const handleBackToDashboard = () => {
+        
+        navigate('/dashboard');
+    };
 
 
     
@@ -40,7 +48,7 @@ const RankResults = () => {
     }
 
     if (!challengeResults.length) {
-        return <div>No challenger in this challenge.</div>;
+        return <div><DashboardNavbar /><button onClick={handleBackToDashboard} className="back-button">Back</button><div className="rank-wrapper">No challenger in this challenge.</div></div>;
     }
 
     
@@ -48,6 +56,7 @@ const RankResults = () => {
     return (
         <>
             <DashboardNavbar />
+            <button onClick={handleBackToDashboard} className="back-button">Back</button>
             <div className="rank-wrapper">
                 <div className="rank-container">
                     <div className="leaderboard-rank">

@@ -15,6 +15,7 @@ const Challenge = () => {
     const [challenges, setChallenges] = useState([]);
     const [error, setError] = useState(null);
     const [username, setUsername] = useState('');
+    
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -88,6 +89,7 @@ const Challenge = () => {
 
     return (
         <div className="Challenge-display">
+            
             <div className="swiper_container">
                 <Swiper
                     effect={'coverflow'}
