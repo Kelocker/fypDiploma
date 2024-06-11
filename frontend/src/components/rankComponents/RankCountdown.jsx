@@ -11,6 +11,12 @@ const RankCountdown = () => {
     const [challenge, setChallenge] = useState(null);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+ 
+
+    const handleBackToDashboard = () => {
+        
+        navigate('/dashboard');
+    };
 
     useEffect(() => {
         const fetchChallenge = async () => {
@@ -47,6 +53,7 @@ const RankCountdown = () => {
     return (
         <>
             <DashboardNavbar />
+            <button onClick={handleBackToDashboard} className="back-button">Back</button>
             <div className="RankCountdown-container">
                 <div style={{ textAlign: 'center' }}>
                     <h1>Countdown to Challenge End</h1>
