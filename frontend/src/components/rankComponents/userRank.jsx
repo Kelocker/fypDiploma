@@ -28,7 +28,7 @@ const UserRank = ({ result }) => {
             <div className="User-Time">
 
                 {/* {timing} */}
-                {result.time}
+                {new Date(result.finished_time).toLocaleString()}
 
             </div>
 

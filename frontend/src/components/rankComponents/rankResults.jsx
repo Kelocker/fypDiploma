@@ -121,6 +121,8 @@
 
 // export default RankResults;
 
+
+
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -129,6 +131,7 @@ import UserRank from './userRank';
 import DashboardNavbar from '../dashboardNavbar';
 import { useNavigate } from 'react-router-dom';
 import '../../css/backButton.css';
+import { ACCESS_TOKEN } from '../../constants';
 
 const RankResults = () => {
     const { id } = useParams();
@@ -140,7 +143,6 @@ const RankResults = () => {
     const handleBackToDashboard = () => {
         navigate('/dashboard');
     };
-
 
     useEffect(() => {
         const fetchChallengeResults = async () => {
@@ -156,7 +158,12 @@ const RankResults = () => {
 
         const fetchUserRank = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/user-challenge-rank/${id}/`);
+                const token = localStorage.getItem(ACCESS_TOKEN);
+                const response = await axios.get(`http://localhost:8000/api/user-challenge-rank/${id}/`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
                 setUserRank(response.data);
             } catch (e) {
                 if (e.response && e.response.status === 404) {
@@ -195,10 +202,8 @@ const RankResults = () => {
                         <h1>Leaderboard</h1>
                     </div>
                     <div className="your-rank">
-                        <h1>Congrats!</h1>
-                        <br />
                         {userRank ? (
-                            <span>Rank {userRank.rank} {userRank.user} - Finished at {new Date(userRank.Finished_time).toLocaleString()}</span>
+                            <span><h1>Congrats!</h1><br />Rank #{userRank.rank} {userRank.user} - Finished at {new Date(userRank.finished_time).toLocaleString()}</span>
                         ) : (
                             <span>You have not participated in this challenge</span>
                         )}
@@ -206,7 +211,7 @@ const RankResults = () => {
                     <div className="rank-label">
                         <div className="Rank-label">Rank</div>
                         <div className="Username-label">Username</div>
-                        <div className="Time-finish-label invinsible-font">Time Finished</div>
+                        <div className="Time-finish-label">Time Finished</div>
                     </div>
                     <div className="all-rank">
                         {challengeResults.map(result => (

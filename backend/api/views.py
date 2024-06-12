@@ -612,15 +612,18 @@ def challenge_results(request):
             'challenge_id': submission.challenge.id,
             'user': submission.user.username,
             'rank': submission.rank,
-            'Finished_time': submission.Finished_time,  # Include the new field
+            'finished_time': submission.finished_time,  # Include the new field
         } for submission in submissions]
         return JsonResponse(results_list, safe=False)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def user_challenge_rank(request, challenge_id):
     try:
         user = request.user
+        logger.info(f"Fetching rank for user {user.username} and challenge {challenge_id}")
         submission = ChallengeSubmission.objects.get(challenge_id=challenge_id, user=user)
         result = {
             'id': submission.id,
@@ -631,9 +634,12 @@ def user_challenge_rank(request, challenge_id):
         }
         return JsonResponse(result, safe=False)
     except ChallengeSubmission.DoesNotExist:
+        logger.error(f"ChallengeSubmission does not exist for user {user.username} and challenge {challenge_id}")
         return JsonResponse({'message': 'You have not participated in this challenge'}, status=404)
     except Exception as e:
+        logger.error(f"Error fetching user challenge rank: {str(e)}")
         return JsonResponse({'error': str(e)}, status=500)
+
 
 
 from rest_framework.decorators import api_view, permission_classes
