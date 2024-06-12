@@ -28,7 +28,7 @@ const UserRank = ({ result }) => {
             <div className="User-Time">
 
                 {/* {timing} */}
-                {/* 12.09.80 */}
+                {result.time}
 
             </div>
 
