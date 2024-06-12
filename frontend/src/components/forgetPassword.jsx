@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import '../css/forgotPw/forgotPasswordScreen.css';
 import toastNotifications from '../toastNotification';
 
+
 export function PasswordResetRequestForm() {
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
+    
 
     async function sendPasswordResetEmail(email) {
         try {
@@ -37,6 +39,7 @@ export function PasswordResetRequestForm() {
 
     return (
         <div className="forget-password-form">
+            
             <form onSubmit={handleSubmit}>
                 <span className="forget-password-title">Forgot your password?</span>
                 <div className="forget-password-label">

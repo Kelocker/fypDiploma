@@ -2,11 +2,11 @@
 .swiper-button-next {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-300%);
   z-index: 10;
-  font-size: 1.5rem; /* Adjust the font size for smaller arrows */
-  width: 30px; /* Adjust the width */
-  height: 30px; /* Adjust the height */
+  font-size: 1.0rem; /* Adjust the font size for smaller arrows */
+  width: 20px; /* Adjust the width */
+  height: 20px; /* Adjust the height */
 }
 
 .swiper-button-prev {
@@ -20,7 +20,7 @@
 .swiper_container {
   margin-top: 10px;
   width: 95%;
-  height: 500px; /* Increase height to fit content */
+  height: 600px; /* Increase height to fit content */
   position: relative;
   overflow: hidden;
 }

@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../css/forgotPw/forgotPasswordScreen.css';
+import { useNavigate } from 'react-router-dom';
 import toastNotifications from '../toastNotification';
 
 export function PasswordResetConfirm() {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const { uidb64, token } = useParams();  // Get these from the URL
+    const navigate = useNavigate(); // Initialize useNavigate hook
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,7 +42,7 @@ export function PasswordResetConfirm() {
             });
             const data = await response.json();
             if (response.ok) {
-                toastNotifications('success', 'Password has been reset successfully.');
+                toastNotifications('success', 'Password has been reset successfully.', () => navigate('/'));
             } else {
                 toastNotifications('error', data.error || 'Failed to reset password.');
             }
