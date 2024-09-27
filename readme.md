@@ -1,5 +1,6 @@
 # SOYA
-![logo_transparent.png](frontend/public/SOYA-Python-Logo.png)
+![soya.png](frontend/public/soya.png)
+
 - - -
 
 ## Table of Contents
@@ -13,7 +14,7 @@
 
 
 - - -
-![soya.png](frontend/public/soya.png)
+
 
 # Disclaimer
 This repository is part of a software development project module assignment and is created for educational purposes only. It is a student project from Asia Pacific University (APU) and does not provide any warranty or guarantee, either expressed or implied, regarding the accuracy, completeness, or performance of the software. Use of this software is at your own risk, and the author is not responsible for any issues, damages, or losses that may arise from its use.
