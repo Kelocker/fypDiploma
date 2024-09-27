@@ -106,6 +106,11 @@ We are students from Asia Pacific University, and this is our Software Developme
 
 I'm CHONG KELVIN feel free to visit my [GitHub Profile](https://github.com/kelocker), where I host various open-source projects and contributions.
 
+I'm LIM GEN JACK, you're welcome to explore my [GitHub Profile](https://github.com/Jack-1118), where I showcase a collection of open-source projects and notable contributions.
+
+I am HEW YEE KIT. I have helped my team in building this project for our assignment with troubleshooting the codes and fixing any known bugs to make the program to run smoothly without any issues.
+
+I am CHUA HUI WEN. To delve deeper into my portfolio and accomplishments, feel free to explore my [GitHub Profile](https://github.com/CHUA1605).
 <br>
 
 
